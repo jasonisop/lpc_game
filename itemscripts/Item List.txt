@@ -1,0 +1,21 @@
+This list is to help keep track of items and their id
+
+Item ID		Item Name			Effect 			Item Type		charges 	recharges	Image Used			classMade
+0001		HealthPotion		Heals			Consumable		1						items.png  3-1		yes/not finished
+0002		WaterPotion			Hydrates		Consumable		1						itmes.pnc  3-2		
+0003		Shoes				SpeedBoost		Feet								
+0004		Basic Sword			AttackBoost		Weapon								
+0005		Basic Shield		DefenseBoost	Sheild								
+0006		Basic Pants			DefenseBoost	Belt	
+0007		Silver Ring			HydrateSlow		Ring	
+0008		Bronze Ring			AttackBoost		Ring
+0008		Gold Chain			ShieldSpell		Neck			1
+0009		Wooden Bow			AttackBoost		Range
+0010		Cloak				DefenseBoost	Cloak
+0011		Leather Armor		DefenseBoost	Chest
+0012		Basic Robe			DefenseBoost	Chest			5			yes
+0013		Basic Pants			DefenseBoost	Legs
+0014		Leather Helmet		DefenseBoost	Head
+0015		Dagger				AttackBoost		Weapon		
+0016		Wizard Hat			DefenseBoost 	Head
+0017		Bat Wing							Quest

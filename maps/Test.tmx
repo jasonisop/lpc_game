@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="testDesert" tilewidth="32" tileheight="32">
+  <image source="testDesert.png" width="512" height="1024"/>
+ </tileset>
+ <layer name="Ground" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt17ENwjAQBVADUnpgAmATNgEmACYAdmI+rqCgiYlMgqzkFU9unMjS/eJfk1JqAKAHszAPiwreQkrLsArrL/eePc5XBtptwjbs/jjfrhkgr0uuu8y37wxMlVzXRa4B+DTEPmDHKDdEb9LFyuV6U2nOdbFhyHld5ByYkkM4hlMFbxm7/fvM9bBzuIRryz/sKv3L9bBbuIdHwbeU+aWH6XAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIzJC6KO8uU=
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 2" width="100" height="100"/>
+ <objectgroup name="Object1" width="100" height="100"/>
+ <layer name="Tile Layer 2" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzrENACAIAEH2H0A3wDWlsrMmIXfJ9x8BMN+qdvcET1anewIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADg4wJq2wJ7
+  </data>
+ </layer>
+</map>

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="grass" tilewidth="32" tileheight="32">
+  <image source="grass.png" trans="ffaa00" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="19" name="grassalt" tilewidth="32" tileheight="32">
+  <image source="grassalt.png" trans="ffaa00" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="37" name="dirt" tilewidth="32" tileheight="32">
+  <image source="dirt.png" trans="ffaa00" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="55" name="dirt2" tilewidth="32" tileheight="32">
+  <image source="dirt2.png" trans="ffaa00" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="73" name="hole" tilewidth="32" tileheight="32">
+  <image source="hole.png" trans="ffaa00" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="91" name="holek" tilewidth="32" tileheight="32">
+  <image source="holek.png" trans="ffaa00" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="109" name="holemid" tilewidth="32" tileheight="32">
+  <image source="holemid.png" trans="ffaa00" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="127" name="house" tilewidth="32" tileheight="32">
+  <image source="house.png" trans="ffaa00" width="288" height="224"/>
+  <tile id="0">
+   <properties>
+    <property name="obstacle" value="1"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="obstacle" value="1"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="obstacle" value="1"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="obstacle" value="1"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="obstacle" value="1"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="obstacle" value="1"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="obstacle" value="1"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="obstacle" value="1"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="obstacle" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="190" name="bridges" tilewidth="32" tileheight="32">
+  <image source="bridges.png" trans="ffaa00" width="192" height="224"/>
+ </tileset>
+ <tileset firstgid="232" name="rock" tilewidth="32" tileheight="32">
+  <image source="rock.png" trans="ffaa00" width="64" height="32"/>
+ </tileset>
+ <tileset firstgid="234" name="signs" tilewidth="32" tileheight="32">
+  <image source="signs.png" trans="ffaa00" width="96" height="64"/>
+ </tileset>
+ <tileset firstgid="240" name="mountains" tilewidth="32" tileheight="32">
+  <image source="mountains.png" trans="ffaa00" width="384" height="288"/>
+ </tileset>
+ <tileset firstgid="348" name="treetop" tilewidth="32" tileheight="32">
+  <image source="treetop.png" trans="ffaa00" width="192" height="224"/>
+ </tileset>
+ <tileset firstgid="390" name="trunk" tilewidth="32" tileheight="32">
+  <image source="trunk.png" trans="ffaa00" width="192" height="96"/>
+ </tileset>
+ <tileset firstgid="408" name="water" tilewidth="32" tileheight="32">
+  <image source="water.png" trans="ffaa00" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="426" name="waterfall" tilewidth="32" tileheight="32">
+  <image source="waterfall.png" trans="ffaa00" width="96" height="160"/>
+ </tileset>
+ <tileset firstgid="441" name="watergrass" tilewidth="32" tileheight="32">
+  <image source="watergrass.png" trans="ffaa00" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="459" name="barrel" tilewidth="32" tileheight="32">
+  <image source="barrel.png" trans="ffaa00" width="128" height="64"/>
+ </tileset>
+ <tileset firstgid="467" name="buckets" tilewidth="32" tileheight="32">
+  <image source="buckets.png" trans="ffaa00" width="96" height="64"/>
+ </tileset>
+ <tileset firstgid="473" name="shadow" tilewidth="32" tileheight="32">
+  <image source="shadow.png" trans="ffaa00" width="160" height="64"/>
+ </tileset>
+ <tileset firstgid="483" name="Inside" tilewidth="32" tileheight="32">
+  <image source="inside.png" width="320" height="320"/>
+ </tileset>
+ <tileset firstgid="583" name="Country" tilewidth="32" tileheight="32">
+  <image source="country.png" width="160" height="128"/>
+ </tileset>
+ <tileset firstgid="603" name="Kitchen" tilewidth="32" tileheight="32">
+  <image source="kitchen.png" width="64" height="128"/>
+ </tileset>
+ <tileset firstgid="611" name="Cabinets" tilewidth="32" tileheight="32">
+  <image source="cabinets.png" width="192" height="416"/>
+ </tileset>
+ <layer name="Ground" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt0TEKwzAMQFHtPUzuf7suHYxxjNs0kUHP8IbghAj9CGen87pBxj+Z9/jljvt6nO1dj5wefZsY3PF8Fz2e22+757N322c98nqgRzV65O14tPPZHXpU1Pc4Pr7psfIO6y3ac3TsOr9R2yp7nkpGJ3um6q50iIvfV7R6Zt/roQfrbbPnAADYRWwwA1rCP8QGMwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBFbwZzpDI=
+  </data>
+ </layer>
+ <layer name="Dirt" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2EEKwjAQQNHcqBvr3o3e/0ZuLIQQSk21U6Yv8MAiyCQfW3EqpUwAEGBuRM+TQX2O9x1NoveRxfzpsFjrxXFNeq9vg5/B/g7L9cg9SxPgnx4bRM94JfW5P/UI1579a6VHOcG82Y30qFf0/Nn0zn+tR7ui58+m/W7UfZbnSd2j1yZ6D5mM/r5qV/Q+rq7uoElcg16P9j1+55v/Djn2/LU5Fz0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICM3jc/LMA=
+  </data>
+ </layer>
+ <layer name="Hole Mountain" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt0buOQQEUhlGiNnr6mYpQukxpLpU77/8QaP2RUzoacU7CWslX7WZn70aDV3dMp5LONe71rprN8lnrzoznaOfmwzS6cXv/qN40N5+l79RPg/RR1PGPyv3m5n/pP43TJHWLev5RuU1uvk27NE8/6bPoyz8AAACgUou0TKu6F+FqnTZpW/ciXO3SPh3qXgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHnQBZq0P/Q==
+  </data>
+ </layer>
+ <layer name="Grass" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt22tO3DAQAGDT0pYCLY9/UPq6WY/Wo/RotVWsNcZZdhsnscT3SSNE2KxQJjN+bDYEAADWchLC78eff7b9T14v1357MQe/GseeOe3wvvRxSC5aOQTo5UOMsxgfH39Pfekuxn2ML43X1c6q85nnPMZFjMvi2EOMrzG+NV5Xu6jOz2PIsWM//3yK8TnGVXFsKh/XMW7DLgdllPlkvnJutK8+UpR5uQm7fJhfLeN7jB8xfhbHcj5uiyjr410wlqwp97UUb8PTXFyHXa5SvehdyyvnYalWcp+qc2IsWV6aK+V+lfrS+/A0Bzfh+VjCPPn+n+r/Zb96Ka4a53OcdP+/Cbvraa60nVQbqQeVcyTzpO2kXpTmTLk+/rfv+Oykn5ST3n1fz1tGOdbXoaetr9wrsW+1vX35SHMANbKuPN7vy4n+ta59NaJ/Las1fuc9EvlY36G1oHetYyofeb1Yrx2nxha10kfeO6yv82Xx93LtOJU/c69+8p7WIff71Pwr1ZC93j7qe/6la9uqEfXRxzG1kU19nmsMma/12dMxfac8X7/qo35ukW21nltkO63nFgEAmMcaZCzWIGOxBgEA6MfaYyzWHmOx9gAAAIBt2bsai72rsdi7AgAAAAAAAAAAAABeE98xGIvvGIzFdwzG8BeyzxOI
+  </data>
+ </layer>
+ <layer name="water" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1sEJgEAMRcFN/x0IoiJap9qAue0Gdgb+PfAuaQ0AAAAYbYt8e4y+ch5X/G95d+pRxqFHKXrUokctetSiR1/Zr7vq0VX273679QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgcg+LLx/O
+  </data>
+ </layer>
+ <layer name="Buildings" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer name="Under Bridge" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt06ERACAQA8F8/+UxQw90gcW/4MWuOhmTBAAAAACg7zy9Ktn1bQqM5hsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADDfBTeXA2w=
+  </data>
+ </layer>
+ <layer name="Misc Objects Bottoms" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2DEKgDAMBVA9jgfwAN5/UQcndRP0FjqKCLpIin0Psn8IbdIWBQCkrSqjE3BW60dSGv0AAHjUvtiZ1u9jZGE8ajrVHBsne8tNEed6zwzecwB8oDvmS2/GJGuLDgAAGfLv9x96Se6cAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIixA75zEis=
+  </data>
+ </layer>
+ <layer name="BuildingDoors" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer name="TreeTrunk Bottom" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt0UEKgDAMRcHm8uJCXdQeuIHgGSplBj7ZBl5rAAAAAAAAfI6oe8baPyhXdrhzjx6/0LPDmxt6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALC5CRrPBHc=
+  </data>
+ </layer>
+ <layer name="Back Wall" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt0bENwCAQBMGn/zJtQpsQk5ngS0CCYEa6/KSNAAAAONNVIu5cLbvf8MwGb67psV2fDb7c0AMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlvoBERELNQ==
+  </data>
+ </layer>
+ <layer name="Interior" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt0bENABAUQMEfy1FQsP8wNBbQILmb4CUvAgAAAPhVThEl3a5gq+tF8+MZfb0YfgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHJvuZAdg=
+  </data>
+ </layer>
+ <layer name="Cabinet" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt0aENACAMAMGmw2JQ3d9gcZUl5G6CTz4CAAAAeiunC7htP55SfgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB85QCFFgFJ
+  </data>
+ </layer>
+ <layer name="Stove" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt0VEJACAQBcHDmiJi/xL+XgMfMpNgYasAAAByzfG6gG75EWX7EeX4AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPCNC2cEAYE=
+  </data>
+ </layer>
+ <layer name="Steps" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzjEJAAAIADC7+xra2wAiwpZgEQAAAAAAe/I6wFDXAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAcaeeUBEA==
+  </data>
+ </layer>
+ <objectgroup name="Enemy" width="100" height="100" visible="0"/>
+ <objectgroup name="Object1" width="100" height="100" visible="0"/>
+ <layer name="Ground Above Player" width="100" height="100" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzt0bEJADAMA0Fv5P23C+njLmAVd6AF9FUAAMDVw9jx+l6PPXpk0SOLHln0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH44Vf4C8Q==
+  </data>
+ </layer>
+ <layer name="Grass Above Player" width="100" height="100" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztzrENACAIAEEKCxP239cVjAVgcld+9REAAADzrO4BAL60Lxs1snsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHh1FmwAg
+  </data>
+ </layer>
+ <layer name="Object Above Player" width="100" height="100" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzt0cEJADAIBEHTf2s+fKWefC1AkMBMBctdBAAAAACT8mwX0JU/1lzbAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8KkH62gCdg==
+  </data>
+ </layer>
+ <layer name="Object Above Player 2" width="100" height="100" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztzjENAAAIA7D5F4kWPCwkPK2CJgAAAAAA9+Y7AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKUFXyIA3w==
+  </data>
+ </layer>
+ <layer name="Shadows" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt0bEJACAQBEHtv0LBQDsxMbAD72GmgoVtDQAAoIbRfxfwmn5E8SOLH1n8yLDuh+0HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABRwbpQYS
+  </data>
+ </layer>
+ <layer name="Bridge Above" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzrENADAIwDD+v7FwCx35ALWypeyJAAAAAADgN+eWo9rdAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAeEoDJygEUg==
+  </data>
+ </layer>
+ <layer name="Misc Objects Tops" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1sENACAIADHYfzVlJh2CYGLaCe55EQAAAAB0Wvm6AAAAZuz7vuV/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPjQAQ03Ams=
+  </data>
+ </layer>
+ <layer name="TreeTrunkTop" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzjEBAAAIA6CZ3tq+NtgDCUgAAAAAAAD4dtoDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACaDjhZAIk=
+  </data>
+ </layer>
+ <layer name="TreeTops" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt0bENgDAUQ8GfPYECUpDsPwBmCpByJ7m39KoAAAAAAFjN1qr27GhfP+F1psOVdT1+4U6HkU09AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACW9QCJbQOF
+  </data>
+ </layer>
+ <layer name="Roofs" width="100" height="100" opacity="0.87">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer name="Roof Objects" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer name="Left Wall" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt0bENADAIwDDEXv4/l5UHKhjsCyIlAgAA4KbK7QKm58cpfgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAPw0jUAAv
+  </data>
+ </layer>
+ <layer name="Right Wall" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt0bEJADAIAEGxDrj/trYOENDiboKHjwAAALivcruA6flxih8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8FcDlkUALg==
+  </data>
+ </layer>
+ <layer name="Door Wall" width="100" height="100" opacity="0.31">
+  <data encoding="base64" compression="zlib">
+   eJztzrENgDAMAEFvDnRAF7JwjOQBkCjc3EnffwQAAAAAf2zZXh2tJ7zO7Kru5hciRvZUs/kFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvloGggZt
+  </data>
+ </layer>
+ <layer name="House Door And Sign" width="100" height="100" opacity="0.31">
+  <data encoding="base64" compression="zlib">
+   eJztzrENAAAEADC3Wz1tNpok0l7QCAAAAAD4Ja8DDHUdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgKUGEFwBDg==
+  </data>
+ </layer>
+ <layer name="Top Fade" width="100" height="100" opacity="0.73">
+  <data encoding="base64" compression="zlib">
+   eJzt0bEJADAMA0Et6/1XSJ8mZQQ+wfWCnyQDAABQ6N7vP9vp0UWPLnp00aOLHn10AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAeDslKmBV
+  </data>
+ </layer>
+</map>
