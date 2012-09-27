@@ -11,14 +11,10 @@ require('luascripts/Gui_characterScreen')
 require('luascripts/Gui_inventoryScreen')
 
 require('luascripts/DiceRoller')
-require ('luascripts/Enemy')
+require('luascripts/Enemy')
 
---datasaving and loading
-jupiter = require ('luascripts/jupiter')
---gameData = {_fileName = "gameSave.txt", Game}
---success = jupiter.save(gameData)
---GameTemp = jupiter.load("gameSave.txt")
---Game.currentMap = GameTemp[1].currentMap
+require('luascripts/Data') 
+
 
 
 --sets a container to store stuff
@@ -26,7 +22,7 @@ Game = {}
 Game.currentMap = 1
 Game.enemies = {}
 Game.mapList = {}
-
+Game.gamename = "default"
 
 function Game:registerEnemys(...)
 for k,enemy in ipairs(arg) do table.insert(Game.enemies,enemy) end
@@ -77,11 +73,13 @@ characterScreen = CharacterScreen:new()
 diceroller = DiceRoller:new()
 inventoryscreen = InventoryScreen:new()
 
-
+database = Database:new()
 
 
 
 function love.load()
+	--going to need a startup screen
+	
 	
 	cron = require 'luascripts/cron'
 	id = cron.every(1, temps)
