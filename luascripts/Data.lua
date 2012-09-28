@@ -28,7 +28,7 @@ function Database:saveGame()
 	success = jupiter.save(gameData)
 	
 --save npc data
-	--not sure if im going to be saving this or just letting it reset
+	--not sure if im going to be saving this or just letting it reset may just  save "boss" npc's
 
 --gameData = {_fileName = "gameSave.txt", Game}
 --success = jupiter.save(gameData)
@@ -37,9 +37,9 @@ end
 function Database:loadGame()
 --Nested tables are stored in a logical format similar to that of lua syntax: table.index.subIndex.nIndex=value
 
-
---GameTemp = jupiter.load("gameSave.txt")
---Game.currentMap = GameTemp[1].currentMap
+	GameTemp = jupiter.load(player.name .."_GameData.txt")
+	Game.currentMap = GameTemp[1].currentMap
+	
 end
 
 
