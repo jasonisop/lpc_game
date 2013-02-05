@@ -4,9 +4,25 @@
 --]]
 
 
-Player = {	health = 10,startingHealth = 10,water = 10,startingWater = 10, name ="Brandon", image = "", speed = 150, enemyType = "basic", facing = "down", x = 100, y = 100, tileX = 0, tileY = 0, g = {}, 
-			anim8 = require ('luascripts/anim8'), animation = {}, noWalk = false ,animating = true , up = false, down = false  , left = false , right = false, 	canMove = true, animstarted = false, dead = false, 
-			dying = false, weaponDamage = 1, weaponType="Punch", equiped = {} ,inventory = {}, quests = {}, stats ={}}
+Player = {	health = 10,startingHealth = 10,water = 10,startingWater = 10, name ="Brandon", speed = 150, enemyType = "basic", facing = "down", x = 100, y = 100, tileX = 0, tileY = 0,
+			noWalk = false ,animating = true , up = false, down = false  , left = false , right = false, 	canMove = true, animstarted = false, dead = false, 
+			dying = false, weaponDamage = 1, weaponType="Punch", equiped = {} ,inventory = {}, quests = {}, stats ={},
+
+			anim8 = require ('luascripts/anim8'),   
+			g = {}, 			animation = {},				image = "", 	
+			gBEHIND = {}, 		animationBEHIND = {},		imageBEHIND = "",
+			gBELT = {}, 		animationBELT = {}, 		imageBELT = "",
+			gFEET = {},			animationFEET = {},			imageFEET = "",
+			gHANDS = {},		animationHANDS = {},		imageHANDS = "",			 		
+			gHEAD = {},			animationHEAD = {},			imageHEAD = "",			
+			gLEGS = {}, 		animationLEGS = {},			imageLEGS = "",
+			gTORSO = {},		animationTORSO = {},		imageTORSO = "",
+			gWEAPON = {},		animationWEAPON = {},		imageWEAPON = "",
+			gSHEILD = {},		animationSHEILD = {},		imageSHEILD= "", 
+			gARMS = {}, 		animationARMS = {},			imageARMS= "",		 			 				 		 			  			
+			gSHOULDERS = {},	animationSHOULDERS = {},	imageSHOULDERS= "",	  	  	    		
+				 		 	 	  	 		 	 					
+			}
 
 			
 
@@ -123,7 +139,7 @@ end
 
 function Player:addQuestion(questId)
 end
-function Player:remvoeQuest(questId)
+function Player:removeQuest(questId)
 end
 
 
@@ -208,21 +224,51 @@ function Player:setAnimation(facing,animationType)
 	if animationType == "walk"  and player.dead == false and self.canMove == true then
 		
 		Player:setImage("male_walkcycle.png")
-	
+		Player:setImageHEAD("Chars/png/walkcycle/HEAD_hair_blonde.png")
+		Player:setImageTORSO("Chars/png/walkcycle/TORSO_leather_armor_torso.png")
+		Player:setImageLEGS("Chars/png/walkcycle/LEGS_pants_greenish.png")
+		
 		if 	 	self.facing == "up" then 	self.animation = self.anim8.newAnimation('loop', self.g('2-9,1'), 0.1)
+											self.animationHEAD = self.anim8.newAnimation('loop', self.gHEAD('2-9,1'), 0.1)
+											self.animationTORSO = self.anim8.newAnimation('loop', self.gTORSO('2-9,1'), 0.1)
+											self.animationLEGS = self.anim8.newAnimation('loop', self.gLEGS('2-9,1'), 0.1)
 		elseif  self.facing == "left" then 	self.animation = self.anim8.newAnimation('loop', self.g('2-9,2'), 0.1)
+											self.animationHEAD = self.anim8.newAnimation('loop', self.gHEAD('2-9,2'), 0.1)
+											self.animationTORSO = self.anim8.newAnimation('loop', self.gTORSO('2-9,2'), 0.1)
+											self.animationLEGS = self.anim8.newAnimation('loop', self.gLEGS('2-9,2'), 0.1)
 		elseif  self.facing == "down" then 	self.animation = self.anim8.newAnimation('loop', self.g('2-9,3'), 0.1)
+											self.animationHEAD = self.anim8.newAnimation('loop', self.gHEAD('2-9,3'), 0.1)
+											self.animationTORSO = self.anim8.newAnimation('loop', self.gTORSO('2-9,3'), 0.1)
+											self.animationLEGS = self.anim8.newAnimation('loop', self.gLEGS('2-9,3'), 0.1)
 		elseif  self.facing == "right" then self.animation = self.anim8.newAnimation('loop', self.g('2-9,4'), 0.1)
+											self.animationHEAD = self.anim8.newAnimation('loop', self.gHEAD('2-9,4'), 0.1)
+											self.animationTORSO = self.anim8.newAnimation('loop', self.gTORSO('2-9,4'), 0.1)
+											self.animationLEGS = self.anim8.newAnimation('loop', self.gLEGS('2-9,4'), 0.1)
 		end
 	end
 	
 	if animationType =="stand"  and player.dead == false  and self.canMove == true  then
 		Player:setImage("male_walkcycle.png")
+		Player:setImageHEAD("Chars/png/walkcycle/HEAD_hair_blonde.png")
+		Player:setImageTORSO("Chars/png/walkcycle/TORSO_leather_armor_torso.png")
+		Player:setImageLEGS("Chars/png/walkcycle/LEGS_pants_greenish.png")
 		
 		if 	 	self.facing == "up" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-1,1'), 0.1)
+											self.animationHEAD = self.anim8.newAnimation('loop', self.gHEAD('1-1,1'), 0.1)
+											self.animationTORSO = self.anim8.newAnimation('loop', self.gTORSO('1-1,1'), 0.1)
+											self.animationLEGS = self.anim8.newAnimation('loop', self.gLEGS('1-1,1'), 0.1)
 		elseif  self.facing == "left" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-1,2'), 0.1)
+											self.animationHEAD = self.anim8.newAnimation('loop', self.gHEAD('1-1,2'), 0.1)
+											self.animationTORSO = self.anim8.newAnimation('loop', self.gTORSO('1-1,2'), 0.1)
+											self.animationLEGS = self.anim8.newAnimation('loop', self.gLEGS('1-1,2'), 0.1)
 		elseif  self.facing == "down" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-1,3'), 0.1)
+											self.animationHEAD = self.anim8.newAnimation('loop', self.gHEAD('1-1,3'), 0.1)
+											self.animationTORSO = self.anim8.newAnimation('loop', self.gTORSO('1-1,3'), 0.1)
+											self.animationLEGS = self.anim8.newAnimation('loop', self.gLEGS('1-1,3'), 0.1)
 		elseif  self.facing == "right" then self.animation = self.anim8.newAnimation('loop', self.g('1-1,4'), 0.1)
+											self.animationHEAD = self.anim8.newAnimation('loop', self.gHEAD('1-1,4'), 0.1)
+											self.animationTORSO = self.anim8.newAnimation('loop', self.gTORSO('1-1,4'), 0.1)
+											self.animationLEGS = self.anim8.newAnimation('loop', self.gLEGS('1-1,4'), 0.1)
 		end
 	 end
 	
@@ -360,13 +406,53 @@ function Player:attack()
 	end
 	
 end
+		
 
-
---set the image
+--set the images
 function Player:setImage(v)	
 	self.image = love.graphics.newImage("images/".. v)
 	self.g = self.anim8.newGrid(64,64, self.image:getWidth(),self.image:getHeight())
 end
+
+function Player:setImageBEHIND(v)	
+	self.imageBEHIND = love.graphics.newImage("images/".. v)
+	self.gBEHIND = self.anim8.newGrid(64,64, self.imageBEHIND:getWidth(),self.imageBEHIND:getHeight())
+end
+
+function Player:setImageBELT(v)	
+	self.imageBELT = love.graphics.newImage("images/".. v)
+	self.gBELT = self.anim8.newGrid(64,64, self.imageBELT:getWidth(),self.imageBELT:getHeight())
+end
+
+function Player:setImageFEET(v)	
+	self.imageFEET = love.graphics.newImage("images/".. v)
+	self.gFEET = self.anim8.newGrid(64,64, self.imageFEET:getWidth(),self.imageFEET:getHeight())
+end
+
+function Player:setImageHANDS(v)	
+	self.imageHANDS = love.graphics.newImage("images/".. v)
+	self.gHANDS = self.anim8.newGrid(64,64, self.imageHANDS:getWidth(),self.imageHANDS:getHeight())
+end
+
+function Player:setImageHEAD(v)	
+	self.imageHEAD = love.graphics.newImage("images/".. v)
+	self.gHEAD = self.anim8.newGrid(64,64, self.imageHEAD:getWidth(),self.imageHEAD:getHeight())
+end
+
+function Player:setImageLEGS(v)	
+	self.imageLEGS = love.graphics.newImage("images/".. v)
+	self.gLEGS = self.anim8.newGrid(64,64, self.imageLEGS:getWidth(),self.imageLEGS:getHeight())
+end
+
+function Player:setImageTORSO(v)	
+	self.imageTORSO = love.graphics.newImage("images/".. v)
+	self.gTORSO = self.anim8.newGrid(64,64, self.imageTORSO:getWidth(),self.imageTORSO:getHeight())
+end
+function Player:setImageWEAPON(v)	
+	self.imageWEAPON = love.graphics.newImage("images/".. v)
+	self.gWEAPON = self.anim8.newGrid(64,64, self.imageWEAPONG:getWidth(),self.imageTORSO:getHeight())
+end
+
 
 function Player:update(dt)
 
@@ -524,12 +610,18 @@ function Player:update(dt)
 		end
 		
 	self.animation:update(dt)
+	self.animationHEAD:update(dt)
+	self.animationTORSO:update(dt)
+	self.animationLEGS:update(dt)
 end
 
 
 function Player:draw()
 	--the off set is to correctly place the player
 	self.animation:draw(self.image, self.x -32  , self.y -28 )
+	self.animationHEAD:draw(self.imageHEAD, self.x -32  , self.y -28 )
+	self.animationTORSO:draw(self.imageTORSO, self.x -32  , self.y -28 )
+	self.animationLEGS:draw(self.imageLEGS, self.x -32  , self.y -28 )
 	--love.graphics.print(self.name, self.x , self.y - 30)
 end
 

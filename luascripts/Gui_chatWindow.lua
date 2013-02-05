@@ -36,7 +36,8 @@ function ChatWindow:draw()
 		love.graphics.setColor(self.textTable[len-1][3])
 		love.graphics.print(self.textTable[len-3][2]..": " .. self.textTable[len-1][1], self.x + 10,self.y + 50)
 		
-		love.graphics.setColor(self.textTable[len][3])
+		--causing a crash
+		--love.graphics.setColor(self.textTable[len][3])
 		love.graphics.print(self.textTable[len-3][2]..": " .. self.textTable[len][1], self.x + 10,self.y + 70)
 	end
 		love.graphics.setColor(base_Color)
