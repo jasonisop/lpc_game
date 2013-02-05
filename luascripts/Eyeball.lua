@@ -1,6 +1,6 @@
 Eyeball = {	health = 10, startHealth = 0, name ="", image = "", speed = 150, enemyType = "basic", facing = "down", x = 100, y = 100, tileX = 0, tileY = 0, g = {}, 
 			anim8 = require ('luascripts/anim8'), animation = {}, noWalk = false ,animating = true , up = false, down = false  , 
-			left = false , right = false, canRespawn = false, dead = false }
+			left = false , right = false, canRespawn = false, dead = false , visionDistance = 5 ,hate = 0 ,attackOnSight = true ,randomMove = false }
 
 
 function Eyeball:new (o)
@@ -15,20 +15,33 @@ function Eyeball:checkForPlayer()
 	local tempX = 0
 	local tempY = 0
 	
-	if 	 	self.facing == "up" then		tempY = -1
-	elseif  self.facing  == "down" then 	tempY = 1
-	elseif  self.facing  == "left" then	tempX = -1
+	--visionDistance 
+	
+	--this is for if the player is in the next cell
+	if 	 	self.facing == "up" 	then	tempY = -1
+	elseif  self.facing  == "down" 	then 	tempY = 1
+	elseif  self.facing  == "left" 	then	tempX = -1
 	elseif  self.facing  == "right" then 	tempX = 1
 	end
-				
+	
+	-- Get  a cone of tiles in the directon enemy is faceing and check if there is a player in it if so move towards the player if attack on sight is true
+	if	attackOnSight== true then
+	
+	
+	end
+	
 	if	player:getTileX() == self.tileX + tempX and player:getTileY() ==  self.tileY + tempY  and self.dead == false then
+		--Will need to change this to an attack not just a auto hit
 		global.player_Health = global.player_Health - 1
+	
 	end
 	
 end
 
 
 function Eyeball:setup()
+	-- Can have some randomizing done here such as health, attack, defence ect...
+		
 	self.startHealth = self.health
 end
 

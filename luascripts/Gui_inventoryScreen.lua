@@ -40,7 +40,7 @@ function InventoryScreen:draw()
 		-- for i, slot in ipairs(self.slots) do 
 				-- self.slot.item:draw()
 		-- end	
-		--self.slots[1].item.draw()
+		self.slots[1].item.draw()
 	
 		love.graphics.draw(InventoryScreenOverImage,self.x, self.y )
 			
