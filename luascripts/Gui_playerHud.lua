@@ -5,13 +5,13 @@ PlayerHud = GUI:new()
 
 function PlayerHud:setup()
 	--leaving this as globals for now
-	heartImage = love.graphics.newImage("( Graphics )/".. "heart_full_16x16.png")
-	halfHeartImage = love.graphics.newImage("( Graphics )/".. "heart_half_16x16.png")
-	emptyHeartImage = love.graphics.newImage("( Graphics )/".. "heart_empty_16x16.png")
+	heartImage = love.graphics.newImage("images/".. "heart_full_16x16.png")
+	halfHeartImage = love.graphics.newImage("images/".. "heart_half_16x16.png")
+	emptyHeartImage = love.graphics.newImage("images/".. "heart_empty_16x16.png")
 	
-	waterImage = love.graphics.newImage("( Graphics )/".. "bottleFull.png")
-	halfWaterImage = love.graphics.newImage("( Graphics )/".. "bottleHalf.png")
-	emptyWaterImage = love.graphics.newImage("( Graphics )/".. "bottleEmpty.png")
+	waterImage = love.graphics.newImage("images/".. "bottleFull.png")
+	halfWaterImage = love.graphics.newImage("images/".. "bottleHalf.png")
+	emptyWaterImage = love.graphics.newImage("images/".. "bottleEmpty.png")
 	
 	heartHolder = {}
 	waterHolder = {}
