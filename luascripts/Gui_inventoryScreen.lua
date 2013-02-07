@@ -1,5 +1,5 @@
 require('luascripts/Gui')
-
+require ('itemscripts/HealthPotion')	
 InventoryScreen = GUI:new{ 	anim8 = require ('luascripts/anim8'), g = {}, animation = {}, x = 500,y = 100, closeButtonRect={},clicking=false,canDraw = false, 
 							CharacterScreenCloseImage = love.graphics.newImage("images/Gui/button_x.png"), slots = {} }
 
@@ -16,10 +16,12 @@ function InventoryScreen:setup()
 	local numSlots = 35
 	local slotCount = 0
 	local rowCount = 0
-	 
+	
+	
 	 for i = 1, numSlots do
 	
-		self.slots[i]={x = slotCount * 32 +25 ,y = rowCount * 32 + 56 , height = 32, width = 32 ,filled = false, item={} }
+		--self.slots[i]={x = slotCount * 32 +25 ,y = rowCount * 32 + 56 , height = 32, width = 32 ,filled = false, item={} }
+		self.slots[i]={x = slotCount * 32 +25 ,y = rowCount * 32 + 56 , height = 32, width = 32 ,filled = false, item = {} }
 		slotCount = slotCount + 1
 		
 		if slotCount == 5 then
@@ -40,7 +42,8 @@ function InventoryScreen:draw()
 		-- for i, slot in ipairs(self.slots) do 
 				-- self.slot.item:draw()
 		-- end	
-		self.slots[1].item.draw()
+	
+		--self.slots[1].item.draw()
 	
 		love.graphics.draw(InventoryScreenOverImage,self.x, self.y )
 			
