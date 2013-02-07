@@ -1,6 +1,8 @@
 --Map class
 
 
+
+
 Map = { mapfile = "" }
 Map.currentMap = 1
 
@@ -57,7 +59,9 @@ function Map:checkTile(x,y)
 end
 
 function Map:update(dt)
-	
+
+
+--	cam:setPosition(player.x, player.y)
 	--for k,enemy in ipairs(Game.enemies) do enemy:update(dt) end
 	if(enemyHolder.container[Game.currentMap])then
 	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do enemy:update(dt) end
@@ -79,9 +83,12 @@ function Map:draw()
 	-- else 
 	tilemap:autoDrawRange(ftx +2, fty+2, 1, 0) 
 	--end
-	
 	tilemap:draw() 
 	
+-- cam:draw(function(l,t,w,h)
+    --  draw camera stuff here
+	  -- tilemap:draw() 
+    -- end)	
 			
 	
 	-- Reset the scale and translation.

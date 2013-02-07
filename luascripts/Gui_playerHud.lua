@@ -25,7 +25,7 @@ function PlayerHud:draw()
 		for i,v in ipairs(waterHolder) do  	
 			 love.graphics.draw(waterHolder[i], i * 20 ,30 )
 	end
-	
+	 love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 150, 10)
 end
 
 function PlayerHud:update(dt)

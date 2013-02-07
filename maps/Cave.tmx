@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="mountains" tilewidth="32" tileheight="32">
+  <image source="mountains.png" width="384" height="288"/>
+ </tileset>
+ <tileset firstgid="109" name="dirt2" tilewidth="32" tileheight="32">
+  <image source="dirt2.png" width="96" height="192"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1yEOACAMADE+vr/jEEgMJ9pkfsmZbS0AAGB+L8Ax1/CXHk16tOjRokeLHi16tOjR4ubt0aRHkx4/e5MePZoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwagPCbRKP
+  </data>
+ </layer>
+</map>

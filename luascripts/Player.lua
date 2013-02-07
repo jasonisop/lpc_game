@@ -6,7 +6,7 @@
 
 Player = {	health = 10,startingHealth = 10,water = 10,startingWater = 10, name ="Brandon", speed = 150, enemyType = "basic", facing = "down", x = 100, y = 100, tileX = 0, tileY = 0,
 			noWalk = false ,animating = true , up = false, down = false  , left = false , right = false, 	canMove = true, animstarted = false, dead = false, 
-			dying = false, weaponDamage = 1, weaponType="Punch", equiped = {} ,inventory = {}, quests = {}, stats ={},
+			dying = false, weaponDamage = 1, weaponType="Punch", equiped = {} ,inventory = {}, quests = {}, stats ={}, camSpeed = 150;
 
 			anim8 = require ('luascripts/anim8'),   
 			g = {}, 			animation = {},				image = "", 	
@@ -187,9 +187,7 @@ function Player:checkTile(tX,tY)
 		self.noWalk = true 
 		return 
 	end
-	
-	
-	
+		
 	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do	
 		if enemy:getTileX() == self.tileX + tX and enemy:getTileY() == self.tileY + tY and enemy:getDeath() == false then
 			self.noWalk = true 
@@ -219,8 +217,9 @@ return self.canMove
 end
 
 function Player:setAnimation(facing,animationType)
+	--- need way to set image to what the player is reallly wearing. also need to switch from using multi char sprites to one large one.
+	
 	self.facing = facing
-
 	
 	if animationType == "walk"  and player.dead == false and self.canMove == true then
 		
@@ -231,7 +230,7 @@ function Player:setAnimation(facing,animationType)
 		Player:setImageBELT("Chars/png/walkcycle/BELT_leather.png")
 		Player:setImageFEET("Chars/png/walkcycle/FEET_shoes_brown.png")
 		
-		Player:setImageWEAPON("Chars/png/walkcycle/LEGS_pants_greenish.png")
+		Player:setImageWEAPON("Chars/png/walkcycle/WEAPON_shield_cutout_body.png")
 		
 		Player:setImageSHEILD("Chars/png/walkcycle/WEAPON_shield_cutout_body.png")
 		Player:setImageARMS("Chars/png/walkcycle/TORSO_leather_armor_bracers.png")
@@ -289,7 +288,7 @@ function Player:setAnimation(facing,animationType)
 		Player:setImageBELT("Chars/png/walkcycle/BELT_leather.png")
 		Player:setImageFEET("Chars/png/walkcycle/FEET_shoes_brown.png")
 		
-		Player:setImageWEAPON("Chars/png/walkcycle/LEGS_pants_greenish.png")
+		Player:setImageWEAPON("Chars/png/walkcycle/WEAPON_shield_cutout_body.png")
 		
 		Player:setImageSHEILD("Chars/png/walkcycle/WEAPON_shield_cutout_body.png")
 		Player:setImageARMS("Chars/png/walkcycle/TORSO_leather_armor_bracers.png")
@@ -367,7 +366,7 @@ function Player:setAnimation(facing,animationType)
 		Player:setImageBELT("Chars/png/slash/BELT_leather.png")
 		Player:setImageFEET("Chars/png/slash/FEET_shoes_brown.png")
 		
-		Player:setImageWEAPON("Chars/png/slash/LEGS_pants_greenish.png")
+		Player:setImageWEAPON("Chars/png/slash/WEAPON_dagger.png")
 		
 		Player:setImageSHEILD("Chars/png/slash/WEAPON_shield_cutout_body.png")
 		Player:setImageARMS("Chars/png/slash/TORSO_leather_armor_bracers.png")
@@ -644,6 +643,16 @@ function Player:update(dt)
 
 	local tempY = 0
 	local tempX = 0
+	local camera_up = false
+	local camera_down = false
+	local camera_left = false
+	local camera_right = false	
+	
+	self.speed = 150
+	
+	if camera_up == true or camera_down == true or camera_left == true or camera_right == true then
+		--self.speed = 0
+	end
 	
 	if self.up == false and self.down == false and self.right == false and self.left == false	then	
 		if love.keyboard.isDown( "up" ) then
@@ -688,10 +697,12 @@ function Player:update(dt)
 				self.y = tempY
 				-- this was moved for camera
 				if love.keyboard.isDown("up") and global.ty <= 0 and self.y <= global.mapHeight - (global.tileSize * global.cameraTileLimit ) then 
-					--camera_up = false
-					global.ty = global.ty + self.speed * dt 
+					camera_up = false
+					global.ty = global.ty + self.camSpeed * dt 
+					
 					else
-					--camera_up = true
+					camera_up = true
+					--self.speed = 0
 				end
 			end
 		end	
@@ -716,10 +727,12 @@ function Player:update(dt)
 				self.y = tempY
 				-- this was moved for camera
 				if love.keyboard.isDown("down") and global.ty >=  -global.mapHeight + love.graphics.getHeight()  and self.y >= 0 + (global.tileSize * global.cameraTileLimit )   then 
-					--camera_down = false
-					global.ty = global.ty - self.speed * dt
+					camera_down = false
+					global.ty = global.ty - self.camSpeed * dt
+					
 				else
-					--camera_down = true
+					camera_down = true
+					self.speed = 0
 				end
 			end
 		end	
@@ -744,10 +757,12 @@ function Player:update(dt)
 				self.x = tempX
 				-- this was moved for camera
 				if love.keyboard.isDown("left") and global.tx  <= 0 and self.x <= global.mapWidth - (global.tileSize * global.cameraTileLimit ) then 
-					--camera_left = false
-					global.tx = global.tx + self.speed *dt	
+					camera_left = false
+					global.tx = global.tx + self.camSpeed *dt	
+				
 				else
-					--camera_left = true
+					camera_left = true
+					self.speed = 0
 				end
 			end
 		end	
@@ -771,10 +786,12 @@ function Player:update(dt)
 				self.x = tempX
 				
 				if love.keyboard.isDown("right") and global.tx >=  -global.mapWidth  +love.graphics.getWidth() and self.x >= 0 + (global.tileSize * global.cameraTileLimit )  then 
-					--camera_right = false
-					global.tx = global.tx - self.speed *dt 
+					camera_right = false
+					global.tx = global.tx - self.camSpeed *dt 
+					
 				else
-					--camera_right = true
+					camera_right = true
+					self.speed = 0
 				end
 			end
 		end	
@@ -794,7 +811,8 @@ function Player:update(dt)
 			self.dead = true
 			self:setAnimation(self.facing,"death")
 		end
-		
+
+	
 	self.animation:update(dt)
 	self.animationHEAD:update(dt)
 	self.animationTORSO:update(dt)

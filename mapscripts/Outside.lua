@@ -3,6 +3,10 @@ require ('luascripts/Map')
 
 Outside = Map:new{ mapfile = "Outside.tmx"}
 
+--local gamera = require ('luascripts/gamera')
+
+
+
 local loader = require("AdvTiledLoader.Loader")
 loader.path = "maps/"
  
@@ -22,6 +26,8 @@ function Outside:load()
 	
 	global.mapWidth =  tilemap.width * 32	
 	global.mapHeight = tilemap.height* 32	
+	
+--	cam = gamera.new(32,32,global.mapWidth,global.mapHeight)
 	
  end
 

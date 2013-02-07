@@ -13,6 +13,10 @@ require('luascripts/Gui_inventoryScreen')
 require('luascripts/DiceRoller')
 require ('luascripts/Enemy')
 
+
+
+
+
 --datasaving and loading
 jupiter = require ('luascripts/jupiter')
 --gameData = {_fileName = "gameSave.txt", Game}
@@ -88,7 +92,9 @@ function love.load()
 
 	--load the firstmap
 	Game.mapList[Game.currentMap]:load()
-    
+   
+	
+	
 	player:setAnimation("down","stand")
 	--places the players on tile 5 5 to start
 	player:setLocation(5,5,"down")
