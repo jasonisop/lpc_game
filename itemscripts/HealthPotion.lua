@@ -16,9 +16,28 @@
 	itemImage =  string  -still need to work on this part im guessing a string with only the exact image
 --]]
 
-HealthPotion = {healAmount = 2,itemId = 0001 ,itemName = "HealthPotion", itemImage = love.graphics.newImage( "images/Icons/healthPotion.png"), stackable = true, stackAmound = 5, destroyUse = true, itemType ="consume",
-				value = 0, weight = 0, nodrop = false, uses = 1, itemDiscription = "", reuseTime = 5 ,reuseCurrent = 0, x = 0 , y = 0, dragging = { active = false, diffX = 0, diffY = 0 } ,
-				width = 32, height = 32, currentSlot = 0}
+HealthPotion = {itemId 			= 0001,
+				itemName 		= "HealthPotion", 
+				itemImage 		= love.graphics.newImage( "images/Icons/healthPotion.png"), 
+				stackable 		= true, 
+				stackAmound 	= 5, 
+				destroyUse 		= true, 
+				itemType 		= "consume",
+				value 			= 0, 
+				weight 			= 0, 
+				nodrop 			= false, 
+				uses 			= 1, 
+				itemDiscription = "", 
+				reuseTime 		= 5,
+				reuseCurrent 	= 0, 
+				x 				= 0, 
+				y 				= 0, 
+				dragging 		= { active = false, diffX = 0, diffY = 0 },
+				width 			= 32, 
+				height 			= 32, 
+				currentSlot 	= 0,
+				healAmount 		= 2
+				}
 
 function HealthPotion:new (o)
 	o = o or {}
@@ -32,7 +51,7 @@ function HealthPotion:use()
 	--only works if reuse is at 0
 	if self.reuseCurrent == 0 then
 		--this item when used will heal the player
-		player:setHealth(player:getHealth + self.healAmount )
+		player:setHealth(player:getHealth() + self.healAmount )
 		self.reuseCurrent = self.reuseTime
 	end
 end
@@ -60,16 +79,18 @@ end
 function HealthPotion:getX()
 	return self.x
 end
+
 function HealthPotion:setX(v)
 	self.x = v
 end
+
 function HealthPotion:getY()
 	return self.y
 end
+
 function HealthPotion:setY(v)
 	self.y = v
 end
-
 
 --function gets called from main to time reuse
 function HealthPotion:heartBeat()
@@ -104,9 +125,7 @@ function HealthPotion:update(dt)
   end
 end
 
-function HealthPotion:draw()
 
-end
 
 
 
