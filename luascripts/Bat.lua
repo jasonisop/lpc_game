@@ -1,7 +1,27 @@
-Bat = {	health = 10,startHealth = 0, name ="", image = "", speed = 150, enemyType = "basic", facing = "down", x = 100, y = 100, tileX = 0, tileY = 0, g = {}, 
-			anim8 = require ('luascripts/anim8'), animation = {}, noWalk = false ,animating = true , up = false, down = false  , 
-			left = false , right = false, canRespawn = true, dead = false  ,healthDiscription = "Healthy" }
-
+Bat = {	health 				= 10,
+		startHealth 		= 0, 
+		name 				= "", 
+		image 				= "", 
+		speed 				= 150, 
+		enemyType 			= "basic", 
+		facing 				= "down", 
+		x 					= 100, 
+		y 					= 100, 
+		tileX 				= 0, 
+		tileY 				= 0, 
+		g 					= {}, 
+		anim8 				= require ('luascripts/anim8'), 
+		animation 			= {}, 
+		noWalk 				= false,
+		animating 			= true, 
+		up 					= false, 
+		down 				= false, 
+		left 				= false, 
+		right 				= false, 
+		canRespawn		 	= true, 
+		dead 				= false,
+		healthDiscription	= "Healthy" 
+		}
 
 function Bat:new (o)
 	o = o or {}
@@ -9,7 +29,6 @@ function Bat:new (o)
     self.__index = self
     return o
 end
-
 --might rename to heartbeat
 function Bat:checkForPlayer()
 	local tempX = 0
@@ -24,24 +43,24 @@ function Bat:checkForPlayer()
 	if	player:getTileX() == self.tileX + tempX and player:getTileY() ==  self.tileY + tempY and self.dead == false then
 		global.player_Health = global.player_Health - 1
 	end
-
 end
-
 --leaving this incase its needed
 function Bat:setup()
 	self.startHealth = self.health
 end
-
 --get and set tile x and y
 function Bat:setTileX(v)
 	self.tileX = v
 end
+
 function Bat:getTileX()
 	return self.tileX
 end
+
 function Bat:setTileY(v)
 	self.tileY = v
 end
+
 function Bat:getTileY()
 	return self.tileY
 end
@@ -57,12 +76,15 @@ end
 function Bat:setX(v)
 	self.x = v
 end
+
 function Bat:getX()
 	return self.x
 end
+
 function Bat:setY(v)
 	self.y = v
 end
+
 function Bat:getY()
 	return self.y
 end
@@ -70,6 +92,7 @@ end
 function Bat:setName (v)
       self.name = v
 end
+
 function Bat:getName()
 	return self.name
 end
@@ -80,15 +103,14 @@ end
 function Bat:getHealth()
 	return self.health
 end
-
 --get and set speed
 function Bat:getSpeed()
 	return self.speed
 end
+
 function Bat:setSpeed(v)
 	self.speed = v
 end
-
 --get and set facing
 function Bat:getFacing()
 	return self.facing
@@ -99,15 +121,10 @@ end
 
 function Bat:setLocation(tX,tY,facing)
 	self.facing = facing
-	
-	self.tileX = tX
-	self.tileY = tY
-	
-	self.x = self.tileX * 32
-	self.y = self.tileY * 32
-	
-	--reset the camera
-	--Game.mapList[Game.currentMap]:setCameraWindow(self.x, self.y)
+	self.tileX 	= tX
+	self.tileY 	= tY
+	self.x 		= self.tileX * 32
+	self.y 		= self.tileY * 32
 end
 
 function Bat:moveTile(tX,tY)
@@ -117,7 +134,6 @@ function Bat:moveTile(tX,tY)
 	-- Otherwise change the guy's tile
 	self.tileX = self.tileX + tX
 	self.tileY = self.tileY + tY
-	
 	--have the map check if we hit anything here
 	Game.mapList[Game.currentMap]:checkTile(self.tileX,self.tileY)
 end
@@ -125,7 +141,6 @@ end
 function Bat:checkTile(tX,tY)
 	
 	local tile = layer.tileData(self.tileX + tX, self.tileY + tY)
-	
 	-- If the tile doesn't exist or is an obstacle then exit the function
 	if tile == nil then 
 		self.noWalk = true 
@@ -136,18 +151,8 @@ function Bat:checkTile(tX,tY)
 		self.noWalk = true 
 		return 
 	end
-	
-	--this needs updating to work correctly
-	
-	-- for i,v in ipairs(global.enemys) do  	
-		-- if global.enemys[i]:getTileX() == tileX+x and global.enemys[i]:getTileY() == tileY+y  then
-		-- noWalk = true 
-		-- return
-		-- end
-	-- end
-	
-	self.noWalk = false
 
+	self.noWalk = false
 end
 
 
@@ -175,8 +180,6 @@ function Bat:setAnimation(facing,animationType)
 		elseif  self.facing == "right" then self.animation = self.anim8.newAnimation('loop', self.g('1-1,4'), 0.1)
 		end
 	 end
-		  
-	
 end
 
 --called when key is released
@@ -192,7 +195,6 @@ function Bat:mousepressed(x, y, button)
 	if button == "l" and x - global.tx > self.x and x - global.tx < self.x + 32 and y - global.ty > self.y and y - global.ty < self.y + 32 then
 	chatWindow:show(true)
 	end
-	
 end
 
 --set the image

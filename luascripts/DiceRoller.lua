@@ -1,4 +1,5 @@
 require('luascripts/randomlua')
+
 DiceRoller = { dice = twister(0)}
 
 function DiceRoller:new (o)
@@ -9,16 +10,14 @@ function DiceRoller:new (o)
 end
 
 function DiceRoller:setSeed()
-self.dice:randomseed()
+	self.dice:randomseed()
 end
 
 function DiceRoller:Roll(DieType,NumberDie)
 	local dieCount = 0
-	
 	for k = 1, NumberDie do
 		dieCount = dieCount + self.dice:random(1,DieType)
 	end
-	
 	return dieCount
 end
 

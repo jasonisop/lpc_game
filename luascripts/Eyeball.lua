@@ -1,7 +1,30 @@
-Eyeball = {	health = 10, startHealth = 0, name ="", image = "", speed = 150, enemyType = "basic", facing = "down", x = 100, y = 100, tileX = 0, tileY = 0, g = {}, 
-			anim8 = require ('luascripts/anim8'), animation = {}, noWalk = false ,animating = true , up = false, down = false  , 
-			left = false , right = false, canRespawn = false, dead = false , visionDistance = 5 ,hate = 0 ,attackOnSight = true ,randomMove = false }
-
+Eyeball = {	health 			= 10, 
+			startHealth 	= 0, 
+			name 			= "", 
+			image 			= "", 
+			speed 			= 150, 
+			enemyType 		= "basic", 
+			facing 			= "down", 
+			x 				= 100, 
+			y 				= 100, 
+			tileX 			= 0, 
+			tileY 			= 0, 
+			g 				= {}, 
+			anim8 			= require ('luascripts/anim8'), 
+			animation 		= {}, 
+			noWalk 			= false,
+			animating 		= true, 
+			up 				= false, 
+			down 			= false, 
+			left 			= false, 
+			right 			= false, 
+			canRespawn 		= false, 
+			dead 			= false, 
+			visionDistance 	= 5,
+			hate	 		= 0,
+			attackOnSight 	= true,
+			randomMove 		= false 
+			}
 
 function Eyeball:new (o)
 	o = o or {}
@@ -9,52 +32,49 @@ function Eyeball:new (o)
     self.__index = self
     return o
 end
-
 --might rename to heartbeat
 function Eyeball:checkForPlayer()
 	local tempX = 0
 	local tempY = 0
-	
+
 	--visionDistance 
 	
 	--this is for if the player is in the next cell
 	if 	 	self.facing == "up" 	then	tempY = -1
-	elseif  self.facing  == "down" 	then 	tempY = 1
-	elseif  self.facing  == "left" 	then	tempX = -1
-	elseif  self.facing  == "right" then 	tempX = 1
+	elseif  self.facing == "down" 	then 	tempY = 1
+	elseif  self.facing == "left" 	then	tempX = -1
+	elseif  self.facing == "right" 	then 	tempX = 1
 	end
 	
 	-- Get  a cone of tiles in the directon enemy is faceing and check if there is a player in it if so move towards the player if attack on sight is true
 	if	attackOnSight== true then
-	
-	
+		
 	end
 	
 	if	player:getTileX() == self.tileX + tempX and player:getTileY() ==  self.tileY + tempY  and self.dead == false then
 		--Will need to change this to an attack not just a auto hit
 		global.player_Health = global.player_Health - 1
-	
 	end
-	
 end
-
 
 function Eyeball:setup()
 	-- Can have some randomizing done here such as health, attack, defence ect...
 		
 	self.startHealth = self.health
 end
-
 --get and set tile x and y
 function Eyeball:setTileX(v)
 	self.tileX = v
 end
+
 function Eyeball:getTileX()
 	return self.tileX
 end
+
 function Eyeball:setTileY(v)
 	self.tileY = v
 end
+
 function Eyeball:getTileY()
 	return self.tileY
 end
@@ -71,12 +91,14 @@ end
 function Eyeball:setX(v)
 	self.x = v
 end
+
 function Eyeball:getX()
 	return self.x
 end
 function Eyeball:setY(v)
 	self.y = v
 end
+
 function Eyeball:getY()
 	return self.y
 end
@@ -94,34 +116,29 @@ end
 function Eyeball:getHealth()
 	return self.health
 end
-
 --get and set speed
 function Eyeball:getSpeed()
 	return self.speed
 end
+
 function Eyeball:setSpeed(v)
 	self.speed = v
 end
-
 --get and set facing
 function Eyeball:getFacing()
 	return self.facing
 end
+
 function Eyeball:setFacing(v)
 	self.facing = v
 end
 
 function Eyeball:setLocation(tX,tY,facing)
 	self.facing = facing
-	
-	self.tileX = tX
-	self.tileY = tY
-	
-	self.x = self.tileX * 32
-	self.y = self.tileY * 32
-	
-	--reset the camera
-	--Game.mapList[Game.currentMap]:setCameraWindow(self.x, self.y)
+	self.tileX 	= tX
+	self.tileY 	= tY
+	self.x 		= self.tileX * 32
+	self.y 		= self.tileY * 32
 end
 
 function Eyeball:moveTile(tX,tY)
@@ -131,15 +148,12 @@ function Eyeball:moveTile(tX,tY)
 	-- Otherwise change the guy's tile
 	self.tileX = self.tileX + tX
 	self.tileY = self.tileY + tY
-	
 	--have the map check if we hit anything here
 	Game.mapList[Game.currentMap]:checkTile(self.tileX,self.tileY)
 end
 
 function Eyeball:checkTile(tX,tY)
-	
 	local tile = layer.tileData(self.tileX + tX, self.tileY + tY)
-	
 	-- If the tile doesn't exist or is an obstacle then exit the function
 	if tile == nil then 
 		self.noWalk = true 
@@ -150,21 +164,8 @@ function Eyeball:checkTile(tX,tY)
 		self.noWalk = true 
 		return 
 	end
-	
-	--this needs updating to work correctly
-	
-	-- for i,v in ipairs(global.enemys) do  	
-		-- if global.enemys[i]:getTileX() == tileX+x and global.enemys[i]:getTileY() == tileY+y  then
-		-- noWalk = true 
-		-- return
-		-- end
-	-- end
-	
 	self.noWalk = false
-
 end
-
-
 
 function Eyeball:setAnimation(facing,animationType)
 	self.facing = facing
@@ -173,26 +174,23 @@ function Eyeball:setAnimation(facing,animationType)
 		
 		Eyeball:setImage("eyeball.png")
 	
-		if 	 	self.facing == "up" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,1'), 0.4)
-		elseif  self.facing == "left" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,2'), 0.4)
-		elseif  self.facing == "down" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,3'), 0.4)
-		elseif  self.facing == "right" then self.animation = self.anim8.newAnimation('loop', self.g('1-3,4'), 0.4)
+		if 	 	self.facing == "up" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,1'), 0.4)
+		elseif  self.facing == "left" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,2'), 0.4)
+		elseif  self.facing == "down" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,3'), 0.4)
+		elseif  self.facing == "right" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,4'), 0.4)
 		end
 	end
 	
 	if animationType =="stand" then
 		Eyeball:setImage("eyeball.png")
 		
-		if 	 	self.facing == "up" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-1,1'), 0.1)
-		elseif  self.facing == "left" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-1,2'), 0.1)
-		elseif  self.facing == "down" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-1,3'), 0.1)
-		elseif  self.facing == "right" then self.animation = self.anim8.newAnimation('loop', self.g('1-1,4'), 0.1)
+		if 	 	self.facing == "up" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-1,1'), 0.1)
+		elseif  self.facing == "left" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-1,2'), 0.1)
+		elseif  self.facing == "down" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-1,3'), 0.1)
+		elseif  self.facing == "right" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-1,4'), 0.1)
 		end
 	 end
-		  
-	
 end
-
 --called when key is released
 function Eyeball:keyreleased(k)
 
@@ -201,18 +199,17 @@ end
 function Eyeball:keypressed(k)
 	
 end
+
 function Eyeball:mousepressed(x, y, button)
 	--if you right click on a enemy
 	if button == "l" and x - global.tx > self.x and x - global.tx < self.x + 32 and y - global.ty > self.y and y - global.ty < self.y + 32 then
-	chatWindow:show(true)
+		chatWindow:show(true)
 	end
-	
 end
-
 --set the image
 function Eyeball:setImage(v)	
-	self.image = love.graphics.newImage("images/".. v)
-	self.g = self.anim8.newGrid(32,38, self.image:getWidth(),self.image:getHeight())
+	self.image 	= love.graphics.newImage("images/".. v)
+	self.g	 	= self.anim8.newGrid(32,38, self.image:getWidth(),self.image:getHeight())
 end
 
 function Eyeball:update(dt)
@@ -257,7 +254,6 @@ function Eyeball:update(dt)
 	end
 	
 	 self.animation:update(dt)
-	
 end
 
 function Eyeball:respawn()
@@ -277,5 +273,4 @@ function Eyeball:draw()
 		local Len = string.len(self.name .." " ..tostring(self.healthDiscription))
 		love.graphics.print( self.name .." " ..tostring(self.healthDiscription), self.x - Len * 5 , self.y -10)
 	end
-	
 end
