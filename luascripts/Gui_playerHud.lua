@@ -1,5 +1,7 @@
 require('luascripts/Gui')
 
+
+
 PlayerHud = GUI:new()
 
 
@@ -15,6 +17,9 @@ function PlayerHud:setup()
 	
 	heartHolder = {}
 	waterHolder = {}
+	
+	--temp testing
+	potheal = HealthPotion:new()
 end
 
 function PlayerHud:draw()
@@ -26,6 +31,8 @@ function PlayerHud:draw()
 			 love.graphics.draw(waterHolder[i], i * 20 ,30 )
 	end
 	 love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 150, 10)
+	 
+	 
 end
 
 function PlayerHud:update(dt)

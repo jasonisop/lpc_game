@@ -16,11 +16,9 @@ function InventoryScreen:setup()
 	local numSlots = 35
 	local slotCount = 0
 	local rowCount = 0
-	
-	
+		
 	 for i = 1, numSlots do
 	
-		--self.slots[i]={x = slotCount * 32 +25 ,y = rowCount * 32 + 56 , height = 32, width = 32 ,filled = false, item={} }
 		self.slots[i]={x = slotCount * 32 +25 ,y = rowCount * 32 + 56 , height = 32, width = 32 ,filled = false, item = {} }
 		slotCount = slotCount + 1
 		
@@ -28,9 +26,8 @@ function InventoryScreen:setup()
 			rowCount = rowCount + 1
 			slotCount = 0
 		end
-	
 	end
-	
+	--check the player and add items  from the players inventory	
 end
 
 function InventoryScreen:draw()
@@ -39,9 +36,11 @@ function InventoryScreen:draw()
 		love.graphics.draw(InventoryScreenImage,self.x, self.y )
 			
 		--loop thru slot items and render	
-		-- for i, slot in ipairs(self.slots) do 
-				-- self.slot.item:draw()
-		-- end	
+		 for i, slot in ipairs(self.slots) do 
+			if slot.filled then
+				slot.item:draw()
+			end
+		end	
 	
 		--self.slots[1].item.draw()
 	
