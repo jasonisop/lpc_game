@@ -192,9 +192,9 @@ function Bat:keypressed(k)
 end
 function Bat:mousepressed(x, y, button)
 	--if you right click on a enemy
-	if button == "l" and x - global.tx > self.x and x - global.tx < self.x + 32 and y - global.ty > self.y and y - global.ty < self.y + 32 then
-	chatWindow:show(true)
-	end
+	-- if button == "l" and x - global.tx > self.x and x - global.tx < self.x + 32 and y - global.ty > self.y and y - global.ty < self.y + 32 then
+	-- chatWindow:show(true)
+	-- end
 end
 
 --set the image
