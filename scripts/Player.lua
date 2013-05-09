@@ -3,7 +3,7 @@
 		
 --]]
 
-Player = {	name 			= "Brandon", 	--Player name set in char builder
+Player = {	name 			= "Hero", 	--Player name set in char builder
 			class 			= "", 			--Player class set in char builder
 			race 			= "human",		--Player race set in char builder
 			speed 			= 150, 			--how fast the player moves
@@ -136,9 +136,9 @@ function Player:setStats()
 					INT 		= diceroller:RollStat(6,4,1,1), 
 					WIS 		= diceroller:RollStat(6,4,1,1), 
 					CHA 		= diceroller:RollStat(6,4,1,1),
-					ATTACK 		= {1}, 
-					RANGEATTACK = {1}, 
-					DEFENSE 	= {1}	
+					ATTACK 		= {10}, 
+					RANGEATTACK = {10}, 
+					DEFENSE 	= {5}	
 					}
 end
 
@@ -584,8 +584,16 @@ function Player:attack()
 	-- currently it does 1 damage as punch is the only weapon we have
 	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do	
 		if enemy:getTileX() == self.tileX + tX and enemy:getTileY() == self.tileY + tY and enemy:getDeath() == false then
+			--do some fancy math and see if the hit really does hit and if it does any damage
+			-- roll 1d100  if that is under the attack stat - the defence stat of enemy then it is a hit.
+			atkRoll = diceroller:Roll(100,1)
+			chatWindow:addText("attack roll ".. atkRoll ,"System",base_Color)
+			
+			--if atkRoll
+			
+			
 			enemy:setHealth(enemy:getHealth() - self.weaponDamage)	
-			chatWindow:addText("you hit ".. enemy:getName() ,"System",base_Color)
+		--	chatWindow:addText("you hit ".. enemy:getName() ,"System",base_Color)
 			return
 		end
 	end
