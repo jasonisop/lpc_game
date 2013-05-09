@@ -1,4 +1,4 @@
-require ('luascripts/Map')
+require ('scripts/Map')
 
 
 Inside = Map:new{ mapfile = "Inside.tmx"}

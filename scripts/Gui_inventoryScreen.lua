@@ -1,6 +1,6 @@
-require('luascripts/Gui')
-require ('itemscripts/HealthPotion')	
-InventoryScreen = GUI:new{ 	anim8 						= require ('luascripts/anim8'), 
+require('scripts/Gui')
+require ('scripts/itemscripts/HealthPotion')	
+InventoryScreen = GUI:new{ 	anim8 						= require ('scripts/anim8'), 
 							g 							= {}, 
 							animation 					= {}, 
 							x 							= 500,

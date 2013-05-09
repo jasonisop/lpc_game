@@ -36,7 +36,7 @@ Player = {	name 			= "Brandon", 	--Player name set in char builder
 			stats 			= {}, 			--table holding the stats for the player 
 			spells 			= {}, 			--table to hold spells for the player
 			skills 			={}, 			--table to hold skills for the player
-			anim8 			= require ('luascripts/anim8'),   --all for animating the player and setting up what items visible show on him
+			anim8 			= require ('scripts/anim8'),   --all for animating the player and setting up what items visible show on him
 			g 			= {}, 	animation 			= {},	image 			= "", 	
 			gBEHIND		= {}, 	animationBEHIND 	= {},	imageBEHIND 	= "",
 			gBELT 		= {}, 	animationBELT 		= {},	imageBELT 		= "",

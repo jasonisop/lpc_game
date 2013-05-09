@@ -1,9 +1,9 @@
-require ('luascripts/Map')
+require ('scripts/Map')
 
 
 Inside2 = Map:new{ mapfile = "Inside2.tmx"}
 
-local loader = require("AdvTiledLoader.Loader")
+local loader = require("scripts/AdvTiledLoader.Loader")
 loader.path = "maps/"
 
 function Inside2:load()

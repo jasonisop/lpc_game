@@ -1,4 +1,4 @@
-require ('luascripts/Map')
+require ('scripts/Map')
 --require ('luascripts/Enemy')
 
 Outside = Map:new{ mapfile = "Outside.tmx"}
@@ -7,7 +7,7 @@ Outside = Map:new{ mapfile = "Outside.tmx"}
 
 
 
-local loader = require("AdvTiledLoader.Loader")
+local loader = require("scripts/AdvTiledLoader.Loader")
 loader.path = "maps/"
  
 function Outside:load()

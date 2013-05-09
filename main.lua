@@ -4,21 +4,21 @@
 	
 ]]
 
-require('luascripts/Player')
-require('luascripts/Gui_playerHud')
-require('luascripts/Gui_chatWindow')
-require('luascripts/Gui_characterScreen')
-require('luascripts/Gui_inventoryScreen')
+require('scripts/Player')
+require('scripts/Gui_playerHud')
+require('scripts/Gui_chatWindow')
+require('scripts/Gui_characterScreen')
+require('scripts/Gui_inventoryScreen')
 
-require('luascripts/DiceRoller')
-require ('luascripts/Enemy')
+require('scripts/DiceRoller')
+require('scripts/Enemy')
 
 
 
 
 
 --datasaving and loading
-jupiter = require ('luascripts/jupiter')
+jupiter = require ('scripts/jupiter')
 --gameData = {_fileName = "gameSave.txt", Game}
 --success = jupiter.save(gameData)
 --GameTemp = jupiter.load("gameSave.txt")
@@ -48,8 +48,8 @@ end
 
 
 --list of maps should be moved somewhere else
-require('mapscripts/Inside2')
-require('mapscripts/Outside')
+require('scripts/mapscripts/Inside2')
+require('scripts/mapscripts/Outside')
 
 local OutsideMap = Outside:new()
 local InsideMap = Inside2:new()
@@ -87,7 +87,7 @@ inventoryscreen = InventoryScreen:new()
 
 function love.load()
 	
-	cron = require 'luascripts/cron'
+	cron = require 'scripts/cron'
 	id = cron.every(1, temps)
 
 	--load the firstmap

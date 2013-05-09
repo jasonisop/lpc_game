@@ -1,4 +1,4 @@
-require('luascripts/Gui')
+require('scripts/Gui')
 
 PlayerHud = GUI:new()
 

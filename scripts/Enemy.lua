@@ -3,8 +3,8 @@
 
 --]]
 
-require('luascripts/Bat')
-require('luascripts/Eyeball')
+require('scripts/Bat')
+require('scripts/Eyeball')
 
 Enemy = { container = {} }
 

@@ -1,4 +1,4 @@
-require('luascripts/randomlua')
+require('scripts/randomlua')
 
 DiceRoller = { dice = twister(0)}
 
