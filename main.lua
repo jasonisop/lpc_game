@@ -73,6 +73,7 @@ global.player_Health = 10
 global.player_Water = 7
 global.temp = nil
 
+--create a new player
 player = Player:new{x=10*32,y=14*32}
 
 playerHud = PlayerHud:new() 

@@ -851,7 +851,9 @@ function Player:draw()
 	self.animationSHEILD:draw(self.imageSHEILD, self.x -32  , self.y -28 )
 	--self.animationHANDS:draw(self.imageLEGS, self.x -32  , self.y -28 )
 	--self.animationBEHIND:draw(self.imageLEGS, self.x -32  , self.y -28 )
-	--love.graphics.print(self.name, self.x , self.y - 30)
+
+	-- love.graphics.print(self.name, self.x - 20 , self.y - 30)
+
 end
 
 
