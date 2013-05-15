@@ -9,12 +9,8 @@ require('scripts/Gui_playerHud')
 require('scripts/Gui_chatWindow')
 require('scripts/Gui_characterScreen')
 require('scripts/Gui_inventoryScreen')
-
 require('scripts/DiceRoller')
 require('scripts/Enemy')
-
-
-
 
 
 --datasaving and loading
@@ -26,15 +22,18 @@ jupiter = require ('scripts/jupiter')
 
 
 --sets a container to store stuff
+--game states  (play, pause, menu, loading) 
 Game = {}
 Game.currentMap = 1
 Game.enemies = {}
 Game.mapList = {}
+Game.state = 'play'
 
 
 function Game:registerEnemys(...)
 for k,enemy in ipairs(arg) do table.insert(Game.enemies,enemy) end
 end
+
 function Game:removeEnemys()
 	for k,enemy in ipairs(Game.enemies) do table.remove(Game.enemies,k) end
 	Game.enemies = nil
@@ -46,7 +45,6 @@ function Game:registerMap(...)
 end
 
 
-
 --list of maps should be moved somewhere else
 require('scripts/mapscripts/Inside2')
 require('scripts/mapscripts/Outside')
@@ -55,9 +53,6 @@ local OutsideMap = Outside:new()
 local InsideMap = Inside2:new()
 
 Game:registerMap(OutsideMap,InsideMap)
-
-
-
 
 
 --global vars to make things easy
@@ -76,6 +71,7 @@ global.temp = nil
 --create a new player
 player = Player:new{x=10*32,y=14*32}
 
+
 playerHud = PlayerHud:new() 
 chatWindow = ChatWindow:new()
 characterScreen = CharacterScreen:new()
@@ -83,21 +79,18 @@ diceroller = DiceRoller:new()
 inventoryscreen = InventoryScreen:new()
 
 
-
-
-
+-- set up the game and run  all the setups
 function love.load()
-	
 	cron = require 'scripts/cron'
-	id = cron.every(1, temps)
-
+	normalCron = cron.every(1, heartBeats)
+	fastCron = cron.every(.5, fastHeartBeats)
+	slowCron = cron.every(2, slowHeartBeats)
+	
 	--load the firstmap
 	Game.mapList[Game.currentMap]:load()
-   
-	
-	
+
+   	--places the players on tile 5 5 to start
 	player:setAnimation("down","stand")
-	--places the players on tile 5 5 to start
 	player:setLocation(5,5,"down")
 	
 	--creates a image based font to use
@@ -113,29 +106,34 @@ function love.load()
 	characterScreen:setup()
 	inventoryscreen:setup()
 	diceroller:setSeed()
-	
---	global.temp = tostring(diceroller:Roll(6,2))
-	player:setStats()
---	global.temp = 	"STR "..tostring(player:getStat("STR")).." CON "..tostring(player:getStat("CON")).." INT "..tostring(player:getStat("INT"))..
---					" DEX "..tostring(player:getStat("DEX")).." WIS "..tostring(player:getStat("WIS")).." CHA "..tostring(player:getStat("CHA"))
 
+	--needs moved to player creation screen.
+	player:setStats()
 
 end
 
+function slowHeartBeats()
+--chatWindow:addText("Slow Heart Beat " ,"System",base_Color)
+end
 
-function temps()
-	-- for k,enemy in ipairs(Game.enemies) do 
-		-- Game.enemies[k]:checkForPlayer()
-	-- end
-	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do enemy:checkForPlayer() end
+function fastHeartBeats()
+--chatWindow:addText("Fast Heart Beat " ,"System",base_Color)
+end
+
+--this function controls timed events such as any heartbeats use as sparingly as possible
+function heartBeats()
+	
+	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) 
+		do enemy:checkForPlayer() 
+	end
+
 	player:heartBeat()
 	
 end
 
+-- main game loop  currently 
 function love.update(dt)
-	
 	player:update(dt)
-	
 	cron.update(dt)
 	playerHud:update(dt)
 	characterScreen:update(dt)
@@ -149,8 +147,8 @@ function love.mousepressed(x, y, button)
 	characterScreen:mousepressed(x,y,button)
 	chatWindow:mousepressed(x,y,button)
 	inventoryscreen:mousepressed(x,y,button)
-	
 end
+
 function love.mousereleased(x, y, button)
 	characterScreen:mousereleased(x, y, button)
 	chatWindow:mousereleased(x,y,button)
@@ -169,19 +167,6 @@ function love.keypressed(k)
 		inventoryscreen:setDraw(false)
 		end
 	end
-	
-	--testing my diceroller
-	-- if k == "r" then
-		-- local statsTable = diceroller:RollStat(6,4,1,6)
-			-- global.temp  =""
-		-- for k,stat in ipairs(statsTable) do 
-			-- global.temp = global.temp .. tostring(stat)
-			-- if k ~= 6 then
-				-- global.temp  = global.temp ..","
-			-- end
-		-- end
-	-- end
-	
 end
 
 function love.keyreleased(k)
