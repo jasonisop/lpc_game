@@ -1,22 +1,16 @@
 require ('scripts/Map')
---require ('luascripts/Enemy')
 
 Outside = Map:new{ mapfile = "Outside.tmx"}
 
---local gamera = require ('luascripts/gamera')
-
-
-
 local loader = require("scripts/AdvTiledLoader.Loader")
 loader.path = "maps/"
- 
+loader.useSpriteBatch = true
 function Outside:load()
 	chatWindow:addText("Testing...","System",Color_Blue )
 	tilemap = loader.load(self.mapfile)
 	
-	--respawns enemy if it can
-	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do enemy:respawn() end
-	
+	--respawns enemies and items if it can
+	self.respawn()
 	
 	--function to set player to be drawn on that layer
 	local pos = tilemap:drawPosition( tilemap.ol["Object1"] )
@@ -26,9 +20,6 @@ function Outside:load()
 	
 	global.mapWidth =  tilemap.width * 32	
 	global.mapHeight = tilemap.height* 32	
-	
---	cam = gamera.new(32,32,global.mapWidth,global.mapHeight)
-	
  end
 
 -- this function will over-ride the one in Map

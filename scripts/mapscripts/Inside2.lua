@@ -5,7 +5,7 @@ Inside2 = Map:new{ mapfile = "Inside2.tmx"}
 
 local loader = require("scripts/AdvTiledLoader.Loader")
 loader.path = "maps/"
-
+loader.useSpriteBatch = true
 function Inside2:load()
 	Game:removeEnemys()
 	tilemap = loader.load(self.mapfile)
@@ -14,14 +14,14 @@ function Inside2:load()
 	local pos = tilemap:drawPosition( tilemap.ol["Object1"] )
 	table.insert(tilemap.drawList, pos, test)
 	
-	
 	layer = tilemap.tl["Ground"]
 	
 	global.mapWidth =  tilemap.width * 32	
 	global.mapHeight = tilemap.height* 32	
 	
  end
-function Inside2:checkTile(x,y)
+
+ function Inside2:checkTile(x,y)
 	--To exit the house
 	if x == 13 and y == 13 then	
 		chatWindow:addText("loading map...","System",Color_Crimson )

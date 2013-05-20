@@ -6,7 +6,7 @@ Map.currentMap = 1
 tilemap = {}
 layer = {}
 
---this should render player and enemys
+--this should render player and enemys needs renamed
 function test()
 	--for k,enemy in ipairs(Game.enemies) do enemy:draw() end
 	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do enemy:draw() end
@@ -43,15 +43,18 @@ function Map:setCameraWindow(x, y)
 	end
 end
 
--- function Map:checkTile(x,y)
---
--- end
+function Map:respawn()
+	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) 
+		do enemy:respawn() 
+	end
+
+end
 
 function Map:update(dt)
 --	cam:setPosition(player.x, player.y)
 	--for k,enemy in ipairs(Game.enemies) do enemy:update(dt) end
 	if(enemyHolder.container[Game.currentMap])then
-	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do enemy:update(dt) end
+		for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do enemy:update(dt) end
 	end
 end
 

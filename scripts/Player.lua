@@ -672,9 +672,6 @@ function Player:update(dt)
 	local camera_right 	= false	
 	self.speed 			= 150
 	
-	if camera_up == true or camera_down == true or camera_left == true or camera_right == true then
-		--self.speed = 0
-	end
 	
 	if self.up == false and self.down == false and self.right == false and self.left == false	then	
 		if love.keyboard.isDown( "up" ) then
@@ -812,17 +809,20 @@ function Player:update(dt)
 	if self.animating == false  then
 		self:setAnimation(self.facing,"stand")
 	end
+	
 	--need to make a function for all this crap
 	if self.canMove == false and self.animstarted == false then 
-	self:setAnimation(self.facing,"deathSpin")
-	self.animstarted = true
-	self.animating  = true
+		self:setAnimation(self.facing,"deathSpin")
+		self.animstarted = true
+		self.animating  = true
 	end
 		
 	if self.animstarted and self.animation:getFrame() == 8 and self.dead == false then
 		self.dead = true
 		self:setAnimation(self.facing,"death")
 	end
+	
+	--animation updateblock
 	self.animation:update(dt)
 	self.animationHEAD:update(dt)
 	self.animationTORSO:update(dt)
@@ -839,16 +839,16 @@ end
 
 function Player:draw()
 	--the off set is to correctly place the player
-	self.animation:draw(self.image, self.x -32  , self.y -28 )
-	self.animationHEAD:draw(self.imageHEAD, self.x -32  , self.y -28 )
-	self.animationTORSO:draw(self.imageTORSO, self.x -32  , self.y -28 )
-	self.animationLEGS:draw(self.imageLEGS, self.x -32  , self.y -28 )
-	self.animationBELT:draw(self.imageBELT, self.x -32  , self.y -28 )
-	self.animationFEET:draw(self.imageFEET, self.x -32  , self.y -28 )
-	self.animationWEAPON:draw(self.imageWEAPON, self.x -32  , self.y -28 )
-	self.animationARMS:draw(self.imageARMS, self.x -32  , self.y -28 )
-	self.animationSHOULDERS:draw(self.imageSHOULDERS, self.x -32  , self.y -28 )
-	self.animationSHEILD:draw(self.imageSHEILD, self.x -32  , self.y -28 )
+	self.animation			:draw(self.image, 			self.x -32  , self.y -28 )
+	self.animationHEAD		:draw(self.imageHEAD, 		self.x -32  , self.y -28 )
+	self.animationTORSO		:draw(self.imageTORSO, 		self.x -32  , self.y -28 )
+	self.animationLEGS		:draw(self.imageLEGS,		self.x -32  , self.y -28 )
+	self.animationBELT		:draw(self.imageBELT, 		self.x -32  , self.y -28 )
+	self.animationFEET		:draw(self.imageFEET, 		self.x -32  , self.y -28 )
+	self.animationWEAPON	:draw(self.imageWEAPON, 	self.x -32  , self.y -28 )
+	self.animationARMS		:draw(self.imageARMS, 		self.x -32  , self.y -28 )
+	self.animationSHOULDERS	:draw(self.imageSHOULDERS,	self.x -32  , self.y -28 )
+	self.animationSHEILD	:draw(self.imageSHEILD, 	self.x -32  , self.y -28 )
 	--self.animationHANDS:draw(self.imageLEGS, self.x -32  , self.y -28 )
 	--self.animationBEHIND:draw(self.imageLEGS, self.x -32  , self.y -28 )
 
