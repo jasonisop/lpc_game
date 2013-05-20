@@ -5,6 +5,7 @@ Outside = Map:new{ mapfile = "Outside.tmx"}
 local loader = require("scripts/AdvTiledLoader.Loader")
 loader.path = "maps/"
 loader.useSpriteBatch = true
+
 function Outside:load()
 	chatWindow:addText("Testing...","System",Color_Blue )
 	tilemap = loader.load(self.mapfile)
@@ -22,7 +23,8 @@ function Outside:load()
 	global.mapHeight = tilemap.height* 32	
  end
 
--- this function will over-ride the one in Map
+--might add tiles that state that its a door and where they connect too
+--this would make map builiding easy on the coding side also have the enemies created that way as well.
 function Outside:checkTile(x,y)
 	--To enter the house
 	if x == 13 and y == 13 then	

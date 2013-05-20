@@ -3,7 +3,7 @@
 		
 --]]
 
-Player = {	name 			= "Hero", 	--Player name set in char builder
+Player = {	name 			= "Hero", 		--Player name set in char builder
 			class 			= "", 			--Player class set in char builder
 			race 			= "human",		--Player race set in char builder
 			speed 			= 150, 			--how fast the player moves
@@ -119,13 +119,11 @@ function Player:setFacing(v)
 end
 ------------------- end of getters/setters----------
 function Player:setUp()
-
 	--set up the players stats to random numbers
 	self:setStats()
 	--add the starting items to the players inventory
 	inventory[1] = HealthPotion:new()
 	-- set up remaining stats based on equiped  items
-	
 end
 
 function Player:setStats()
@@ -150,8 +148,7 @@ end
 function Player:setAttack()
 	--loop thru the equiped table and add up all attack bonus
 	local tempCount = 0
-	-- for k,item ipairs(self.equiped ) do
-	-- end
+	
 end
 
 function Player:setDefense()
@@ -159,7 +156,9 @@ function Player:setDefense()
 end
 
 function Player:addItem(itemId)
+
 end
+
 
 function Player:removeItem(ItemId)
 end
@@ -377,7 +376,27 @@ function Player:setAnimation(facing,animationType)
 		chatWindow:addText("you have died" )
 		--play death music
 		Player:setImage("male_hurt.png")
-		self.animation = self.anim8.newAnimation('once', self.g('1-6,1'), 0.1)
+		Player:setImageHEAD("Chars/png/hurt/HEAD_hair_blonde.png")
+		Player:setImageTORSO("Chars/png/hurt/TORSO_leather_armor_torso.png")
+		Player:setImageLEGS("Chars/png/hurt/LEGS_pants_greenish.png")
+		Player:setImageBELT("Chars/png/hurt/BELT_leather.png")
+		Player:setImageFEET("Chars/png/hurt/FEET_shoes_brown.png")
+		--Player:setImageWEAPON("Chars/png/hurt/WEAPON_shield_cutout_body.png")
+		--Player:setImageSHEILD("Chars/png/hurt/WEAPON_shield_cutout_body.png")
+		Player:setImageARMS("Chars/png/hurt/TORSO_leather_armor_bracers.png")
+		Player:setImageSHOULDERS("Chars/png/hurt/TORSO_leather_armor_shoulders.png")
+				
+		self.animation 			= self.anim8.newAnimation('once', self.g('1-6,1'), 0.1)
+		self.animationHEAD 		= self.anim8.newAnimation('once', self.gHEAD('1-6,1'), 0.1)
+		self.animationTORSO 	= self.anim8.newAnimation('once', self.gTORSO('1-6,1'), 0.1)
+		self.animationLEGS 		= self.anim8.newAnimation('once', self.gLEGS('1-6,1'), 0.1)
+		self.animationBELT 		= self.anim8.newAnimation('once', self.gBELT('1-6,1'), 0.1)
+		self.animationFEET 		= self.anim8.newAnimation('once', self.gFEET('1-6,1'), 0.1)
+	--	self.animationWEAPON 	= self.anim8.newAnimation('once', self.gWEAPON('1-6,1'), 0.1)
+	--	self.animationSHEILD 	= self.anim8.newAnimation('once', self.gSHEILD('1-6,1'), 0.1)
+		self.animationARMS 		= self.anim8.newAnimation('once', self.gARMS('1-6,1'), 0.1)
+		self.animationSHOULDERS = self.anim8.newAnimation('once', self.gSHOULDERS('1-6,1'), 0.1)
+				
 	end
 	
 	if animationType =="attack" and  player.dead == false then
