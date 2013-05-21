@@ -35,7 +35,7 @@ Player = {	name 			= "Hero", 		--Player name set in char builder
 			quests 			= {}, 			--table holding the players quests
 			stats 			= {}, 			--table holding the stats for the player 
 			spells 			= {}, 			--table to hold spells for the player
-			skills 			={}, 			--table to hold skills for the player
+			skills 			= {}, 			--table to hold skills for the player
 			anim8 			= require ('scripts/anim8'),   --all for animating the player and setting up what items visible show on him
 			g 			= {}, 	animation 			= {},	image 			= "", 	
 			gBEHIND		= {}, 	animationBEHIND 	= {},	imageBEHIND 	= "",
@@ -48,9 +48,22 @@ Player = {	name 			= "Hero", 		--Player name set in char builder
 			gWEAPON 	= {},	animationWEAPON 	= {},	imageWEAPON 	= "",
 			gSHEILD 	= {},	animationSHEILD 	= {},	imageSHEILD		= "", 
 			gARMS 		= {}, 	animationARMS 		= {},	imageARMS		= "",		 			 				 		 			  			
-			gSHOULDERS 	= {},	animationSHOULDERS 	= {},	imageSHOULDERS	= ""	  	  	    		
+			gSHOULDERS 	= {},	animationSHOULDERS 	= {},	imageSHOULDERS	= "",
+
+			itmBODY			="male_walkcycle.png",
+			itmBEHIND 		="",
+			itmBELT			="BELT_leather.png",
+			itmFEET			="FEET_shoes_brown.png",
+			itmHANDS		="",
+			itmHEAD			="HEAD_hair_blonde.png",
+			itmLEGS 		="LEGS_pants_greenish.png",
+			itmTORSO 		="TORSO_leather_armor_torso.png",	
+			itmWEAPON 		="",
+			itmSHEILD 		="WEAPON_shield_cutout_body.png",
+			itmARMS 		="TORSO_leather_armor_bracers.png",		 			 				 		 			  			
+			itmSHOULDERS	="TORSO_leather_armor_shoulders.png"			
 			}
-		
+
 
 function Player:new (o)
 	o = o or {}
@@ -239,7 +252,7 @@ function Player:heartBeat()
 end
 
 function Player:getCanMove() 
-return self.canMove
+	return self.canMove
 end
 
 function Player:setAnimation(facing,animationType)
@@ -247,18 +260,19 @@ function Player:setAnimation(facing,animationType)
 	
 	self.facing = facing
 	
-	if animationType == "walk"  and player.dead == false and self.canMove == true then
-		
 		Player:setImage("male_walkcycle.png")
-		Player:setImageHEAD("Chars/png/walkcycle/HEAD_hair_blonde.png")
-		Player:setImageTORSO("Chars/png/walkcycle/TORSO_leather_armor_torso.png")
-		Player:setImageLEGS("Chars/png/walkcycle/LEGS_pants_greenish.png")
-		Player:setImageBELT("Chars/png/walkcycle/BELT_leather.png")
-		Player:setImageFEET("Chars/png/walkcycle/FEET_shoes_brown.png")
-		Player:setImageWEAPON("Chars/png/walkcycle/WEAPON_shield_cutout_body.png")
-		Player:setImageSHEILD("Chars/png/walkcycle/WEAPON_shield_cutout_body.png")
-		Player:setImageARMS("Chars/png/walkcycle/TORSO_leather_armor_bracers.png")
-		Player:setImageSHOULDERS("Chars/png/walkcycle/TORSO_leather_armor_shoulders.png")
+		Player:setImageHEAD("Chars/png/walkcycle/"..self.itmHEAD )
+		Player:setImageTORSO("Chars/png/walkcycle/"..self.itmTORSO)
+		Player:setImageLEGS("Chars/png/walkcycle/"..self.itmLEGS)
+		Player:setImageBELT("Chars/png/walkcycle/"..self.itmBELT)
+		Player:setImageFEET("Chars/png/walkcycle/"..self.itmFEET)
+			Player:setImageWEAPON("Chars/png/walkcycle/"..self.itmHEAD) --somethin wrong here
+		Player:setImageSHEILD("Chars/png/walkcycle/"..self.itmSHEILD)
+		Player:setImageARMS("Chars/png/walkcycle/"..self.itmARMS)
+		Player:setImageSHOULDERS("Chars/png/walkcycle/"..self.itmSHOULDERS)
+	
+	
+	if animationType == "walk"  and player.dead == false and self.canMove == true then
 		
 		if 	 	self.facing == "up" then 	self.animation 			= self.anim8.newAnimation('loop', self.g('2-9,1'), 0.1)
 											self.animationHEAD 		= self.anim8.newAnimation('loop', self.gHEAD('2-9,1'), 0.1)
@@ -305,16 +319,16 @@ function Player:setAnimation(facing,animationType)
 	end
 	
 	if animationType == "stand" and player.dead == false and self.canMove == true then
-		Player:setImage("male_walkcycle.png")
-		Player:setImageHEAD("Chars/png/walkcycle/HEAD_hair_blonde.png")
-		Player:setImageTORSO("Chars/png/walkcycle/TORSO_leather_armor_torso.png")
-		Player:setImageLEGS("Chars/png/walkcycle/LEGS_pants_greenish.png")
-		Player:setImageBELT("Chars/png/walkcycle/BELT_leather.png")
-		Player:setImageFEET("Chars/png/walkcycle/FEET_shoes_brown.png")
-		Player:setImageWEAPON("Chars/png/walkcycle/WEAPON_shield_cutout_body.png")
-		Player:setImageSHEILD("Chars/png/walkcycle/WEAPON_shield_cutout_body.png")
-		Player:setImageARMS("Chars/png/walkcycle/TORSO_leather_armor_bracers.png")
-		Player:setImageSHOULDERS("Chars/png/walkcycle/TORSO_leather_armor_shoulders.png")
+		-- Player:setImage("male_walkcycle.png")
+		-- Player:setImageHEAD("Chars/png/walkcycle/HEAD_hair_blonde.png")
+		-- Player:setImageTORSO("Chars/png/walkcycle/TORSO_leather_armor_torso.png")
+		-- Player:setImageLEGS("Chars/png/walkcycle/LEGS_pants_greenish.png")
+		-- Player:setImageBELT("Chars/png/walkcycle/BELT_leather.png")
+		-- Player:setImageFEET("Chars/png/walkcycle/FEET_shoes_brown.png")
+		-- Player:setImageWEAPON("Chars/png/walkcycle/WEAPON_shield_cutout_body.png")
+		-- Player:setImageSHEILD("Chars/png/walkcycle/WEAPON_shield_cutout_body.png")
+		-- Player:setImageARMS("Chars/png/walkcycle/TORSO_leather_armor_bracers.png")
+		-- Player:setImageSHOULDERS("Chars/png/walkcycle/TORSO_leather_armor_shoulders.png")
 		
 		if 	 	self.facing == "up" then 	self.animation 			= self.anim8.newAnimation('loop', self.g('1-1,1'), 0.1)
 											self.animationHEAD 		= self.anim8.newAnimation('loop', self.gHEAD('1-1,1'), 0.1)
@@ -376,15 +390,15 @@ function Player:setAnimation(facing,animationType)
 		chatWindow:addText("you have died" )
 		--play death music
 		Player:setImage("male_hurt.png")
-		Player:setImageHEAD("Chars/png/hurt/HEAD_hair_blonde.png")
-		Player:setImageTORSO("Chars/png/hurt/TORSO_leather_armor_torso.png")
-		Player:setImageLEGS("Chars/png/hurt/LEGS_pants_greenish.png")
-		Player:setImageBELT("Chars/png/hurt/BELT_leather.png")
-		Player:setImageFEET("Chars/png/hurt/FEET_shoes_brown.png")
+		Player:setImageHEAD("Chars/png/hurt/"..self.itmHEAD)
+		Player:setImageTORSO("Chars/png/hurt/"..self.itmTORSO)
+		Player:setImageLEGS("Chars/png/hurt/"..self.itmLEGS)
+		Player:setImageBELT("Chars/png/hurt/"..self.itmBELT)
+		Player:setImageFEET("Chars/png/hurt/"..self.itmFEET)
 		--Player:setImageWEAPON("Chars/png/hurt/WEAPON_shield_cutout_body.png")
 		--Player:setImageSHEILD("Chars/png/hurt/WEAPON_shield_cutout_body.png")
-		Player:setImageARMS("Chars/png/hurt/TORSO_leather_armor_bracers.png")
-		Player:setImageSHOULDERS("Chars/png/hurt/TORSO_leather_armor_shoulders.png")
+		Player:setImageARMS("Chars/png/hurt/"..self.itmARMS)
+		Player:setImageSHOULDERS("Chars/png/hurt/"..self.itmSHOULDERS)
 				
 		self.animation 			= self.anim8.newAnimation('once', self.g('1-6,1'), 0.1)
 		self.animationHEAD 		= self.anim8.newAnimation('once', self.gHEAD('1-6,1'), 0.1)
