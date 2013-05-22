@@ -1,11 +1,12 @@
 --this is the color pallet
 colorR,colorG,colorB,colorA = love.graphics.getColor()
-base_Color = {colorR,colorG,colorB,colorA}
+base_Color = {colorR,colorG,colorB,colorA} 				
 
 
-Color_Crimson = {105,21,3}
-Color_Blue = {21,108,153}
-Color_Emerald ={47,129,54}
+Color_Crimson 	= {105,21,3}
+Color_Blue 		= {21,108,153}
+Color_Emerald 	= {47,129,54}
+Color_Yellow    = {240,255,0}  
 
 
 

@@ -7,7 +7,7 @@ loader.path = "maps/"
 loader.useSpriteBatch = true
 
 function Outside:load()
-	chatWindow:addText("Testing...","System",Color_Blue )
+--	chatWindow:addText("Testing...","System",Color_Blue )
 	tilemap = loader.load(self.mapfile)
 	
 	--respawns enemies and items if it can

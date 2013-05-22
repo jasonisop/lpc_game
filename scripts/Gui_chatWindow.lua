@@ -11,9 +11,9 @@ function ChatWindow:setup()
 	self.y = love.graphics.getHeight() - ChatScreenImage:getHeight() - 32 -- 32 is a temp number will be using the height of the hotbar once it is there
 
 	self:addText("Legend of Ratnor","System",base_Color )
-	self:addText("This game will be EPIC" ,"System",base_Color)
-	self:addText("Drink Plenty of water" ,"System",base_Color)
-	self:addText("And try not to die!" ,"System",base_Color)
+	-- self:addText("This game will be EPIC" ,"System",base_Color)
+	-- self:addText("Drink Plenty of water" ,"System",base_Color)
+	-- self:addText("And try not to die!" ,"System",base_Color)
 	
 end
 
@@ -23,22 +23,58 @@ function ChatWindow:draw()
 	if self.canDraw	== true then
 		love.graphics.draw(ChatScreenImage, self.x, self.y )
 	--draw text
+	
 		local len = # self.textTable 
+	
+		local temp1 = 3
+		local temp2 = 2
+		local temp3 = 1
+	
+		
+		if len == 1 then
+			
+			temp1 = 0
+		end
+		
+		if len == 2 then
+			
+			temp1 = 1
+			temp2 = 0
+		end
+		
+		if len == 3 then
+			
+			temp1 = 2
+			temp2 = 1
+			temp3 = 0
+		end
+		
+		if len == 4 then
+			
+			temp1 = 3
+			temp2 = 2
+			temp3 = 1
+		end
+		
 		--love.graphics.setColor(Color_Blue)
 		
-		love.graphics.setColor(self.textTable[len-3][3])
-		love.graphics.print(self.textTable[len-3][2]..": " .. self.textTable[len-3][1], self.x + 10,self.y + 10)
+		love.graphics.setColor(self.textTable[len-temp1][3])
+		love.graphics.print(self.textTable[len-temp1][2]..": " .. self.textTable[len-temp1][1], self.x + 10,self.y + 10)
 		
-		love.graphics.setColor(self.textTable[len-2][3])
-		love.graphics.print(self.textTable[len-2][2]..": " .. self.textTable[len-2][1], self.x + 10,self.y + 30)
+		if len > 2 then
+		love.graphics.setColor(self.textTable[len-temp2][3])
+		love.graphics.print(self.textTable[len-temp2][2]..": " .. self.textTable[len-temp2][1], self.x + 10,self.y + 30)
+		end
 		
+		if len > 3 then
+		love.graphics.setColor(self.textTable[len-temp3][3])
+		love.graphics.print(self.textTable[len-temp3][2]..": " .. self.textTable[len-temp3][1], self.x + 10,self.y + 50)
+		end
 		
-		love.graphics.setColor(self.textTable[len-1][3])
-		love.graphics.print(self.textTable[len-1][2]..": " .. self.textTable[len-1][1], self.x + 10,self.y + 50)
-		
-		--causing a crash
+		if len > 4 then
 		love.graphics.setColor(self.textTable[len][3])
 		love.graphics.print(self.textTable[len][2]..": " .. self.textTable[len][1], self.x + 10,self.y + 70)
+		end
 	end
 		love.graphics.setColor(base_Color)
 end

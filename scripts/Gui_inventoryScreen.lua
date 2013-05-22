@@ -50,7 +50,9 @@ function InventoryScreen:draw()
 				slot.item:draw()
 			end
 		end	
+		
 		--self.slots[1].item.draw()
+		
 		love.graphics.draw(InventoryScreenOverImage,self.x, self.y )
 	end
 end
@@ -65,6 +67,7 @@ end
 
 function InventoryScreen:addItemToSlot(item,slot)
 	self.slots[slot].item = item
+	chatWindow:addText("adding item","System", Color_Crimson )
 end
 
 function InventoryScreen:update(dt)

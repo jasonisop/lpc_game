@@ -208,7 +208,7 @@ function Bat:setImage(v)
 end
 
 function Bat:update(dt)
-
+--could move this to improve performance
 	if self.health == 10 then
 		self.healthDiscription = "Healthy"
 	end
@@ -259,6 +259,7 @@ function Bat:respawn()
 		if self.canRespawn then
 			self.health = self.startHealth
 			self.dead = false
+			self.deathProcessed = false
 		end
 	end
 end
@@ -273,7 +274,7 @@ function Bat:draw()
 	end
 	if self.dead and self.deathProcessed == false then
 		self.deathProcessed = true
-		chatWindow:addText("Was killed", "bat", Color_Emerald )
+		chatWindow:addText("Was killed", "bat", Color_Yellow )
 	end
 	
 end
