@@ -137,7 +137,8 @@ function Player:setUp()
 	--set up the players stats to random numbers
 	self:setStats()
 	--add the starting items to the players inventory
-	inventory[1] = HealthPotion:new()
+	self.inventory[1] = HealthPotion:new()
+
 	-- set up remaining stats based on equiped  items
 end
 
@@ -594,6 +595,10 @@ function Player:keypressed(k)
 
 	--testing function  its a telaporter or somethin like that
 	if k == "g" and player.dead == false then
+		testTemp = 	HealthPotion:new()
+		
+		inventoryscreen.addItemToSlot( 1, "Why does it say im a slot?" )
+		
 		self:setLocation(5,5,"down")
 	end	
 end

@@ -3,8 +3,8 @@ colorR,colorG,colorB,colorA = love.graphics.getColor()
 base_Color = {colorR,colorG,colorB,colorA} 				
 
 
-Color_Crimson 	= {105,21,3}
-Color_Blue 		= {21,108,153}
+Color_Crimson 	= {220,20,60}
+Color_Blue 		= {0,0,255}
 Color_Emerald 	= {47,129,54}
 Color_Yellow    = {240,255,0}  
 

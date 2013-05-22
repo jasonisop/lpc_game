@@ -76,6 +76,10 @@ function HealthPotion:draw()
 	love.graphics.draw(self.itemImage,self.x,self.y )
 end
 
+function HealthPotion:getName(v)
+	return self.itemName
+end
+
 function HealthPotion:getX()
 	return self.x
 end
@@ -91,6 +95,7 @@ end
 function HealthPotion:setY(v)
 	self.y = v
 end
+
 
 --function gets called from main to time reuse
 function HealthPotion:heartBeat()
@@ -125,7 +130,9 @@ function HealthPotion:update(dt)
   end
 end
 
-
+function HealthPotion:draw()
+love.graphics.draw(itemImage,self.x, self.y )
+end
 
 
 
