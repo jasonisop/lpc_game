@@ -1,6 +1,7 @@
 --[[
 	the Player class 
-		
+	currently needs a blank image to replace ones that are not used in some animations like "hurt"	
+	
 --]]
 
 Player = {	name 			= "Hero", 		--Player name set in char builder
@@ -56,9 +57,10 @@ Player = {	name 			= "Hero", 		--Player name set in char builder
 			itmFEET			="FEET_shoes_brown.png",
 			itmHANDS		="",
 			itmHEAD			="HEAD_hair_blonde.png",
+			itmHelm			="",
 			itmLEGS 		="LEGS_pants_greenish.png",
 			itmTORSO 		="TORSO_leather_armor_torso.png",	
-			itmWEAPON 		="",
+			itmWEAPON 		="WEAPON_dagger.png",
 			itmSHEILD 		="WEAPON_shield_cutout_body.png",
 			itmARMS 		="TORSO_leather_armor_bracers.png",		 			 				 		 			  			
 			itmSHOULDERS	="TORSO_leather_armor_shoulders.png"			
@@ -247,8 +249,6 @@ function Player:heartBeat()
 		--run a death function
 		Player:setAnimation(self.facing,"deathSpin")
 	end
-	
-	
 end
 
 function Player:getCanMove() 
@@ -319,16 +319,6 @@ function Player:setAnimation(facing,animationType)
 	end
 	
 	if animationType == "stand" and player.dead == false and self.canMove == true then
-		-- Player:setImage("male_walkcycle.png")
-		-- Player:setImageHEAD("Chars/png/walkcycle/HEAD_hair_blonde.png")
-		-- Player:setImageTORSO("Chars/png/walkcycle/TORSO_leather_armor_torso.png")
-		-- Player:setImageLEGS("Chars/png/walkcycle/LEGS_pants_greenish.png")
-		-- Player:setImageBELT("Chars/png/walkcycle/BELT_leather.png")
-		-- Player:setImageFEET("Chars/png/walkcycle/FEET_shoes_brown.png")
-		-- Player:setImageWEAPON("Chars/png/walkcycle/WEAPON_shield_cutout_body.png")
-		-- Player:setImageSHEILD("Chars/png/walkcycle/WEAPON_shield_cutout_body.png")
-		-- Player:setImageARMS("Chars/png/walkcycle/TORSO_leather_armor_bracers.png")
-		-- Player:setImageSHOULDERS("Chars/png/walkcycle/TORSO_leather_armor_shoulders.png")
 		
 		if 	 	self.facing == "up" then 	self.animation 			= self.anim8.newAnimation('loop', self.g('1-1,1'), 0.1)
 											self.animationHEAD 		= self.anim8.newAnimation('loop', self.gHEAD('1-1,1'), 0.1)
@@ -419,12 +409,12 @@ function Player:setAnimation(facing,animationType)
 		Player:setImageHEAD("Chars/png/slash/"..self.itmHEAD)
 		Player:setImageTORSO("Chars/png/slash/"..self.itmTORSO)
 		Player:setImageLEGS("Chars/png/slash/"..self.itmLEGS)
-		Player:setImageBELT("Chars/png/slash/"..self.itmHEAD)
-		Player:setImageFEET("Chars/png/slash/"..self.itmHEAD)
-		Player:setImageWEAPON("Chars/png/slas"..self.itmHEAD)
-		Player:setImageSHEILD("Chars/png/slash/"..self.itmHEAD)
-		Player:setImageARMS("Chars/png/slash/"..self.itmHEAD)
-		Player:setImageSHOULDERS("Chars/png/slash/"..self.itmHEAD)
+		Player:setImageBELT("Chars/png/slash/"..self.itmBELT)
+		Player:setImageFEET("Chars/png/slash/"..self.itmFEET)
+		Player:setImageWEAPON("Chars/png/slash/"..self.itmWEAPON)
+		Player:setImageSHEILD("Chars/png/slash/"..self.itmSHEILD)
+		Player:setImageARMS("Chars/png/slash/"..self.itmARMS)
+		Player:setImageSHOULDERS("Chars/png/slash/"..self.itmSHOULDERS)
 		
 		if 	 	self.facing == "up" then	self.animation 			= self.anim8.newAnimation('once', self.g('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
 											self.animationHEAD 		= self.anim8.newAnimation('once', self.gHEAD('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
@@ -477,7 +467,7 @@ function Player:setAnimation(facing,animationType)
 		Player:setImageBELT("Chars/png/spellcast/BELT_leather.png")
 		Player:setImageFEET("Chars/png/spellcast/FEET_shoes_brown.png")
 		Player:setImageWEAPON("Chars/png/spellcast/LEGS_pants_greenish.png")
-		Player:setImageSHEILD("Chars/png/spellcast/WEAPON_shield_cutout_body.png")
+		--Player:setImageSHEILD("Chars/png/spellcast/WEAPON_shield_cutout_body.png")
 		Player:setImageARMS("Chars/png/spellcast/TORSO_leather_armor_bracers.png")
 		Player:setImageSHOULDERS("Chars/png/spellcast/TORSO_leather_armor_shoulders.png")
 
