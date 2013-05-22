@@ -255,8 +255,8 @@ function Player:getCanMove()
 	return self.canMove
 end
 
+--function for setting animations, changes sprite sheets based on animation needs and worn items
 function Player:setAnimation(facing,animationType)
-	--- need way to set image to what the player is reallly wearing. also need to switch from using multi char sprites to one large one.
 	
 	self.facing = facing
 	
@@ -266,7 +266,7 @@ function Player:setAnimation(facing,animationType)
 		Player:setImageLEGS("Chars/png/walkcycle/"..self.itmLEGS)
 		Player:setImageBELT("Chars/png/walkcycle/"..self.itmBELT)
 		Player:setImageFEET("Chars/png/walkcycle/"..self.itmFEET)
-			Player:setImageWEAPON("Chars/png/walkcycle/"..self.itmHEAD) --somethin wrong here
+Player:setImageWEAPON("Chars/png/walkcycle/"..self.itmHEAD)               --somethin wrong here should be set to a blank image here 
 		Player:setImageSHEILD("Chars/png/walkcycle/"..self.itmSHEILD)
 		Player:setImageARMS("Chars/png/walkcycle/"..self.itmARMS)
 		Player:setImageSHOULDERS("Chars/png/walkcycle/"..self.itmSHOULDERS)
@@ -461,15 +461,15 @@ function Player:setAnimation(facing,animationType)
 	 
 	 if animationType =="spell" and player.dead == false then
 		Player:setImage("male_spellcast.png")
-		Player:setImageHEAD("Chars/png/spellcast/HEAD_hair_blonde.png")
-		Player:setImageTORSO("Chars/png/spellcast/TORSO_leather_armor_torso.png")
-		Player:setImageLEGS("Chars/png/spellcast/LEGS_pants_greenish.png")
-		Player:setImageBELT("Chars/png/spellcast/BELT_leather.png")
-		Player:setImageFEET("Chars/png/spellcast/FEET_shoes_brown.png")
-		Player:setImageWEAPON("Chars/png/spellcast/LEGS_pants_greenish.png")
+		Player:setImageHEAD("Chars/png/spellcast/"..self.itmHEAD)
+		Player:setImageTORSO("Chars/png/spellcast/"..self.itmTORSO)
+		Player:setImageLEGS("Chars/png/spellcast/"..self.itmLEGS)
+		Player:setImageBELT("Chars/png/spellcast/"..self.itmBELT)
+		Player:setImageFEET("Chars/png/spellcast/"..self.itmFEET)
+		Player:setImageWEAPON("Chars/png/spellcast/"..self.itmWEAPON)
 		--Player:setImageSHEILD("Chars/png/spellcast/WEAPON_shield_cutout_body.png")
-		Player:setImageARMS("Chars/png/spellcast/TORSO_leather_armor_bracers.png")
-		Player:setImageSHOULDERS("Chars/png/spellcast/TORSO_leather_armor_shoulders.png")
+		Player:setImageARMS("Chars/png/spellcast/"..self.itmARMS)
+		Player:setImageSHOULDERS("Chars/png/spellcast/"..self.itmSHOULDERS)
 
 		if 		self.facing == "up" then	self.animation 			= self.anim8.newAnimation('once', self.g('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
 											self.animationHEAD 		= self.anim8.newAnimation('once', self.gHEAD('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
@@ -547,13 +547,12 @@ function Player:keyreleased(k)
 end
 
 function Player:keypressed(k)
-
 	self.up		= false
 	self.down	= false
 	self.left	= false
 	self.right	= false
 		
-		if self.up == true or self.down == true or self.right == true or self.left == true 	then	
+		if self.up == true or self.down == true or self.right == true or self.left == true 	then	--Why am i testing this and not doing any thing with it?
 		
 		else
 			if k == "up" then
@@ -581,27 +580,26 @@ function Player:keypressed(k)
 			end	
 		end	
 
-	--add in other key presses for attack and cast ect...
-		--testing
 	if k == "a" then
 		self:setAnimation(self.facing,"attack")
 		self.animating 	= true
 		--check if there is something there(enemy) and deal it damage
 		self:attack()
 	end	
+	
 	if k == "p" then
 		self:setAnimation(self.facing,"spell")
 		self.animating 	= true
 	end	
-	--testing function  its a telaporter
-	
+
+	--testing function  its a telaporter or somethin like that
 	if k == "g" and player.dead == false then
 		self:setLocation(5,5,"down")
 	end	
-	
-	
 end
 
+
+--attack function this should be  change to more oldschool rpg style
 function Player:attack()
 	--check for enemy and that your facing it
 	local tX = 0

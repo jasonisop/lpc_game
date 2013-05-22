@@ -2,11 +2,13 @@
 	notes need to disable keyboard commands while maps are loading
 	also need to set up a file to set up all the maps to clean up main
 	
+	needs battle screens
 ]]
 
 require('scripts/Player')
 require('scripts/Gui_playerHud')
 require('scripts/Gui_chatWindow')
+require('scripts/Gui_hotbar')
 require('scripts/Gui_characterScreen')
 require('scripts/Gui_inventoryScreen')
 require('scripts/DiceRoller')
@@ -22,7 +24,7 @@ jupiter = require ('scripts/jupiter')
 
 
 --sets a container to store stuff
---game states  (play, pause, menu, loading) 
+--game states  (play, pause, menu, loading, battle) 
 Game = {}
 Game.currentMap = 1
 Game.enemies = {}
@@ -55,7 +57,7 @@ local InsideMap = Inside2:new()
 Game:registerMap(OutsideMap,InsideMap)
 
 
---global vars to make things easy
+--global vars to make things easy might move this to the Game global
 global = {}
 global.tx = 0 -- X translation of the screen
 global.ty = 0 -- Y translation of the screen
@@ -63,17 +65,18 @@ global.tileSize = 32
 global.mapWidth =  0	
 global.mapHeight = 0	
 global.cameraTileLimit=10
+global.compainions ="" -- will store any npc companions that the player picks up
 --this ones for testing will be changed to use the players when done
 global.player_Health = 10
 global.player_Water = 7
 global.temp = nil
 
---create a new player
-player = Player:new{x=10*32,y=14*32}
-
+--create a new player and starts the player on the starting tile of 10 - 14
+player = Player:new{x=10*global.tileSize,y=14*global.tileSize}
 
 playerHud = PlayerHud:new() 
 chatWindow = ChatWindow:new()
+hotbar = Hotbar:new()
 characterScreen = CharacterScreen:new()
 diceroller = DiceRoller:new()
 inventoryscreen = InventoryScreen:new()
@@ -103,6 +106,7 @@ function love.load()
 	--sets up the player hud
     playerHud:setup()
 	chatWindow:setup()
+	hotbar:setup()
 	characterScreen:setup()
 	inventoryscreen:setup()
 	diceroller:setSeed()
@@ -138,6 +142,7 @@ function love.update(dt)
 	playerHud:update(dt)
 	characterScreen:update(dt)
 	chatWindow:update(dt)
+	hotbar:update(dt)
 	inventoryscreen:update(dt)
 	for k,map in ipairs(Game.mapList) do Game.mapList[k]:update(dt) end
 end		
@@ -178,6 +183,7 @@ function love.draw()
 
 	playerHud:draw()
 	chatWindow:draw()
+	hotbar:draw()
 	characterScreen:draw()
 	inventoryscreen:draw()
 	--love.graphics.draw(global.temp, 300, 10)

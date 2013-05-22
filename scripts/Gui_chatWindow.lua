@@ -8,7 +8,7 @@ function ChatWindow:setup()
 	ChatScreenImage = love.graphics.newImage("images/Gui/dialog_box.png")
 	
 	self.x = 0
-	self.y = love.graphics.getHeight() - ChatScreenImage:getHeight()
+	self.y = love.graphics.getHeight() - ChatScreenImage:getHeight() - 32 -- 32 is a temp number will be using the height of the hotbar once it is there
 
 	self:addText("Legend of Ratnor","System",base_Color )
 	self:addText("This game will be EPIC" ,"System",base_Color)

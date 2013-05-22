@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="grass" tilewidth="32" tileheight="32">
+  <image source="grass.png" trans="ffaa00" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="19" name="grassalt" tilewidth="32" tileheight="32">
+  <image source="grassalt.png" trans="ffaa00" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="37" name="dirt" tilewidth="32" tileheight="32">
+  <image source="dirt.png" trans="ffaa00" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="55" name="dirt2" tilewidth="32" tileheight="32">
+  <image source="dirt2.png" trans="ffaa00" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="73" name="hole" tilewidth="32" tileheight="32">
+  <image source="hole.png" trans="ffaa00" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="91" name="holek" tilewidth="32" tileheight="32">
+  <image source="holek.png" trans="ffaa00" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="109" name="holemid" tilewidth="32" tileheight="32">
+  <image source="holemid.png" trans="ffaa00" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="127" name="house" tilewidth="32" tileheight="32">
+  <image source="house.png" trans="ffaa00" width="288" height="224"/>
+  <tile id="0">
+   <properties>
+    <property name="obstacle" value="1"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="obstacle" value="1"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="obstacle" value="1"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="obstacle" value="1"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="obstacle" value="1"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="obstacle" value="1"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="obstacle" value="1"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="obstacle" value="1"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="obstacle" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="190" name="bridges" tilewidth="32" tileheight="32">
+  <image source="bridges.png" trans="ffaa00" width="192" height="224"/>
+ </tileset>
+ <tileset firstgid="232" name="rock" tilewidth="32" tileheight="32">
+  <image source="rock.png" trans="ffaa00" width="64" height="32"/>
+ </tileset>
+ <tileset firstgid="234" name="signs" tilewidth="32" tileheight="32">
+  <image source="signs.png" trans="ffaa00" width="96" height="64"/>
+ </tileset>
+ <tileset firstgid="240" name="mountains" tilewidth="32" tileheight="32">
+  <image source="mountains.png" trans="ffaa00" width="384" height="288"/>
+ </tileset>
+ <tileset firstgid="348" name="treetop" tilewidth="32" tileheight="32">
+  <image source="treetop.png" trans="ffaa00" width="192" height="224"/>
+ </tileset>
+ <tileset firstgid="390" name="trunk" tilewidth="32" tileheight="32">
+  <image source="trunk.png" trans="ffaa00" width="192" height="96"/>
+ </tileset>
+ <tileset firstgid="408" name="water" tilewidth="32" tileheight="32">
+  <image source="water.png" trans="ffaa00" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="426" name="waterfall" tilewidth="32" tileheight="32">
+  <image source="waterfall.png" trans="ffaa00" width="96" height="160"/>
+ </tileset>
+ <tileset firstgid="441" name="watergrass" tilewidth="32" tileheight="32">
+  <image source="watergrass.png" trans="ffaa00" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="459" name="barrel" tilewidth="32" tileheight="32">
+  <image source="barrel.png" trans="ffaa00" width="128" height="64"/>
+ </tileset>
+ <tileset firstgid="467" name="buckets" tilewidth="32" tileheight="32">
+  <image source="buckets.png" trans="ffaa00" width="96" height="64"/>
+ </tileset>
+ <tileset firstgid="473" name="shadow" tilewidth="32" tileheight="32">
+  <image source="shadow.png" trans="ffaa00" width="160" height="64"/>
+ </tileset>
+ <tileset firstgid="483" name="cabinets" tilewidth="32" tileheight="32">
+  <image source="cabinets.png" width="192" height="416"/>
+ </tileset>
+ <tileset firstgid="561" name="castle_lightsources" tilewidth="32" tileheight="32">
+  <image source="castle_lightsources.png" width="160" height="128"/>
+ </tileset>
+ <tileset firstgid="581" name="castle_outside" tilewidth="32" tileheight="32">
+  <image source="castle_outside.png" width="544" height="352"/>
+ </tileset>
+ <tileset firstgid="768" name="castlefloors" tilewidth="32" tileheight="32">
+  <image source="castlefloors.png" width="320" height="320"/>
+ </tileset>
+ <tileset firstgid="868" name="castlefloors_outside" tilewidth="32" tileheight="32">
+  <image source="castlefloors_outside.png" width="128" height="160"/>
+ </tileset>
+ <tileset firstgid="888" name="castlewalls" tilewidth="32" tileheight="32">
+  <image source="castlewalls.png" width="384" height="480"/>
+ </tileset>
+ <tileset firstgid="1068" name="cement" tilewidth="32" tileheight="32">
+  <image source="cement.png" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="1086" name="cementstair" tilewidth="32" tileheight="32">
+  <image source="cementstair.png" width="160" height="128"/>
+ </tileset>
+ <tileset firstgid="1106" name="country" tilewidth="32" tileheight="32">
+  <image source="country.png" width="160" height="128"/>
+ </tileset>
+ <tileset firstgid="1126" name="dungeon" tilewidth="32" tileheight="32">
+  <image source="dungeon.png" width="416" height="256"/>
+ </tileset>
+ <tileset firstgid="1230" name="inside" tilewidth="32" tileheight="32">
+  <image source="inside.png" width="320" height="320"/>
+ </tileset>
+ <tileset firstgid="1330" name="kitchen" tilewidth="32" tileheight="32">
+  <image source="kitchen.png" width="64" height="128"/>
+ </tileset>
+ <tileset firstgid="1338" name="lavarock" tilewidth="32" tileheight="32">
+  <image source="lavarock.png" width="96" height="192"/>
+ </tileset>
+ <tileset firstgid="1356" name="stairs" tilewidth="32" tileheight="32">
+  <image source="stairs.png" width="256" height="448"/>
+ </tileset>
+ <tileset firstgid="1468" name="victoria" tilewidth="32" tileheight="32">
+  <image source="victoria.png" width="352" height="160"/>
+ </tileset>
+ <layer name="Ground" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztw8EJAAAMA6H7Z/99C51DwVVTVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/Af00rcA=
+  </data>
+ </layer>
+ <layer name="Dirt" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer name="Hole Mountain" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer name="Grass" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer name="water" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer name="Shadows" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer name="Buildings" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer name="Under Bridge" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer name="Misc Objects Bottoms" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer name="BuildingDoors" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer name="TreeTrunk Bottom" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <objectgroup name="Enemy" width="100" height="100"/>
+ <objectgroup name="Object1" width="100" height="100"/>
+ <layer name="Bridge Above" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer name="Misc Objects Tops" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer name="TreeTrunkTop" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer name="TreeTops" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer name="Roofs" width="100" height="100" opacity="0.87">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <layer name="Roof Objects" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+</map>
