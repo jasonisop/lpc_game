@@ -416,7 +416,7 @@ function Player:setAnimation(facing,animationType)
 	if animationType =="attack" and  player.dead == false then
 		-- need to switch to attack sheet
 		Player:setImage("male_slash.png")
-		Player:setImageHEAD("Chars/png/slash/"..self.itmHEAD")
+		Player:setImageHEAD("Chars/png/slash/"..self.itmHEAD)
 		Player:setImageTORSO("Chars/png/slash/"..self.itmTORSO)
 		Player:setImageLEGS("Chars/png/slash/"..self.itmLEGS)
 		Player:setImageBELT("Chars/png/slash/"..self.itmHEAD)
@@ -527,6 +527,7 @@ end
 
 --called when key is released
 function Player:keyreleased(k)
+	
 	if k == "up" then
 		self.up 		= false
 		self.animating 	= false
@@ -546,6 +547,13 @@ function Player:keyreleased(k)
 		self.right 		= false
 		self.animating 	= false
 	end	
+	
+	-- test if any movment buttons are down if none are go to stand animation
+	if self.up == false and self.down == false and self.left == false and self.right == false then
+		--should try and set up a idle animation
+		self:setAnimation(self.facing,"stand")
+	end
+	
 end
 
 function Player:keypressed(k)
@@ -838,10 +846,6 @@ function Player:update(dt)
 			end
 		end
 	end	
-	
-	if self.animating == false  then
-		self:setAnimation(self.facing,"stand")
-	end
 	
 	--need to make a function for all this crap
 	if self.canMove == false and self.animstarted == false then 
