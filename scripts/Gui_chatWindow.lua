@@ -21,7 +21,7 @@ end
 
 function ChatWindow:draw()
 	if self.canDraw	== true then
-		love.graphics.draw(ChatScreenImage,self.x, self.y )
+		love.graphics.draw(ChatScreenImage, self.x, self.y )
 	--draw text
 		local len = # self.textTable 
 		--love.graphics.setColor(Color_Blue)
@@ -30,15 +30,15 @@ function ChatWindow:draw()
 		love.graphics.print(self.textTable[len-3][2]..": " .. self.textTable[len-3][1], self.x + 10,self.y + 10)
 		
 		love.graphics.setColor(self.textTable[len-2][3])
-		love.graphics.print(self.textTable[len-3][2]..": " .. self.textTable[len-2][1], self.x + 10,self.y + 30)
+		love.graphics.print(self.textTable[len-2][2]..": " .. self.textTable[len-2][1], self.x + 10,self.y + 30)
 		
 		
 		love.graphics.setColor(self.textTable[len-1][3])
-		love.graphics.print(self.textTable[len-3][2]..": " .. self.textTable[len-1][1], self.x + 10,self.y + 50)
+		love.graphics.print(self.textTable[len-1][2]..": " .. self.textTable[len-1][1], self.x + 10,self.y + 50)
 		
 		--causing a crash
-		--love.graphics.setColor(self.textTable[len][3])
-		love.graphics.print(self.textTable[len-3][2]..": " .. self.textTable[len][1], self.x + 10,self.y + 70)
+		love.graphics.setColor(self.textTable[len][3])
+		love.graphics.print(self.textTable[len][2]..": " .. self.textTable[len][1], self.x + 10,self.y + 70)
 	end
 		love.graphics.setColor(base_Color)
 end
