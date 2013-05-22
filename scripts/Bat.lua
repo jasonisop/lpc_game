@@ -20,7 +20,9 @@ Bat = {	health 				= 10,
 		right 				= false, 
 		canRespawn		 	= true, 
 		dead 				= false,
-		healthDiscription	= "Healthy" 
+		deathProcessed		= false;
+		healthDiscription	= "Healthy", 
+		loot 				=""				--will need a loot setup
 		}
 
 function Bat:new (o)
@@ -29,25 +31,28 @@ function Bat:new (o)
     self.__index = self
     return o
 end
+
 --might rename to heartbeat
 function Bat:checkForPlayer()
 	local tempX = 0
 	local tempY = 0
 	
-	if 	 	self.facing == "up" then		tempY = -1
-	elseif  self.facing  == "down" then 	tempY = 1
-	elseif  self.facing  == "left" then	tempX = -1
-	elseif  self.facing  == "right" then 	tempX = 1
+	if 	 	self.facing	== "up" 	then	tempY = -1
+	elseif  self.facing	== "down" 	then 	tempY = 1
+	elseif  self.facing	== "left" 	then	tempX = -1
+	elseif  self.facing == "right" 	then 	tempX = 1
 	end
 				
 	if	player:getTileX() == self.tileX + tempX and player:getTileY() ==  self.tileY + tempY and self.dead == false then
 		global.player_Health = global.player_Health - 1
 	end
 end
+
 --leaving this incase its needed
 function Bat:setup()
 	self.startHealth = self.health
 end
+
 --get and set tile x and y
 function Bat:setTileX(v)
 	self.tileX = v
@@ -156,7 +161,6 @@ function Bat:checkTile(tX,tY)
 end
 
 
-
 function Bat:setAnimation(facing,animationType)
 	self.facing = facing
 	
@@ -260,13 +264,18 @@ function Bat:respawn()
 end
 
 function Bat:draw()
-	--the off set is to correctly place the player
+	--the off set is to correctly place the enemy
 	if self.dead == false then
 		self.animation:draw(self.image, self.x  , self.y  )
 		
 		local Len = string.len(self.name .." " ..tostring(self.healthDiscription))
 		love.graphics.print( self.name .." " ..tostring(self.healthDiscription), self.x - Len * 5 , self.y -10)
 	end
+	if self.dead and self.deathProcessed == false then
+		self.deathProcessed = true
+		chatWindow:addText("Was killed", "bat", Color_Emerald )
+	end
+	
 end
 
 

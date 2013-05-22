@@ -2,7 +2,7 @@ This list is to help keep track of items and their id
 
 Item ID		Item Name			Effect 			Item Type		charges 	recharges	Image Used			classMade
 0001		HealthPotion		Heals			Consumable		1						items.png  3-1		yes/not finished
-0002		WaterPotion			Hydrates		Consumable		1						itmes.pnc  3-2		
+0002		WaterPotion			Hydrates		Consumable		1						itmes.png  3-2		
 0003		Shoes				SpeedBoost		Feet								
 0004		Basic Sword			AttackBoost		Weapon								
 0005		Basic Shield		DefenseBoost	Sheild								

@@ -1,5 +1,7 @@
 require('scripts/Gui')
-require ('scripts/itemscripts/HealthPotion')	
+
+require ('scripts/itemscripts/ItemRequire')
+--will need to make a massive Item require script so its not  all over	
 InventoryScreen = GUI:new{ 	anim8 						= require ('scripts/anim8'), 
 							g 							= {}, 
 							animation 					= {}, 
