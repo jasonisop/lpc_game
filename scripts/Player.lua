@@ -597,7 +597,7 @@ function Player:keypressed(k)
 	if k == "g" and player.dead == false then
 		testTemp = 	HealthPotion:new()
 		
-		inventoryscreen.addItemToSlot( 1, "Why does it say im a slot?" )
+		inventoryscreen:addItemToSlot( 1, "Why does it say im a slot?" )
 		
 		self:setLocation(5,5,"down")
 	end	
