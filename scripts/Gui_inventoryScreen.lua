@@ -66,8 +66,8 @@ function InventoryScreen:getDraw()
 end
 
 function InventoryScreen:addItemToSlot( slot, item )
-	--self.slots[slot].item = item
-	chatWindow:addText( slot ,"System", Color_Crimson )
+	self.slots[slot].item = item
+--	chatWindow:addText( slot ,"System", Color_Crimson )
 end
 
 function InventoryScreen:update(dt)

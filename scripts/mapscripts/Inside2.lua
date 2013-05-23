@@ -26,9 +26,11 @@ function Inside2:load()
 	if x == 13 and y == 13 then	
 		chatWindow:addText("loading map...","System",Color_Crimson )
 		player:setLocation(13,14,"down")
+		--player:setLocation(50,50,"down")
 		Game.currentMap = 1
 				
 		Game.mapList[Game.currentMap]:load()--loads in the new map
 		Game.mapList[Game.currentMap]:setCameraWindow(13, 14)
+		--Game.mapList[Game.currentMap]:setCameraWindow(50, 50)
 	end
 end

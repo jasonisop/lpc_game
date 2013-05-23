@@ -378,7 +378,7 @@ Player:setImageWEAPON("Chars/png/walkcycle/"..self.itmHEAD)               --some
 	end
 	
 	if animationType == "death" then
-		chatWindow:addText("you have died" )
+		chatWindow:addText("you have died","System",base_Color )
 		--play death music
 		Player:setImage("male_hurt.png")
 		Player:setImageHEAD("Chars/png/hurt/"..self.itmHEAD)

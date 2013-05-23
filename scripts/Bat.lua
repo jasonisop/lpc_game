@@ -244,6 +244,11 @@ function Bat:update(dt)
 
 	if self.health == 0 then
 		self.dead = true
+		
+		if self.dead and self.deathProcessed == false then
+			self.deathProcessed = true
+			chatWindow:addText("Was killed", "bat", Color_Yellow )
+		end
 	end
 
 	if self.animating == false then
@@ -272,10 +277,7 @@ function Bat:draw()
 		local Len = string.len(self.name .." " ..tostring(self.healthDiscription))
 		love.graphics.print( self.name .." " ..tostring(self.healthDiscription), self.x - Len * 5 , self.y -10)
 	end
-	if self.dead and self.deathProcessed == false then
-		self.deathProcessed = true
-		chatWindow:addText("Was killed", "bat", Color_Yellow )
-	end
+
 	
 end
 
