@@ -30,7 +30,7 @@ function Inside2:load()
 		Game.currentMap = 1
 				
 		Game.mapList[Game.currentMap]:load()--loads in the new map
-		Game.mapList[Game.currentMap]:setCameraWindow(13, 14)
+		Game.mapList[Game.currentMap]:setCameraWindow(13, 14) --
 		--Game.mapList[Game.currentMap]:setCameraWindow(50, 50)
 	end
 end
