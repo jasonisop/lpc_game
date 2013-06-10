@@ -3,8 +3,8 @@
 
 --]]
 
-require('scripts/Bat')
-require('scripts/Eyeball')
+require('scripts/npcscripts/Bat')
+require('scripts/npcscripts/Eyeball')
 
 Enemy = { container = {} }
 
@@ -21,9 +21,7 @@ function Enemy:registerEnemy(mapId , ... )
 	for k,enemy in ipairs(arg) do 
 		table.insert(self.container[mapId],enemy) 
 		enemy:setLocation(enemy:getTileX(),enemy:getTileY(),enemy:getFacing())
-		--enemy:setLocation(enemy.tileX, enemy.tileY, enemy.facing)
 		enemy:setAnimation(enemy:getFacing(),"walk")
-		--enemy:setAnimation(enemy.facing,"walk")
 		enemy:setup()
 	end
 end
@@ -48,6 +46,8 @@ local bat2 = Bat:new{name = "bat", tileX = 4,tileY = 4,facing = "left",canRespaw
 local eyeball2 = Eyeball:new{health = 5,name = "eyeball",tileX = 6, tileY = 6, canRespawn = false,dead = true}
 
 --must register every map
+
 --oustide map
 enemyHolder:registerEnemy(1, bat,eyeball)
-enemyHolder:registerEnemy(2, bat2,eyeball2)
+--inside map
+enemyHolder:registerEnemy(2,nil)
