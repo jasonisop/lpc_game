@@ -23,7 +23,7 @@ Eyeball = {	health 			= 10,
 			visionDistance 	= 5,
 			hate	 		= 0,
 			attackOnSight 	= true,
-			randomMove 		= false 
+			randomMove 		= false
 			}
 
 function Eyeball:new (o)

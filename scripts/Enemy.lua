@@ -25,12 +25,14 @@ function Enemy:registerEnemy(mapId , ... )
 		enemy:setup()
 	end
 end
+
 --will remove any enemy from the holder
 function Enemy:removeEnemy()
 
 end
 
-function Enemy:setupEnemy(mapId)
+--this might go in the npc heartbeat 
+function Enemy:findTarget()
 
 end
 
