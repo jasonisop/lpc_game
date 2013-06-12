@@ -175,7 +175,6 @@ function Player:addItem(itemId)
 
 end
 
-
 function Player:removeItem(ItemId)
 end
 
@@ -199,7 +198,8 @@ function Player:setLocation(tX,tY,facing)
 	self.x 		= self.tileX * 32
 	self.y 		= self.tileY * 32
 	--reset the camera
-	Game.mapList[Game.currentMap]:setCameraWindow(self.x, self.y)
+--	Game.mapList[Game.currentMap]:setCameraWindow(self.x, self.y)
+	Game.mapList[Game.currentMap]:setCameraWindow(global.tx, global.ty)
 end
 
 function Player:moveTile(tX,tY)
@@ -378,7 +378,7 @@ Player:setImageWEAPON("Chars/png/walkcycle/"..self.itmHEAD)               --some
 	end
 	
 	if animationType == "death" then
-		chatWindow:addText("you have died","System",base_Color )
+		chatWindow:addText("you have died","System",base_Color ) -- this really should be moved somewhere else
 		--play death music
 		Player:setImage("male_hurt.png")
 		Player:setImageHEAD("Chars/png/hurt/"..self.itmHEAD)
@@ -540,6 +540,7 @@ function Player:keyreleased(k)
 	end	
 	
 	-- test if any movment buttons are down if none are go to stand animation
+	--should add a timer and set up idle animations
 	if self.up == false and self.down == false and self.left == false and self.right == false then
 		--should try and set up a idle animation
 		self:setAnimation(self.facing,"stand")
@@ -704,9 +705,8 @@ function Player:update(dt)
 	local camera_down 	= false
 	local camera_left 	= false
 	local camera_right 	= false	
-	self.speed 			= 150
-	
-	
+	self.speed 			= 150 -- why is this getting set here?
+		
 	if self.up == false and self.down == false and self.right == false and self.left == false	then	
 		if love.keyboard.isDown( "up" ) then
 			self.up 		= true
@@ -726,6 +726,8 @@ function Player:update(dt)
 			self.animating 	= true
 		end
 	end
+	
+	
 	--up
 	if self.up and self.canMove then	
 				
@@ -882,8 +884,7 @@ function Player:draw()
 	--self.animationHANDS:draw(self.imageLEGS, self.x -32  , self.y -28 )
 	--self.animationBEHIND:draw(self.imageLEGS, self.x -32  , self.y -28 )
 
-	-- love.graphics.print(self.name, self.x - 20 , self.y - 30)
-
+	--love.graphics.print(self.name, self.x - 20 , self.y - 30)
 end
 
 
