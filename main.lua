@@ -33,7 +33,8 @@ Game.state = 'play'
 
 
 function Game:registerEnemys(...)
-for k,enemy in ipairs(arg) do table.insert(Game.enemies,enemy) end
+	local arg = {...}
+	for k,enemy in ipairs(arg) do table.insert(Game.enemies,enemy) end
 end
 
 function Game:removeEnemys()
@@ -43,6 +44,7 @@ function Game:removeEnemys()
 end
 
 function Game:registerMap(...)
+	local arg = {...}
 	for k,map in ipairs(arg) do table.insert(Game.mapList,map) end
 end
 
