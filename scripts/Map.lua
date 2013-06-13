@@ -21,6 +21,7 @@ function Map:new (o)
 end
 
 function Map:setCameraWindow(x, y)
+--commented out for new Camera
 	if x >= love.graphics.getWidth()/2 then
 		if (x + love.graphics.getWidth()/2) * -1 <= -global.mapWidth + love.graphics.getWidth() then
 			global.tx = -global.mapWidth + love.graphics.getWidth()
@@ -62,11 +63,17 @@ end
 function Map:draw()
 	-- Set sprite batches if they are different than the settings.
 	-- Scale and translate the game screen for map drawing
+
 	local ftx, fty = math.floor(global.tx), math.floor(global.ty)
+
+	local test = camera:getBounds()
+
+	
 	love.graphics.push()
 	love.graphics.translate(ftx, fty)
 	tilemap:autoDrawRange(ftx + 2, fty + 2 , 1, 32) 
 	tilemap:draw() 
+	
 	love.graphics.pop()
 end
 		  

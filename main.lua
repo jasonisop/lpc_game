@@ -13,7 +13,7 @@ require('scripts/Gui_characterScreen')
 require('scripts/Gui_inventoryScreen')
 require('scripts/DiceRoller')
 require('scripts/Enemy')
-
+require('scripts/Camera')
 
 --datasaving and loading
 jupiter = require ('scripts/jupiter')
@@ -72,6 +72,9 @@ global.compainions ="" -- will store any npc companions that the player picks up
 global.player_Health = 10
 global.player_Water = 7
 global.temp = nil
+--global.width = love.graphics.getWidth()
+--global.height = love.graphics.getHeight()
+
 
 --create a new player and starts the player on the starting tile of 10 - 14
 player = Player:new{x=10*global.tileSize,y=14*global.tileSize}
@@ -90,6 +93,12 @@ function love.load()
 	normalCron = cron.every(1, heartBeats)
 	fastCron = cron.every(.5, fastHeartBeats)
 	slowCron = cron.every(2, slowHeartBeats)
+
+	-- setting up my new camera	
+	global.width = love.graphics.getWidth()
+	global.height = love.graphics.getHeight()
+	camera:setBounds(0, 0, global.width, global.height)
+	
 	
 	--load the firstmap
 	Game.mapList[Game.currentMap]:load()
@@ -147,6 +156,9 @@ function love.update(dt)
 	hotbar:update(dt)
 	inventoryscreen:update(dt)
 	for k,map in ipairs(Game.mapList) do Game.mapList[k]:update(dt) end
+	
+	camera:setPosition(player:getX() - global.width / 2, player:getY() - global.height / 2)
+	
 end		
 
 function love.mousepressed(x, y, button)
@@ -181,14 +193,25 @@ function love.keyreleased(k)
 end
 
 function love.draw()
-	for k,map in ipairs(Game.mapList) do Game.mapList[k]:draw() end	
-
+	camera:set()
+	
+	for k,map in ipairs(Game.mapList) do 
+		Game.mapList[k]:draw() 
+	end	
+	camera:unset()
+	
+	
 	playerHud:draw()
 	chatWindow:draw()
 	hotbar:draw()
 	characterScreen:draw()
 	inventoryscreen:draw()
+	
+
 	--love.graphics.draw(global.temp, 300, 10)
 	--love.graphics.print(tostring(love.filesystem.exists( "mains.lua" )), 300,10)
 end
 
+function math.clamp(x, min, max)
+  return x < min and min or (x > max and max or x)
+end

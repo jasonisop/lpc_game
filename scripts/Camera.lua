@@ -1,9 +1,8 @@
 ----------------------------------------
 --
---This class is not used
+--This class is not used  But it is ine the works
 --
 ----------------------------------------
-
 
 camera = {}
 camera._x = 0
@@ -11,6 +10,7 @@ camera._y = 0
 camera.scaleX = 1
 camera.scaleY = 1
 camera.rotation = 0
+
 
 function camera:set()
   love.graphics.push()
