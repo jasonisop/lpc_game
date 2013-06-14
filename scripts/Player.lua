@@ -193,7 +193,6 @@ function Player:setLocation(tX,tY,facing)
 	self.tileY 	= tY
 	self.x 		= self.tileX * global.tileSize
 	self.y 		= self.tileY * global.tileSize
-	Game.mapList[Game.currentMap]:setCameraWindow(global.tx, global.ty)
 end
 
 function Player:moveTile(tX,tY)
@@ -254,7 +253,7 @@ end
 
 --function for setting animations, changes sprite sheets based on animation needs and worn items
 function Player:setAnimation(facing,animationType)
-	
+	--Game.checkIdle = false
 	self.facing = facing
 	
 		Player:setImage("male_walkcycle.png")
@@ -536,7 +535,6 @@ function Player:keyreleased(k)
 	end	
 	
 	-- test if any movment buttons are down if none are go to stand animation
-	--should add a timer and set up idle animations
 	if self.up == false and self.down == false and self.left == false and self.right == false then
 		--should try and set up a idle animation
 		self:setAnimation(self.facing,"stand")
@@ -545,6 +543,7 @@ function Player:keyreleased(k)
 end
 
 function Player:keypressed(k)
+
 	self.up		= false
 	self.down	= false
 	self.left	= false
@@ -782,6 +781,10 @@ function Player:update(dt)
 			self.x = tempX
 		end
 	end	
+	
+	if self.animating == false then
+	Game.checkIdle = true
+	end
 	
 	--need to make a function for all this crap
 	if self.canMove == false and self.animstarted == false then 

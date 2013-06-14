@@ -1,8 +1,3 @@
-----------------------------------------
---
---This class is not used  But it is ine the works
---
-----------------------------------------
 
 camera = {}
 camera._x = 0

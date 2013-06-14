@@ -30,6 +30,8 @@ Game.currentMap = 1
 Game.enemies = {}
 Game.mapList = {}
 Game.state = 'play'
+Game.idle = false
+Game.checkIdle = false
 
 
 function Game:registerEnemys(...)
@@ -58,19 +60,16 @@ local InsideMap = Inside2:new()
 
 Game:registerMap(OutsideMap,InsideMap)
 
-
---global vars to make things easy might move this to the Game global
+											--global vars to make things easy might move this to the Game global
 global = {}
-global.tx = 0 -- X translation of the screen
-global.ty = 0 -- Y translation of the screen
 global.tileSize = 32
 global.mapWidth =  0	
 global.mapHeight = 0	
-global.cameraTileLimit=10
-global.compainions ="" -- will store any npc companions that the player picks up
---this ones for testing will be changed to use the players when done
-global.player_Health = 10
+global.compainions ="" 						-- will store any npc companions that the player picks up
+
+global.player_Health = 10					--this ones for testing will be changed to use the players when done
 global.player_Water = 7
+
 global.temp = nil
 global.width = love.graphics.getWidth()
 global.height = love.graphics.getHeight()
@@ -96,9 +95,7 @@ function love.load()
 
 	--load the firstmap
 	Game.mapList[Game.currentMap]:load()
-	
-
-	
+		
    	--places the players on tile 5 5 to start
 	player:setAnimation("down","stand")
 	player:setLocation(5,5,"down")
@@ -125,6 +122,10 @@ end
 
 function slowHeartBeats()
 --chatWindow:addText("Slow Heart Beat " ,"System",base_Color)
+	if Game.checkIdle == true then
+		Game.checkIdle = false
+		chatWindow:addText("set to idle animation " ,"System",base_Color)
+	end
 end
 
 function fastHeartBeats()
@@ -139,16 +140,16 @@ function heartBeats()
 	end
 
 	player:heartBeat()
-	
 end
 
 -- main game loop  currently 
 function love.update(dt)
+	chatWindow:update(dt)
 	player:update(dt)
 	cron.update(dt)
 	playerHud:update(dt)
 	characterScreen:update(dt)
-	chatWindow:update(dt)
+
 	hotbar:update(dt)
 	inventoryscreen:update(dt)
 	for k,map in ipairs(Game.mapList) do Game.mapList[k]:update(dt) end
@@ -175,11 +176,11 @@ function love.keypressed(k)
 	-- need to remap cast animation
 	if k == "c" then
 		if characterScreen:getDraw() == false then
-		characterScreen:setDraw(true)
-		inventoryscreen:setDraw(true)
+			characterScreen:setDraw(true)
+			inventoryscreen:setDraw(true)
 		else
-		characterScreen:setDraw(false)
-		inventoryscreen:setDraw(false)
+			characterScreen:setDraw(false)
+			inventoryscreen:setDraw(false)
 		end
 	end
 end
@@ -189,23 +190,17 @@ function love.keyreleased(k)
 end
 
 function love.draw()
+		
 	camera:set()
-	
-	for k,map in ipairs(Game.mapList) do 
-		Game.mapList[k]:draw() 
-	end	
+		Game.mapList[Game.currentMap]:draw() 
 	camera:unset()
-	
-	
+		
 	playerHud:draw()
 	chatWindow:draw()
 	hotbar:draw()
 	characterScreen:draw()
 	inventoryscreen:draw()
 	
-
-	--love.graphics.draw(global.temp, 300, 10)
-	--love.graphics.print(tostring(love.filesystem.exists( "mains.lua" )), 300,10)
 end
 
 function math.clamp(x, min, max)
