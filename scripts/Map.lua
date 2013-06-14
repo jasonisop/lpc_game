@@ -66,7 +66,7 @@ function Map:draw()
 
 	local ftx, fty = math.floor(global.tx), math.floor(global.ty)
 
-	local test = camera:getBounds()
+	--local test = camera:getBounds()
 
 	
 	love.graphics.push()
