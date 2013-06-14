@@ -1,12 +1,19 @@
---New Player Class
+--[[
+	the Player class 
+	currently needs a blank image to replace ones that are not used in some animations like "hurt"	
+	
+--]]
+
 Player = {	name 			= "Hero", 		--Player name set in char builder
 			class 			= "", 			--Player class set in char builder
 			race 			= "human",		--Player race set in char builder
-			speed 			= 150, 			--how fast the player moves this should also effect the camera
+			speed 			= 150, 			--how fast the player moves
+			camSpeed 		= 150, 			--speed that that camera moves on the tilemap
 			health 			= 10, 			--players  current heath
 			startingHealth 	= 10,			--players heath when starting the game
-			mana 			= 10, 			--players current mana
-			startingMana 	= 10, 			--players mana when starting the game
+			water 			= 10, 			--players current water
+			startingWater 	= 10, 			--players water when starting the game
+			enemyType 		= "basic", 		--Not sure**** i think brought over from enemy class
 			x 				= 100, 			--players  x location on the screen
 			y 				= 100, 			--players y location on the screen
 			tileX 			= 0, 			-- the tileX that the player is on on the tilemap
@@ -44,7 +51,6 @@ Player = {	name 			= "Hero", 		--Player name set in char builder
 			gARMS 		= {}, 	animationARMS 		= {},	imageARMS		= "",		 			 				 		 			  			
 			gSHOULDERS 	= {},	animationSHOULDERS 	= {},	imageSHOULDERS	= "",
 
-			--needs to set up items with item lists/name
 			itmBODY			="male_walkcycle.png",
 			itmBEHIND 		="",
 			itmBELT			="BELT_leather.png",
@@ -60,82 +66,79 @@ Player = {	name 			= "Hero", 		--Player name set in char builder
 			itmSHOULDERS	="TORSO_leather_armor_shoulders.png"			
 			}
 
--- im not sure im going to be needing more then one player 		
+
 function Player:new (o)
 	o = o or {}
 	setmetatable(o, self)
     self.__index = self
     return o
-end			
-			
+end
+
+------------------- getters/setters----------------
 function Player:getHealth()
 	return self.health
 end
-
 function Player:setHealth(v)
 end
 
-function Player:getMana()
-	return self.mana
+function Player:getWater()
+	return self.water
+end
+function Player:setWater(v)
+	self.water = v
 end
 
-function Player:setMana(v)
-	self.mana = v
-end
-
+--get and set tile x and y
 function Player:setTileX(v)
 	self.tileX = v
 end
-
 function Player:getTileX()
 	return self.tileX
 end
-
 function Player:setTileY(v)
 	self.tileY = v
 end
-
 function Player:getTileY()
 	return self.tileY
 end
-
+ 
+ 
+--get and set player x and y
 function Player:setX(v)
 	self.x = v
 end
-
 function Player:getX()
 	return self.x
 end
-
 function Player:setY(v)
 	self.y = v
 end
-
 function Player:getY()
 	return self.y
 end
-			
+
+--get and set speed
 function Player:getSpeed()
 	return self.speed
 end
-
 function Player:setSpeed(v)
 	self.speed = v
-end	
+end
 
+--get and set facing
 function Player:getFacing()
 	return self.facing
 end
-
 function Player:setFacing(v)
 	self.facing = v
-end		
-
---New player setup
+end
+------------------- end of getters/setters----------
 function Player:setUp()
 	--set up the players stats to random numbers
 	self:setStats()
---	self.inventory[1] = HealthPotion:new()
+	--add the starting items to the players inventory
+	self.inventory[1] = HealthPotion:new()
+
 	-- set up remaining stats based on equiped  items
 end
 
@@ -159,7 +162,9 @@ function Player:getStat(v)
 end
 
 function Player:setAttack()
-
+	--loop thru the equiped table and add up all attack bonus
+	local tempCount = 0
+	
 end
 
 function Player:setDefense()
@@ -186,28 +191,27 @@ function Player:changeWeapon(v)
 	self.weaponType = v
 end
 
---function moves player to a tile
 function Player:setLocation(tX,tY,facing)
 	self.facing = facing
 	self.tileX 	= tX
 	self.tileY 	= tY
-	self.x 		= self.tileX * global.tileSize
-	self.y 		= self.tileY * global.tileSize
+	self.x 		= self.tileX * 32
+	self.y 		= self.tileY * 32
+	--reset the camera
+--	Game.mapList[Game.currentMap]:setCameraWindow(self.x, self.y)
 	Game.mapList[Game.currentMap]:setCameraWindow(global.tx, global.ty)
 end
 
 function Player:moveTile(tX,tY)
 	local tile = layer.tileData(self.tileX + tX, self.tileY + tY)
-	
-	--checks for collision currently only nil work as no tile is set  as obstacle
 	if tile == nil then return end
 	if tile.properties.obstacle then return end
-
 	-- Otherwise change the guy's tile
+	
 	self.tileX = self.tileX + tX
 	self.tileY = self.tileY + tY
-		
-	--have the map check if we hit anything here this is what triggers map changes ect... 
+	
+	--have the map check if we hit anything here
 	Game.mapList[Game.currentMap]:checkTile(self.tileX,self.tileY)
 end
 
@@ -622,6 +626,7 @@ function Player:attack()
 			
 			--if atkRoll
 			
+			
 			enemy:setHealth(enemy:getHealth() - self.weaponDamage)	
 		--	chatWindow:addText("you hit ".. enemy:getName() ,"System",base_Color)
 			return
@@ -700,6 +705,7 @@ function Player:update(dt)
 	local camera_down 	= false
 	local camera_left 	= false
 	local camera_right 	= false	
+	self.speed 			= 150 -- why is this getting set here?
 		
 	if self.up == false and self.down == false and self.right == false and self.left == false	then	
 		if love.keyboard.isDown( "up" ) then
@@ -741,7 +747,6 @@ function Player:update(dt)
 				self:moveTile(0,-1)
 			end	
 		else
-		
 			self.y = tempY
 			-- this was moved for camera
 			if love.keyboard.isDown("up") and global.ty <= 0 and self.y <= global.mapHeight - (global.tileSize * global.cameraTileLimit ) then 
@@ -848,6 +853,7 @@ function Player:update(dt)
 		self.dead = true
 		self:setAnimation(self.facing,"death")
 	end
+	
 	--animation updateblock
 	self.animation:update(dt)
 	self.animationHEAD:update(dt)
@@ -883,7 +889,3 @@ end
 
 
 
-
-
-
-			
