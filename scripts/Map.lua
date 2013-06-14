@@ -6,9 +6,8 @@ Map.currentMap = 1
 tilemap = {}
 layer = {}
 
---this should render player and enemys needs renamed
+--this should render player and enemys needs renamed also this is a global function why is it in map
 function test()
-	--for k,enemy in ipairs(Game.enemies) do enemy:draw() end
 	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do enemy:draw() end
 	player:draw()
 end

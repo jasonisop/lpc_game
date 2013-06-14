@@ -15,7 +15,7 @@ function Outside:load()
 	
 	--function to set player to be drawn on that layer
 	local pos = tilemap:drawPosition( tilemap.ol["Object1"] )
-	table.insert(tilemap.drawList, pos, test)
+	table.insert(tilemap.drawList, pos, test) -- test is in map.lua this needs re-named
 	
 	layer = tilemap.tl["Ground"]
 	
