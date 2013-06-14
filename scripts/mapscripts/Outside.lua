@@ -21,6 +21,9 @@ function Outside:load()
 	
 	global.mapWidth =  tilemap.width * 32	
 	global.mapHeight = tilemap.height* 32	
+		-- setting up my new camera	might need moved to map load function
+	camera:setBounds(0, 0, global.mapWidth - global.width , global.mapHeight - global.height )
+	
  end
 
 --might add tiles that state that its a door and where they connect too

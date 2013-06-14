@@ -593,9 +593,7 @@ function Player:keypressed(k)
 	--testing function  its a telaporter or somethin like that
 	if k == "g" and player.dead == false then
 		testTemp = 	HealthPotion:new()
-		
 		inventoryscreen:addItemToSlot( 1, "Why does it say im a slot?" )
-		
 		self:setLocation(5,5,"down")
 	end	
 end
@@ -696,10 +694,6 @@ function Player:update(dt)
 
 	local tempY 		= 0
 	local tempX 		= 0
-	local camera_up 	= false
-	local camera_down 	= false
-	local camera_left 	= false
-	local camera_right 	= false	
 		
 	if self.up == false and self.down == false and self.right == false and self.left == false	then	
 		if love.keyboard.isDown( "up" ) then
@@ -721,19 +715,12 @@ function Player:update(dt)
 		end
 	end
 	
-	
 	--up
 	if self.up and self.canMove then	
-				
 		self.animating = true
-			
-		--check if this will bring us to a no walk tile
 		tempY = self.y - self.speed * dt 
-			
 		if tempY/global.tileSize <= self.tileY -1 then
-				
 			self:checkTile(0,-1)
-				
 			if self.noWalk then 
 				self.animating = false
 			else
@@ -741,28 +728,16 @@ function Player:update(dt)
 				self:moveTile(0,-1)
 			end	
 		else
-		
 			self.y = tempY
-			-- this was moved for camera
-			if love.keyboard.isDown("up") and global.ty <= 0 and self.y <= global.mapHeight - (global.tileSize * global.cameraTileLimit ) then 
-				camera_up = false
-				global.ty = global.ty + self.camSpeed * dt 
-			else
-				camera_up = true
-				--self.speed = 0
-			end
 		end
 	end	
+
 	---down	
 	if self.down and self.canMove then	
 		self.animating = true
-		--check if this will bring us to a no walk tile
 		tempY = self.y  + self.speed * dt 
-		
 		if tempY/global.tileSize >= self.tileY  then
-			
 			self:checkTile(0,1)
-			
 			if self.noWalk then 
 				self.animating = false
 			else
@@ -771,26 +746,15 @@ function Player:update(dt)
 			end	
 		else
 			self.y = tempY
-			-- this was moved for camera
-			if love.keyboard.isDown("down") and global.ty >=  -global.mapHeight + love.graphics.getHeight()  and self.y >= 0 + (global.tileSize * global.cameraTileLimit )   then 
-				camera_down = false
-				global.ty = global.ty - self.camSpeed * dt
-			else
-				camera_down = true
-				self.speed = 0
-			end
 		end
 	end	
+
 	--left
 	if self.left and self.canMove then	
 		self.animating = true
-		--check if this will bring us to a no walk tile
 		tempX = self.x  - self.speed * dt 
-		
 		if tempX/global.tileSize <= self.tileX  then
-			
 			self:checkTile(-1,0)
-			
 			if self.noWalk then 
 				self.animating = false
 			else
@@ -799,25 +763,15 @@ function Player:update(dt)
 			end	
 		else
 			self.x = tempX
-			-- this was moved for camera
-			if love.keyboard.isDown("left") and global.tx  <= 0 and self.x <= global.mapWidth - (global.tileSize * global.cameraTileLimit ) then 
-				camera_left = false
-				global.tx = global.tx + self.camSpeed *dt	
-			else
-				camera_left = true
-				self.speed = 0
-			end
 		end
 	end	
+
 	--right
 	if self.right and self.canMove then	
 		self.animating = true
 		tempX = self.x  + self.speed *dt 
-		
 		if tempX/global.tileSize >= self.tileX + 1 then
-			
 			self:checkTile(1,0)
-			
 			if self.noWalk then 
 				self.animating = false
 			else
@@ -826,14 +780,6 @@ function Player:update(dt)
 			end	
 		else
 			self.x = tempX
-			
-			if love.keyboard.isDown("right") and global.tx >=  -global.mapWidth  +love.graphics.getWidth() and self.x >= 0 + (global.tileSize * global.cameraTileLimit )  then 
-				camera_right = false
-				global.tx = global.tx - self.camSpeed *dt 
-			else
-				camera_right = true
-				self.speed = 0
-			end
 		end
 	end	
 	

@@ -21,26 +21,26 @@ end
 
 function Map:setCameraWindow(x, y)
 --commented out for new Camera
-	if x >= love.graphics.getWidth()/2 then
-		if (x + love.graphics.getWidth()/2) * -1 <= -global.mapWidth + love.graphics.getWidth() then
-			global.tx = -global.mapWidth + love.graphics.getWidth()
-		else
-			global.tx = (x + love.graphics.getWidth()/2) * -1
-		end
-	else
-	 	global.tx = 0
-	end
+	-- if x >= love.graphics.getWidth()/2 then
+		-- if (x + love.graphics.getWidth()/2) * -1 <= -global.mapWidth + love.graphics.getWidth() then
+			-- global.tx = -global.mapWidth + love.graphics.getWidth()
+		-- else
+			-- global.tx = (x + love.graphics.getWidth()/2) * -1
+		-- end
+	-- else
+	 	-- global.tx = 0
+	-- end
 	
-	if y >= love.graphics.getHeight()/2 then
+	-- if y >= love.graphics.getHeight()/2 then
 		
-		if (y + love.graphics.getHeight()/2) * -1 <= -global.mapHeight + love.graphics.getHeight() then
-			global.ty = -global.mapHeight + love.graphics.getHeight()
-		else
-			global.ty = (y + love.graphics.getHeight()/2) * -1
-		end
-	else
-	 	global.ty = 0
-	end
+		-- if (y + love.graphics.getHeight()/2) * -1 <= -global.mapHeight + love.graphics.getHeight() then
+			-- global.ty = -global.mapHeight + love.graphics.getHeight()
+		-- else
+			-- global.ty = (y + love.graphics.getHeight()/2) * -1
+		-- end
+	-- else
+	 	-- global.ty = 0
+	-- end
 end
 
 --function for respawning enemies or other objects(treasure chests)
@@ -63,14 +63,11 @@ function Map:draw()
 	-- Set sprite batches if they are different than the settings.
 	-- Scale and translate the game screen for map drawing
 
-	local ftx, fty = math.floor(global.tx), math.floor(global.ty)
-
-	--local test = camera:getBounds()
-
+	local ftx, fty = math.floor(camera:getX()), math.floor( camera:getY())
 	
 	love.graphics.push()
-	love.graphics.translate(ftx, fty)
-	tilemap:autoDrawRange(ftx + 2, fty + 2 , 1, 32) 
+
+	tilemap:autoDrawRange(-ftx , -fty  , 1, 32) 
 	tilemap:draw() 
 	
 	love.graphics.pop()

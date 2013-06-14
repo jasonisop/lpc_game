@@ -72,8 +72,8 @@ global.compainions ="" -- will store any npc companions that the player picks up
 global.player_Health = 10
 global.player_Water = 7
 global.temp = nil
---global.width = love.graphics.getWidth()
---global.height = love.graphics.getHeight()
+global.width = love.graphics.getWidth()
+global.height = love.graphics.getHeight()
 
 
 --create a new player and starts the player on the starting tile of 10 - 14
@@ -94,15 +94,11 @@ function love.load()
 	fastCron = cron.every(.5, fastHeartBeats)
 	slowCron = cron.every(2, slowHeartBeats)
 
-	-- setting up my new camera	
-	global.width = love.graphics.getWidth()
-	global.height = love.graphics.getHeight()
-	camera:setBounds(0, 0, global.width, global.height)
-	
-	
 	--load the firstmap
 	Game.mapList[Game.currentMap]:load()
+	
 
+	
    	--places the players on tile 5 5 to start
 	player:setAnimation("down","stand")
 	player:setLocation(5,5,"down")
@@ -157,7 +153,7 @@ function love.update(dt)
 	inventoryscreen:update(dt)
 	for k,map in ipairs(Game.mapList) do Game.mapList[k]:update(dt) end
 	
---	camera:setPosition(player:getX() - global.width / 2, player:getY() - global.height / 2)
+	camera:setPosition(player:getX() - global.width  / 2, player:getY() - global.height  / 2)
 	
 end		
 
@@ -193,12 +189,12 @@ function love.keyreleased(k)
 end
 
 function love.draw()
-	--camera:set()
+	camera:set()
 	
 	for k,map in ipairs(Game.mapList) do 
 		Game.mapList[k]:draw() 
 	end	
-	--camera:unset()
+	camera:unset()
 	
 	
 	playerHud:draw()
