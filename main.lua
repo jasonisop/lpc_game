@@ -14,7 +14,7 @@ require('scripts/Gui_inventoryScreen')
 require('scripts/DiceRoller')
 require('scripts/Enemy')
 require('scripts/Camera')
-
+require('scripts/Splash')
 --datasaving and loading
 jupiter = require ('scripts/jupiter')
 --gameData = {_fileName = "gameSave.txt", Game}
@@ -27,7 +27,7 @@ Game = {}
 Game.currentMap = 1
 Game.enemies = {}
 Game.mapList = {}
-Game.state = 'play' --game states  (play, pause, menu, loading, battle) 
+Game.state = 'splash' --game states  (play, pause, menu, loading, battle) 
 
 Game.idle = false
 Game.checkIdle = false
@@ -77,11 +77,12 @@ global.height = love.graphics.getHeight()
 --create a new player and starts the player on the starting tile of 10 - 14
 player = Player:new{x=10*global.tileSize,y=14*global.tileSize}
 
-playerHud = PlayerHud:new() 
-chatWindow = ChatWindow:new()
-hotbar = Hotbar:new()
-characterScreen = CharacterScreen:new()
-diceroller = DiceRoller:new()
+splashScreen 	= SplashScreen:new()
+playerHud 		= PlayerHud:new() 
+chatWindow 		= ChatWindow:new()
+hotbar 			= Hotbar:new()
+characterScreen	= CharacterScreen:new()
+diceroller 		= DiceRoller:new()
 inventoryscreen = InventoryScreen:new()
 
 
@@ -90,7 +91,7 @@ function love.load()
 	cron = require 'scripts/cron'
 	normalCron = cron.every(1, heartBeats)
 	fastCron = cron.every(.5, fastHeartBeats)
-	slowCron = cron.every(2, slowHeartBeats)
+	slowCron = cron.every(8, slowHeartBeats)
 
 	--load the firstmap
 	Game.mapList[Game.currentMap]:load()
@@ -106,6 +107,7 @@ function love.load()
     "123456789.,!?-+/():;%&`'*#=[]\"")
 	love.graphics.setFont(font) -- Sets the font to the image based one
 	
+	splashScreen:setup()
 	--sets up the player hud
     playerHud:setup()
 	chatWindow:setup()
@@ -119,11 +121,11 @@ function love.load()
 end
 
 function slowHeartBeats()
---chatWindow:addText("Slow Heart Beat " ,"System",base_Color)
-	if Game.checkIdle == true then
-		Game.checkIdle = false
-		chatWindow:addText("set to idle animation " ,"System",base_Color)
+	--just temp for now needs better controll
+	if Game.state == 'splash' then
+		Game.state = 'play'
 	end
+
 end
 
 function fastHeartBeats()
@@ -202,10 +204,9 @@ function love.draw()
 	elseif Game.state == 'menu' then		
 	elseif Game.state == 'loading' then	
 	elseif Game.state == 'battle' then	
-	
+	elseif Game.state == 'splash' then	--at the start of the game load a splash screen then have it go away and show the menu
+		splashScreen:draw()
 	end	
-
-	
 end
 
 function math.clamp(x, min, max)
