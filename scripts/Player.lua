@@ -2,7 +2,7 @@
 Player = {	name 			= "Hero", 		--Player name set in char builder
 			class 			= "", 			--Player class set in char builder
 			race 			= "human",		--Player race set in char builder
-			speed 			= 100, 			--how fast the player moves this should also effect the camera  keep to power of 2
+			speed 			= 160, 			--how fast the player moves this should also effect the camera  keep to power of 2
 			health 			= 10, 			--players  current heath
 			startingHealth 	= 10,			--players heath when starting the game
 			mana 			= 10, 			--players current mana
@@ -514,22 +514,22 @@ end
 --called when key is released
 function Player:keyreleased(k)
 	
-	if k == "up" then
+	if k == "up" or k== "w" then
 		self.up 		= false
 		self.animating 	= false
 	end
 		
-	if k == "down" then
+	if k == "down" or k== "s" then
 		self.down 		= false
 		self.animating 	= false
 	end	
 		
-	if k == "left" then
+	if k == "left" or k== "a" then
 		self.left 		= false
 		self.animating 	= false
 	end
 		
-	if k == "right" then
+	if k == "right" or k== "d" then
 		self.right 		= false
 		self.animating 	= false
 	end	
@@ -552,32 +552,32 @@ function Player:keypressed(k)
 		if self.up == true or self.down == true or self.right == true or self.left == true 	then	--Why am i testing this and not doing any thing with it?
 		
 		else
-			if k == "up" then
+			if k == "up" or k== "w" then
 				self.up 		= true
 				self:setAnimation("up","walk")
 				self.animating 	= true 
 			end
 				
-			if k == "down" then
+			if k == "down" or k== "s" then
 				self.down 		= true
 				self:setAnimation("down","walk")
 				self.animating 	= true
 			end	
 					
-			if k == "left" then
+			if k == "left" or k== "a" then
 				self.left 		= true
 				self:setAnimation("left","walk")
 				self.animating 	= true
 			end
 					
-			if k == "right" then
+			if k == "right" or k== "d" then
 				self.right 		= true
 				self:setAnimation("right","walk")
 				self.animating 	= true
 			end	
 		end	
 
-	if k == "a" then
+	if k == " " then
 		self:setAnimation(self.facing,"attack")
 		self.animating 	= true
 		--check if there is something there(enemy) and deal it damage
