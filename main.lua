@@ -22,14 +22,13 @@ jupiter = require ('scripts/jupiter')
 --GameTemp = jupiter.load("gameSave.txt")
 --Game.currentMap = GameTemp[1].currentMap
 
-
 --sets a container to store stuff
---game states  (play, pause, menu, loading, battle) 
 Game = {}
 Game.currentMap = 1
 Game.enemies = {}
 Game.mapList = {}
-Game.state = 'play'
+Game.state = 'play' --game states  (play, pause, menu, loading, battle) 
+
 Game.idle = false
 Game.checkIdle = false
 
@@ -117,7 +116,6 @@ function love.load()
 
 	--needs moved to player creation screen.
 	player:setStats()
-
 end
 
 function slowHeartBeats()
@@ -155,7 +153,6 @@ function love.update(dt)
 	for k,map in ipairs(Game.mapList) do Game.mapList[k]:update(dt) end
 	
 	camera:setPosition(player:getX() - global.width  / 2, player:getY() - global.height  / 2)
-	
 end		
 
 function love.mousepressed(x, y, button)
@@ -191,15 +188,23 @@ end
 
 function love.draw()
 		
-	camera:set()
-		Game.mapList[Game.currentMap]:draw() 
-	camera:unset()
+	if 	Game.state == 'play' then 
+		camera:set()
+			Game.mapList[Game.currentMap]:draw() 
+		camera:unset()
 		
-	playerHud:draw()
-	chatWindow:draw()
-	hotbar:draw()
-	characterScreen:draw()
-	inventoryscreen:draw()
+		playerHud:draw()
+		chatWindow:draw()
+		hotbar:draw()
+		characterScreen:draw()
+		inventoryscreen:draw()
+	elseif Game.state == 'pause' then	
+	elseif Game.state == 'menu' then		
+	elseif Game.state == 'loading' then	
+	elseif Game.state == 'battle' then	
+	
+	end	
+
 	
 end
 

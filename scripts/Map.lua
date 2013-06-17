@@ -37,7 +37,7 @@ end
 function Map:draw()
 	--local ftx, fty = math.floor(camera:getX()), math.floor( camera:getY())
 	local ftx, fty = camera:getX(), camera:getY()
-	tilemap:autoDrawRange(-ftx , -fty  , 1, 32) 
+	tilemap:autoDrawRange(-ftx , -fty  , 1 , 32) 
 	tilemap:draw() 
 end
 		  
