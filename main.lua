@@ -157,8 +157,7 @@ function love.update(dt)
 	hotbar:update(dt)
 	inventoryscreen:update(dt)
 	for k,map in ipairs(Game.mapList) do Game.mapList[k]:update(dt) end
-	
-	camera:setPosition(player:getX() - global.width  / 2, player:getY() - global.height  / 2)
+	camera:setPosition(player:getX() - global.width  / 2, player:getY() - global.height  / 2) --might move this to end of player update 
 end		
 
 function love.mousepressed(x, y, button)
