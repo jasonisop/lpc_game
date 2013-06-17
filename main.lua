@@ -27,7 +27,7 @@ Game = {}
 Game.currentMap = 1
 Game.enemies = {}
 Game.mapList = {}
-Game.state = 'play' --game states  (play, pause, menu, loading, battle) 
+Game.state = 'splash' --game states  (play, pause, menu, loading, battle) 
 
 Game.idle = false
 Game.checkIdle = false

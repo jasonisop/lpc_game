@@ -277,7 +277,7 @@ function Eyeball:draw()
 	if self.dead == false then
 		self.animation:draw(self.image, self.x  , self.y  )
 		
-		local Len = string.len(self.name .." " ..tostring(self.healthDiscription))
-		love.graphics.print( self.name .." " ..tostring(self.healthDiscription), self.x - Len * 5 , self.y -10)
+		-- local Len = string.len(self.name .." " ..tostring(self.healthDiscription))
+		-- love.graphics.print( self.name .." " ..tostring(self.healthDiscription), self.x - Len * 5 , self.y -10)
 	end
 end
