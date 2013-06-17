@@ -22,6 +22,7 @@ Bat = {	health 				= 10,
 		dead 				= false,
 		deathProcessed		= false;
 		healthDiscription	= "Healthy", 
+		randomMove			= true,
 		loot 				=""				--will need a loot setup
 		}
 
@@ -32,6 +33,29 @@ function Bat:new (o)
     return o
 end
 
+function Bat:randomMovement()
+	local tempX = 0
+	local tempY = 0
+	if self.randomMove == true then
+	local randface =	math.random(0, 4)
+			
+		if 	 	randface 	== 0 	then	
+			tempY = -1
+			self.facing	= "up" 
+		elseif  randface	== 1 	then 	
+			tempY = 1
+			self.facing	= "down" 
+		elseif  randface	== 2 	then	
+			tempX = -1
+			self.facing	= "left" 
+		elseif  randface 	== 3 	then 	
+			tempX = 1
+			self.facing	= "right" 
+		end
+		self:setAnimation(self.facing,"walk")
+		self:moveTile(tempX , tempY)
+	end
+end
 --might rename to heartbeat
 function Bat:checkForPlayer()
 	local tempX = 0
@@ -139,8 +163,10 @@ function Bat:moveTile(tX,tY)
 	-- Otherwise change the guy's tile
 	self.tileX = self.tileX + tX
 	self.tileY = self.tileY + tY
+	self.x 		= self.tileX * 32
+	self.y 		= self.tileY * 32
 	--have the map check if we hit anything here
-	Game.mapList[Game.currentMap]:checkTile(self.tileX,self.tileY)
+-- Game.mapList[Game.currentMap]:checkTile(self.tileX,self.tileY)
 end
 
 function Bat:checkTile(tX,tY)

@@ -2,7 +2,7 @@
 Player = {	name 			= "Hero", 		--Player name set in char builder
 			class 			= "", 			--Player class set in char builder
 			race 			= "human",		--Player race set in char builder
-			speed 			= 320, 			--how fast the player moves this should also effect the camera  keep to power of 2
+			speed 			= 256, 			--how fast the player moves this should also effect the camera  keep to power of 2
 			health 			= 10, 			--players  current heath
 			startingHealth 	= 10,			--players heath when starting the game
 			mana 			= 10, 			--players current mana

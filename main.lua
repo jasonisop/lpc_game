@@ -27,7 +27,7 @@ Game = {}
 Game.currentMap = 1
 Game.enemies = {}
 Game.mapList = {}
-Game.state = 'splash' --game states  (play, pause, menu, loading, battle) 
+Game.state = 'play' --game states  (play, pause, menu, loading, battle) 
 
 Game.idle = false
 Game.checkIdle = false
@@ -125,7 +125,11 @@ function slowHeartBeats()
 	if Game.state == 'splash' then
 		Game.state = 'play'
 	end
-
+	
+	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) 
+		do enemy:randomMovement()
+	end
+	
 end
 
 function fastHeartBeats()

@@ -10,7 +10,7 @@ function ChatWindow:setup()
 	self.x = 0
 	self.y = love.graphics.getHeight() - ChatScreenImage:getHeight() - 32 -- 32 is a temp number will be using the height of the hotbar once it is there
 
-	self:addText("Legend of Rathnor","System:",base_Color )
+	self:addText("Legends of Rathnor","System:",base_Color )
 	 self:addText(" " ,"",base_Color)
 	 self:addText(" " ,"",base_Color)
 	 self:addText(" " ,"",base_Color)

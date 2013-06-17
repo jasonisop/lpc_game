@@ -32,6 +32,13 @@ function Eyeball:new (o)
     self.__index = self
     return o
 end
+
+function Eyeball:randomMovement()
+	if self.randomMove == true then
+		self:moveTile(self.tileX , self.tileY+1)
+	end
+end
+
 --might rename to heartbeat
 function Eyeball:checkForPlayer()
 	local tempX = 0
