@@ -15,6 +15,9 @@ require('scripts/DiceRoller')
 require('scripts/Enemy')
 require('scripts/Camera')
 require('scripts/Splash')
+require('scripts/Menu')
+
+
 --datasaving and loading
 jupiter = require ('scripts/jupiter')
 --gameData = {_fileName = "gameSave.txt", Game}
@@ -49,7 +52,6 @@ function Game:registerMap(...)
 	for k,map in ipairs(arg) do table.insert(Game.mapList,map) end
 end
 
-
 --list of maps should be moved somewhere else
 require('scripts/mapscripts/Inside2')
 require('scripts/mapscripts/Outside')
@@ -74,6 +76,8 @@ global.width = love.graphics.getWidth()
 global.height = love.graphics.getHeight()
 
 
+
+-- should make these part of the game object should also combine global {}   and game{}
 --create a new player and starts the player on the starting tile of 10 - 14
 player = Player:new{x=10*global.tileSize,y=14*global.tileSize}
 
@@ -84,7 +88,7 @@ hotbar 			= Hotbar:new()
 characterScreen	= CharacterScreen:new()
 diceroller 		= DiceRoller:new()
 inventoryscreen = InventoryScreen:new()
-
+menu 			= Menu:new()
 
 -- set up the game and run  all the setups
 function love.load()
@@ -114,6 +118,8 @@ function love.load()
 	hotbar:setup()
 	characterScreen:setup()
 	inventoryscreen:setup()
+	menu:setup()
+	
 	diceroller:setSeed()
 
 	--needs moved to player creation screen.
@@ -154,6 +160,7 @@ function love.update(dt)
 	playerHud:update(dt)
 	characterScreen:update(dt)
 
+	menu:update(dt)
 	hotbar:update(dt)
 	inventoryscreen:update(dt)
 	for k,map in ipairs(Game.mapList) do Game.mapList[k]:update(dt) end
@@ -165,12 +172,14 @@ function love.mousepressed(x, y, button)
 	characterScreen:mousepressed(x,y,button)
 	chatWindow:mousepressed(x,y,button)
 	inventoryscreen:mousepressed(x,y,button)
+	menu:mousepressed(x,y,button)
 end
 
 function love.mousereleased(x, y, button)
 	characterScreen:mousereleased(x, y, button)
 	chatWindow:mousereleased(x,y,button)
 	inventoryscreen:mousereleased(x,y,button)
+	menu:mousereleased(x,y,button)
 end
 
 function love.keypressed(k)
@@ -204,7 +213,8 @@ function love.draw()
 		characterScreen:draw()
 		inventoryscreen:draw()
 	elseif Game.state == 'pause' then	
-	elseif Game.state == 'menu' then		
+	elseif Game.state == 'menu' then
+		menu:draw()
 	elseif Game.state == 'loading' then	
 	elseif Game.state == 'battle' then	
 	elseif Game.state == 'splash' then	--at the start of the game load a splash screen then have it go away and show the menu
