@@ -25,16 +25,25 @@ jupiter = require ('scripts/jupiter')
 --GameTemp = jupiter.load("gameSave.txt")
 --Game.currentMap = GameTemp[1].currentMap
 
---sets a container to store stuff
+--sets a container to store Game stuff
 Game = {}
 Game.currentMap = 1
 Game.enemies = {}
 Game.mapList = {}
 Game.state = 'splash' --game states  (play, pause, menu, loading, battle) 
+Game.tileSize = 32
+Game.mapWidth =  0	
+Game.mapHeight = 0	
+Game.player_Health = 10					
+Game.player_Water = 7
+Game.width = love.graphics.getWidth()
+Game.height = love.graphics.getHeight()
+Game.compainions ="" 
+
+
 
 Game.idle = false
 Game.checkIdle = false
-
 
 function Game:registerEnemys(...)
 	local arg = {...}
@@ -61,25 +70,13 @@ local InsideMap = Inside2:new()
 
 Game:registerMap(OutsideMap,InsideMap)
 
-											--global vars to make things easy might move this to the Game global
-global = {}
-global.tileSize = 32
-global.mapWidth =  0	
-global.mapHeight = 0	
-global.compainions ="" 						-- will store any npc companions that the player picks up
-
-global.player_Health = 10					--this ones for testing will be changed to use the players when done
-global.player_Water = 7
-
-global.temp = nil
-global.width = love.graphics.getWidth()
-global.height = love.graphics.getHeight()
+											--Game vars to make things easy might move this to the Game Game
 
 
 
--- should make these part of the game object should also combine global {}   and game{}
+-- should make these part of the game object should also combine Game {}   and game{}
 --create a new player and starts the player on the starting tile of 10 - 14
-player = Player:new{x=10*global.tileSize,y=14*global.tileSize}
+player = Player:new{x=10*Game.tileSize,y=14*Game.tileSize}
 
 splashScreen 	= SplashScreen:new()
 playerHud 		= PlayerHud:new() 
@@ -164,7 +161,7 @@ function love.update(dt)
 	hotbar:update(dt)
 	inventoryscreen:update(dt)
 	for k,map in ipairs(Game.mapList) do Game.mapList[k]:update(dt) end
-	camera:setPosition(player:getX() - global.width  / 2, player:getY() - global.height  / 2) --might move this to end of player update 
+	camera:setPosition(player:getX() - Game.width  / 2, player:getY() - Game.height  / 2) --might move this to end of player update 
 end		
 
 function love.mousepressed(x, y, button)

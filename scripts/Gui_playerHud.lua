@@ -3,7 +3,7 @@ require('scripts/Gui')
 PlayerHud = GUI:new()
 
 function PlayerHud:setup()
-	--leaving this as globals for now
+	--leaving this as Games for now
 	heartImage 		= love.graphics.newImage("images/".. "heart_full_16x16.png")
 	halfHeartImage 	= love.graphics.newImage("images/".. "heart_half_16x16.png")
 	emptyHeartImage = love.graphics.newImage("images/".. "heart_empty_16x16.png")
@@ -33,7 +33,7 @@ function PlayerHud:update(dt)
 		heartHolder[i]=nil
 	end
 	
-	if global.player_Health == 10 then
+	if Game.player_Health == 10 then
 		table.insert(heartHolder ,heartImage)
 		table.insert(heartHolder ,heartImage)
 		table.insert(heartHolder ,heartImage)
@@ -41,7 +41,7 @@ function PlayerHud:update(dt)
 		table.insert(heartHolder ,heartImage)	
 	end
 	
-	if global.player_Health == 9 then
+	if Game.player_Health == 9 then
 		table.insert(heartHolder,heartImage)
 		table.insert(heartHolder,heartImage)
 		table.insert(heartHolder ,heartImage)
@@ -49,7 +49,7 @@ function PlayerHud:update(dt)
 		table.insert(heartHolder ,halfHeartImage)	
 	end
 	
-	if global.player_Health == 8 then
+	if Game.player_Health == 8 then
 		table.insert(heartHolder ,heartImage)
 		table.insert(heartHolder ,heartImage)
 		table.insert(heartHolder ,heartImage)
@@ -57,7 +57,7 @@ function PlayerHud:update(dt)
 		table.insert(heartHolder ,emptyHeartImage)	
 	end
 	
-	if global.player_Health == 7 then
+	if Game.player_Health == 7 then
 		table.insert(heartHolder ,heartImage)
 		table.insert(heartHolder ,heartImage)
 		table.insert(heartHolder ,heartImage)
@@ -65,7 +65,7 @@ function PlayerHud:update(dt)
 		table.insert(heartHolder ,emptyHeartImage)	
 	end
 	
-	if global.player_Health == 6 then
+	if Game.player_Health == 6 then
 		table.insert(heartHolder ,heartImage)
 		table.insert(heartHolder ,heartImage)
 		table.insert(heartHolder ,heartImage)
@@ -73,7 +73,7 @@ function PlayerHud:update(dt)
 		table.insert(heartHolder ,emptyHeartImage)	
 	end
 	
-	if global.player_Health == 5 then
+	if Game.player_Health == 5 then
 		table.insert(heartHolder ,heartImage)
 		table.insert(heartHolder ,heartImage)
 		table.insert(heartHolder ,halfHeartImage)
@@ -81,7 +81,7 @@ function PlayerHud:update(dt)
 		table.insert(heartHolder ,emptyHeartImage)	
 	end
 
-	if global.player_Health == 4 then
+	if Game.player_Health == 4 then
 		table.insert(heartHolder ,heartImage)
 		table.insert(heartHolder ,heartImage)
 		table.insert(heartHolder ,emptyHeartImage)
@@ -89,7 +89,7 @@ function PlayerHud:update(dt)
 		table.insert(heartHolder ,emptyHeartImage)	
 	end
 		
-	if global.player_Health == 3 then
+	if Game.player_Health == 3 then
 		table.insert(heartHolder ,heartImage)
 		table.insert(heartHolder ,halfHeartImage)
 		table.insert(heartHolder ,emptyHeartImage)
@@ -97,7 +97,7 @@ function PlayerHud:update(dt)
 		table.insert(heartHolder ,emptyHeartImage)	
 	end
 
-	if global.player_Health == 2 then
+	if Game.player_Health == 2 then
 		table.insert(heartHolder ,heartImage)
 		table.insert(heartHolder ,emptyHeartImage)
 		table.insert(heartHolder ,emptyHeartImage)
@@ -105,7 +105,7 @@ function PlayerHud:update(dt)
 		table.insert(heartHolder ,emptyHeartImage)	
 	end
 
-	if global.player_Health == 1 then
+	if Game.player_Health == 1 then
 		table.insert(heartHolder ,halfHeartImage)
 		table.insert(heartHolder ,emptyHeartImage)
 		table.insert(heartHolder ,emptyHeartImage)
@@ -113,7 +113,7 @@ function PlayerHud:update(dt)
 		table.insert(heartHolder ,emptyHeartImage)	
 	end
 
-	if global.player_Health <= 0 then
+	if Game.player_Health <= 0 then
 		table.insert(heartHolder ,emptyHeartImage)
 		table.insert(heartHolder ,emptyHeartImage)
 		table.insert(heartHolder ,emptyHeartImage)
@@ -125,7 +125,7 @@ function PlayerHud:update(dt)
 		waterHolder[i]=nil
 	end
 	
-	if global.player_Water == 10 then
+	if Game.player_Water == 10 then
 		table.insert(waterHolder ,waterImage)
 		table.insert(waterHolder ,waterImage)
 		table.insert(waterHolder ,waterImage)
@@ -133,7 +133,7 @@ function PlayerHud:update(dt)
 		table.insert(waterHolder ,waterImage)	
 	end
 	
-	if global.player_Water == 9 then
+	if Game.player_Water == 9 then
 		table.insert(waterHolder,waterImage)
 		table.insert(waterHolder,waterImage)
 		table.insert(waterHolder ,waterImage)
@@ -141,7 +141,7 @@ function PlayerHud:update(dt)
 		table.insert(waterHolder ,halfWaterImage)	
 	end
 	
-	if global.player_Water == 8 then
+	if Game.player_Water == 8 then
 		table.insert(waterHolder ,waterImage)
 		table.insert(waterHolder ,waterImage)
 		table.insert(waterHolder ,waterImage)
@@ -149,7 +149,7 @@ function PlayerHud:update(dt)
 		table.insert(waterHolder ,emptyWaterImage)	
 	end
 	
-	if global.player_Water == 7 then
+	if Game.player_Water == 7 then
 		table.insert(waterHolder ,waterImage)
 		table.insert(waterHolder ,waterImage)
 		table.insert(waterHolder ,waterImage)
@@ -157,7 +157,7 @@ function PlayerHud:update(dt)
 		table.insert(waterHolder ,emptyWaterImage)	
 	end
 	
-	if global.player_Water == 6 then
+	if Game.player_Water == 6 then
 		table.insert(waterHolder ,waterImage)
 		table.insert(waterHolder ,waterImage)
 		table.insert(waterHolder ,waterImage)
@@ -165,7 +165,7 @@ function PlayerHud:update(dt)
 		table.insert(waterHolder ,emptyWaterImage)	
 	end
 	
-	if global.player_Water == 5 then
+	if Game.player_Water == 5 then
 		table.insert(waterHolder ,waterImage)
 		table.insert(waterHolder ,waterImage)
 		table.insert(waterHolder ,halfWaterImage)
@@ -173,7 +173,7 @@ function PlayerHud:update(dt)
 		table.insert(waterHolder ,emptyWaterImage)	
 	end
 
-	if global.player_Water == 4 then
+	if Game.player_Water == 4 then
 		table.insert(waterHolder ,waterImage)
 		table.insert(waterHolder ,waterImage)
 		table.insert(waterHolder ,emptyWaterImage)
@@ -181,7 +181,7 @@ function PlayerHud:update(dt)
 		table.insert(waterHolder ,emptyWaterImage)	
 	end
 		
-	if global.player_Water == 3 then
+	if Game.player_Water == 3 then
 		table.insert(waterHolder ,waterImage)
 		table.insert(waterHolder ,halfWaterImage)
 		table.insert(waterHolder ,emptyWaterImage)
@@ -189,7 +189,7 @@ function PlayerHud:update(dt)
 		table.insert(waterHolder ,emptyWaterImage)	
 	end
 
-	if global.player_Water == 2 then
+	if Game.player_Water == 2 then
 		table.insert(waterHolder ,waterImage)
 		table.insert(waterHolder ,emptyWaterImage)
 		table.insert(waterHolder ,emptyWaterImage)
@@ -197,7 +197,7 @@ function PlayerHud:update(dt)
 		table.insert(waterHolder ,emptyWaterImage)	
 	end
 
-	if global.player_Water == 1 then
+	if Game.player_Water == 1 then
 		table.insert(waterHolder ,halfWaterImage)
 		table.insert(waterHolder ,emptyWaterImage)
 		table.insert(waterHolder ,emptyWaterImage)
@@ -205,7 +205,7 @@ function PlayerHud:update(dt)
 		table.insert(waterHolder ,emptyWaterImage)	
 	end
 
-	if global.player_Water <= 0 then
+	if Game.player_Water <= 0 then
 		table.insert(waterHolder ,emptyWaterImage)
 		table.insert(waterHolder ,emptyWaterImage)
 		table.insert(waterHolder ,emptyWaterImage)

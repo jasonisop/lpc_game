@@ -11,9 +11,9 @@ function Outside:load()
 	local pos = tilemap:drawPosition( tilemap.ol["Object1"] )
 	table.insert(tilemap.drawList, pos, drawInLayer) 						-- draws objects in that layer
 	layer = tilemap.tl["Ground"]
-	global.mapWidth =  tilemap.width * 32	
-	global.mapHeight = tilemap.height* 32	
-	camera:setBounds(0, 0, global.mapWidth - global.width , global.mapHeight - global.height )
+	Game.mapWidth =  tilemap.width * 32	
+	Game.mapHeight = tilemap.height* 32	
+	camera:setBounds(0, 0, Game.mapWidth - Game.width , Game.mapHeight - Game.height )
  end
 
 --might add tiles that state that its a door and where they connect too

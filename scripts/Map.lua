@@ -8,7 +8,7 @@ layer = {}
 loader = require("scripts/AdvTiledLoader.Loader")
 loader.path = "maps/"
 loader.useSpriteBatch = true
---this should render player and enemys needs renamed also this is a global function why is it in map
+--this should render player and enemys needs renamed also this is a Game function why is it in map
 function drawInLayer()
 	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do enemy:draw() end
 	player:draw()

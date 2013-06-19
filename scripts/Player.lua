@@ -191,8 +191,8 @@ function Player:setLocation(tX,tY,facing)
 	self.facing = facing
 	self.tileX 	= tX
 	self.tileY 	= tY
-	self.x 		= self.tileX * global.tileSize
-	self.y 		= self.tileY * global.tileSize
+	self.x 		= self.tileX * Game.tileSize
+	self.y 		= self.tileY * Game.tileSize
 end
 
 function Player:moveTile(tX,tY)
@@ -240,7 +240,7 @@ end
 function Player:heartBeat()
 	
 	--see if the player is alive
-	if global.player_Health == 0 and self.dead == false then
+	if Game.player_Health == 0 and self.dead == false then
 		self.canMove = false
 		--run a death function
 		Player:setAnimation(self.facing,"deathSpin")
@@ -718,7 +718,7 @@ function Player:update(dt)
 	if self.up and self.canMove then	
 		self.animating = true
 		tempY = self.y - self.speed * dt 
-		if tempY/global.tileSize <= self.tileY -1 then
+		if tempY/Game.tileSize <= self.tileY -1 then
 			self:checkTile(0,-1)
 			if self.noWalk then 
 				self.animating = false
@@ -735,7 +735,7 @@ function Player:update(dt)
 	if self.down and self.canMove then	
 		self.animating = true
 		tempY = self.y  + self.speed * dt
-		if tempY/global.tileSize >= self.tileY  then
+		if tempY/Game.tileSize >= self.tileY  then
 			self:checkTile(0,1)
 			if self.noWalk then 
 				self.animating = false
@@ -752,7 +752,7 @@ function Player:update(dt)
 	if self.left and self.canMove then	
 		self.animating = true
 		tempX = self.x  - self.speed * dt 
-		if tempX/global.tileSize <= self.tileX  then
+		if tempX/Game.tileSize <= self.tileX  then
 			self:checkTile(-1,0)
 			if self.noWalk then 
 				self.animating = false
@@ -769,7 +769,7 @@ function Player:update(dt)
 	if self.right and self.canMove then	
 		self.animating = true
 		tempX = self.x  + self.speed * dt 
-		if tempX/global.tileSize >= self.tileX + 1 then
+		if tempX/Game.tileSize >= self.tileX + 1 then
 			self:checkTile(1,0)
 			if self.noWalk then 
 				self.animating = false
