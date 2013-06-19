@@ -179,7 +179,7 @@ function Eyeball:setAnimation(facing,animationType)
 	
 	if animationType == "walk" then
 		
-		Eyeball:setImage("eyeball.png")
+		Eyeball:setImage("Monster/eyeball.png")
 	
 		if 	 	self.facing == "up" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,1'), 0.4)
 		elseif  self.facing == "left" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,2'), 0.4)
@@ -189,7 +189,7 @@ function Eyeball:setAnimation(facing,animationType)
 	end
 	
 	if animationType =="stand" then
-		Eyeball:setImage("eyeball.png")
+		Eyeball:setImage("Monster/eyeball.png")
 		
 		if 	 	self.facing == "up" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-1,1'), 0.1)
 		elseif  self.facing == "left" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-1,2'), 0.1)

@@ -256,7 +256,7 @@ function Player:setAnimation(facing,animationType)
 	--Game.checkIdle = false
 	self.facing = facing
 	
-		Player:setImage("male_walkcycle.png")
+		Player:setImage("Chars/png/walkcycle/BODY_male.png")
 		Player:setImageHEAD("Chars/png/walkcycle/"..self.itmHEAD )
 		Player:setImageTORSO("Chars/png/walkcycle/"..self.itmTORSO)
 		Player:setImageLEGS("Chars/png/walkcycle/"..self.itmLEGS)
@@ -375,7 +375,7 @@ Player:setImageWEAPON("Chars/png/walkcycle/"..self.itmHEAD)               --some
 	if animationType == "death" then
 		chatWindow:addText("you have died","System",base_Color ) -- this really should be moved somewhere else
 		--play death music
-		Player:setImage("male_hurt.png")
+		Player:setImage("Chars/png/hurt/BODY_male.png")
 		Player:setImageHEAD("Chars/png/hurt/"..self.itmHEAD)
 		Player:setImageTORSO("Chars/png/hurt/"..self.itmTORSO)
 		Player:setImageLEGS("Chars/png/hurt/"..self.itmLEGS)
@@ -401,7 +401,7 @@ Player:setImageWEAPON("Chars/png/walkcycle/"..self.itmHEAD)               --some
 	
 	if animationType =="attack" and  player.dead == false then
 		-- need to switch to attack sheet
-		Player:setImage("male_slash.png")
+		Player:setImage("Chars/png/slash/BODY_human.png")
 		Player:setImageHEAD("Chars/png/slash/"..self.itmHEAD)
 		Player:setImageTORSO("Chars/png/slash/"..self.itmTORSO)
 		Player:setImageLEGS("Chars/png/slash/"..self.itmLEGS)
@@ -456,7 +456,7 @@ Player:setImageWEAPON("Chars/png/walkcycle/"..self.itmHEAD)               --some
 	 end
 	 
 	 if animationType =="spell" and player.dead == false then
-		Player:setImage("male_spellcast.png")
+		Player:setImage("Chars/png/spellcast/BODY_male.png")
 		Player:setImageHEAD("Chars/png/spellcast/"..self.itmHEAD)
 		Player:setImageTORSO("Chars/png/spellcast/"..self.itmTORSO)
 		Player:setImageLEGS("Chars/png/spellcast/"..self.itmLEGS)

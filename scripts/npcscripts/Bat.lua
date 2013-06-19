@@ -192,7 +192,7 @@ function Bat:setAnimation(facing,animationType)
 	
 	if animationType == "walk" then
 		
-		Bat:setImage("bat.png")
+		Bat:setImage("Monster/bat.png")
 	
 		if 	 	self.facing == "up" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,1'), 0.4)
 		elseif  self.facing == "left" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,2'), 0.4)
@@ -202,7 +202,7 @@ function Bat:setAnimation(facing,animationType)
 	end
 	
 	if animationType =="stand" then
-		Bat:setImage("bat.png")
+		Bat:setImage("Monster/bat.png")
 		
 		if 	 	self.facing == "up" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-1,1'), 0.1)
 		elseif  self.facing == "left" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-1,2'), 0.1)

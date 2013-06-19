@@ -17,6 +17,9 @@ require('scripts/Camera')
 require('scripts/Splash')
 require('scripts/Menu')
 
+--list of maps should be moved somewhere else
+require('scripts/mapscripts/Inside2')
+require('scripts/mapscripts/Outside')
 
 --datasaving and loading
 jupiter = require ('scripts/jupiter')
@@ -27,23 +30,20 @@ jupiter = require ('scripts/jupiter')
 
 --sets a container to store Game stuff
 Game = {}
-Game.currentMap = 1
-Game.enemies = {}
-Game.mapList = {}
-Game.state = 'splash' --game states  (play, pause, menu, loading, battle) 
-Game.tileSize = 32
-Game.mapWidth =  0	
-Game.mapHeight = 0	
-Game.player_Health = 10					
-Game.player_Water = 7
-Game.width = love.graphics.getWidth()
-Game.height = love.graphics.getHeight()
-Game.compainions ="" 
-
-
-
-Game.idle = false
-Game.checkIdle = false
+Game.currentMap = 1						--the map id of the current map
+Game.mapList = {}						--holds all the maps
+Game.enemies = {}						--holds all enemies on the map
+Game.state = 'splash' 					--game states  (play, pause, menu, loading, battle) 
+Game.tileSize = 32						--sets tileSize to 32 this is defualt size but can be changed based on map	
+Game.mapWidth =  0						--gets set on map load
+Game.mapHeight = 0						--gets set on map load
+Game.player_Health = 10					--TEMP					
+Game.player_Water = 7					--TEMP
+Game.width = love.graphics.getWidth() 	--width of the screen
+Game.height = love.graphics.getHeight()	--height of the screen
+Game.compainions ="" 					--may be used to hold the players compainion NPC's
+Game.idle = false						--used to see if game has be idle for a while
+Game.checkIdle = false					--used to see if game has be idle for a while
 
 function Game:registerEnemys(...)
 	local arg = {...}
@@ -61,18 +61,10 @@ function Game:registerMap(...)
 	for k,map in ipairs(arg) do table.insert(Game.mapList,map) end
 end
 
---list of maps should be moved somewhere else
-require('scripts/mapscripts/Inside2')
-require('scripts/mapscripts/Outside')
-
 local OutsideMap = Outside:new()
 local InsideMap = Inside2:new()
 
 Game:registerMap(OutsideMap,InsideMap)
-
-											--Game vars to make things easy might move this to the Game Game
-
-
 
 -- should make these part of the game object should also combine Game {}   and game{}
 --create a new player and starts the player on the starting tile of 10 - 14
@@ -220,5 +212,5 @@ function love.draw()
 end
 
 function math.clamp(x, min, max)
-  return x < min and min or (x > max and max or x)
+	return x < min and min or (x > max and max or x)
 end
