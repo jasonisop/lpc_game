@@ -17,6 +17,8 @@ require('scripts/Camera')
 require('scripts/Splash')
 require('scripts/Menu')
 
+require('scripts/TEsound')
+
 --list of maps should be moved somewhere else
 require('scripts/mapscripts/Inside2')
 require('scripts/mapscripts/Outside')
@@ -79,6 +81,7 @@ diceroller 		= DiceRoller:new()
 inventoryscreen = InventoryScreen:new()
 menu 			= Menu:new()
 
+
 -- set up the game and run  all the setups
 function love.load()
 	cron = require 'scripts/cron'
@@ -113,6 +116,8 @@ function love.load()
 
 	--needs moved to player creation screen.
 	player:setStats()
+	
+	TEsound.playLooping("audio/music/Soliloquy_1.mp3")
 end
 
 function slowHeartBeats()
