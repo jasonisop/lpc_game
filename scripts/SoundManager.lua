@@ -5,10 +5,9 @@ require('scripts/TEsound')
 
 
 
-SoundManager = {MusicPlaylist = {},
-				
-						
-
+SoundManager = {MusicPlaylist 	= {},
+				SoundFxPlaylists = {},
+				BattlePlaylist	= {},
 				}	
 
 function SoundManager:new (o)
@@ -18,11 +17,19 @@ function SoundManager:new (o)
     return o
 end
 
+--testing function
 function SoundManager:TestSound()
 	TEsound.playLooping("audio/music/Soliloquy_1.ogg","Music",12,1,1)
 end
 
+
 function SoundManager:playSoundFx(v)
+	--get what soundFx to play 
+	--get the tag for the  soundFx
+	--get the volume for the soundFx
+	-- if a function needs called at the end get what function to call
+	
+	TEsound.play(soundFx,Tag,Volume,Function) 
 end
 
 function SoundManager:playMusic(v)
