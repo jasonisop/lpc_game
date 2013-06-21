@@ -17,7 +17,7 @@ require('scripts/Camera')
 require('scripts/Splash')
 require('scripts/Menu')
 
-require('scripts/TEsound')
+require('scripts/SoundManager')
 
 --list of maps should be moved somewhere else
 require('scripts/mapscripts/Inside2')
@@ -80,7 +80,7 @@ characterScreen	= CharacterScreen:new()
 diceroller 		= DiceRoller:new()
 inventoryscreen = InventoryScreen:new()
 menu 			= Menu:new()
-
+soundManager	= SoundManager:new()
 
 -- set up the game and run  all the setups
 function love.load()
@@ -116,8 +116,7 @@ function love.load()
 
 	--needs moved to player creation screen.
 	player:setStats()
-	local Mlist = {"audio/music/Soliloquy_1.ogg"}
-	TEsound.playLooping(Mlist)
+	soundManager.TestSound()
 end
 
 function slowHeartBeats()
@@ -148,6 +147,7 @@ end
 
 -- main game loop  currently 
 function love.update(dt)
+	soundManager:update(dt)
 	chatWindow:update(dt)
 	player:update(dt)
 	cron.update(dt)

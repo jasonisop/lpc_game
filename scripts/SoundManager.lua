@@ -1,5 +1,10 @@
 --Sound Class
 
+require('scripts/TEsound')
+
+
+
+
 SoundManager = {MusicPlaylist = {},
 				
 						
@@ -13,6 +18,9 @@ function SoundManager:new (o)
     return o
 end
 
+function SoundManager:TestSound()
+	TEsound.playLooping("audio/music/Soliloquy_1.ogg","Music",12,1,1)
+end
 
 function SoundManager:playSoundFx(v)
 end
@@ -31,4 +39,10 @@ end
 
 function SoundManager:getMusicPlaylist()
 	return self.MusicPlaylist
+end
+
+function SoundManager:update(dt)
+	
+	TEsound.cleanup()
+	
 end
