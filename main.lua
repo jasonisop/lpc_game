@@ -116,8 +116,8 @@ function love.load()
 
 	--needs moved to player creation screen.
 	player:setStats()
-	
-	TEsound.playLooping("audio/music/Soliloquy_1.mp3","loop",13)
+	local Mlist = {"audio/music/Soliloquy_1.ogg"}
+	TEsound.playLooping(Mlist)
 end
 
 function slowHeartBeats()
