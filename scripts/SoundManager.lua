@@ -33,12 +33,18 @@ function SoundManager:playSoundFx(v)
 end
 
 function SoundManager:playMusic(v)
+	TEsound.playLooping(MusicPlaylist,"Music")
 end
 
 function SoundManager:stopAll()
 end
 
 function SoundManager:addMusic(v)
+	table.insert(self.MusicPlaylist,v)
+
+end
+
+function SoundManager:removeMusic()
 end
 
 function SoundManager:addEffect(v)
