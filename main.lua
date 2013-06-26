@@ -32,20 +32,20 @@ jupiter = require ('scripts/jupiter')
 
 --sets a container to store Game stuff
 Game = {}
-Game.currentMap = 1						--the map id of the current map
-Game.mapList = {}						--holds all the maps
-Game.enemies = {}						--holds all enemies on the map
-Game.state = 'splash' 					--game states  (play, pause, menu, loading, battle) 
-Game.tileSize = 32						--sets tileSize to 32 this is defualt size but can be changed based on map	
-Game.mapWidth =  0						--gets set on map load
-Game.mapHeight = 0						--gets set on map load
-Game.player_Health = 10					--TEMP					
-Game.player_Water = 7					--TEMP
-Game.width = love.graphics.getWidth() 	--width of the screen
-Game.height = love.graphics.getHeight()	--height of the screen
-Game.compainions ="" 					--may be used to hold the players compainion NPC's
-Game.idle = false						--used to see if game has be idle for a while
-Game.checkIdle = false					--used to see if game has be idle for a while
+Game.currentMap 	= 1							--the map id of the current map
+Game.mapList 		= {}						--holds all the maps
+Game.enemies 		= {}						--holds all enemies on the map
+Game.state 			= 'splash' 					--game states  (play, pause, menu, loading, battle) 
+Game.tileSize 		= 32						--sets tileSize to 32 this is defualt size but can be changed based on map	
+Game.mapWidth 		=  0						--gets set on map load
+Game.mapHeight 		= 0							--gets set on map load
+Game.player_Health 	= 10						--TEMP					
+Game.player_Water 	= 7							--TEMP
+Game.width 			= love.graphics.getWidth() 	--width of the screen
+Game.height 		= love.graphics.getHeight()	--height of the screen
+Game.compainions 	= "" 						--may be used to hold the players compainion NPC's
+Game.idle 			= false						--used to see if game has be idle for a while
+Game.checkIdle 		= false						--used to see if game has be idle for a while
 
 function Game:registerEnemys(...)
 	local arg = {...}
@@ -116,11 +116,11 @@ function love.load()
 
 	--needs moved to player creation screen.
 	player:setStats()
-	soundManager.TestSound()
+	soundManager.TestSound() --needs removed
 end
 
 function slowHeartBeats()
-	--just temp for now needs better controll
+	--just temp for now needs better control
 	if Game.state == 'splash' then
 		Game.state = 'play'
 	end
