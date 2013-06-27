@@ -24,41 +24,37 @@ require('scripts/MapList') 				--this is a bunch map requires
 
 
 
-Game = {	currentMap 		= 1							--the map id of the current map
-			mapList 		= {}						--holds all the maps
-			enemies 		= {}						--holds all enemies on the map
-			state 			= 'splash' 					--game states  (play, pause, menu, loading, battle) 
-			tileSize 		= 32						--sets tileSize to 32 this is defualt size but can be changed based on map	
-			mapWidth 		=  0						--gets set on map load
-			mapHeight 		= 0							--gets set on map load
-			player_Health 	= 10						--TEMP					
-			player_Water 	= 7							--TEMP
-			width 			= love.graphics.getWidth() 	--width of the screen
-			height 			= love.graphics.getHeight()	--height of the screen
-			compainions 	= "" 						--may be used to hold the players compainion NPC's
-			idle 			= false						--used to see if game has be idle for a while
-			checkIdle 		= false						--used to see if game has be idle for a while
+Game = {	currentMap 		= 1,							--the map id of the current map
+			mapList 		= {},						--holds all the maps
+			enemies 		= {},						--holds all enemies on the map
+			state 			= 'splash', 					--game states  (play, pause, menu, loading, battle) 
+			tileSize 		= 32,						--sets tileSize to 32 this is defualt size but can be changed based on map	
+			mapWidth 		= 0,						--gets set on map load
+			mapHeight 		= 0,							--gets set on map load
+			player_Health 	= 10,						--TEMP					
+			player_Water 	= 7,							--TEMP
+			width 			= love.graphics.getWidth(), 	--width of the screen
+			height 			= love.graphics.getHeight(),	--height of the screen
+			compainions 	= "", 						--may be used to hold the players compainion NPC's
+			idle 			= false,						--used to see if game has be idle for a while
+			checkIdle 		= false,						--used to see if game has be idle for a while
 			
-			player			= Player:new{x=10*Game.tileSize,y=14*Game.tileSize}
-			splashScreen 	= SplashScreen:new()
-			playerHud 		= PlayerHud:new() 
-			chatWindow 		= ChatWindow:new()
-			hotbar 			= Hotbar:new()
-			characterScreen	= CharacterScreen:new()
-			diceroller 		= DiceRoller:new()
-			inventoryscreen = InventoryScreen:new()
-			menu 			= Menu:new()
-			soundManager	= SoundManager:new()
-			jupiter 		= require ('scripts/jupiter')
-			
+			player			= Player:new{x=10*Game.tileSize,y=14*Game.tileSize},
+			splashScreen 	= SplashScreen:new(),
+			playerHud 		= PlayerHud:new(), 
+			chatWindow 		= ChatWindow:new(),
+			hotbar 			= Hotbar:new(),
+			characterScreen	= CharacterScreen:new(),
+			diceroller 		= DiceRoller:new(),
+			inventoryscreen = InventoryScreen:new(),
+			menu 			= Menu:new(),
+			soundManager	= SoundManager:new(),
+			jupiter 		= require ('scripts/jupiter'),
+		}
 --gameData = {_fileName = "gameSave.txt", Game}
 --success = jupiter.save(gameData)
 --GameTemp = jupiter.load("gameSave.txt")
 --Game.currentMap = GameTemp[1].currentMap
-		
-		
-		}
-		
 		
 function Game:new (o)
 	o = o or {}
