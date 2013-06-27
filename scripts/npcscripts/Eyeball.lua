@@ -102,6 +102,7 @@ end
 function Eyeball:getX()
 	return self.x
 end
+
 function Eyeball:setY(v)
 	self.y = v
 end
