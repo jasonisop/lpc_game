@@ -1,5 +1,6 @@
 function love.conf(t)
-	t.screen.vsync = false
+	t.screen.vsync = true
 	t.title = "Legends of Rathnor"
     t.author = "Jason Morse"
+	
 end
