@@ -10,11 +10,7 @@ loader.path = "maps/"
 loader.useSpriteBatch = true
 
 
---this should render player and enemies needs also this is a Game function why is it in map
-function drawInLayer()
-	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do enemy:draw() end
-	player:draw()
-end
+
 
 function Map:new (o)
 	o = o or {}

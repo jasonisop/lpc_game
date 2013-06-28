@@ -216,6 +216,12 @@ function love.draw()
 	end	
 end
 
+--this should render player and enemies 
+function drawInLayer()
+	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do enemy:draw() end
+	player:draw()
+end
+
 function math.clamp(x, min, max)
 	return x < min and min or (x > max and max or x)
 end
