@@ -19,7 +19,7 @@ function Map:new (o)
     return o
 end
 
---function for respawning enemies or other objects(treasure chests)
+--function for re spawning enemies or other objects(treasure chests)
 function Map:respawn()
 	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) 
 		do enemy:respawn() 

@@ -6,7 +6,7 @@ function Outside:load()
 	chatWindow:addText("loading map...","System",Color_Crimson )
 
 	Game:removeEnemys()
-	self.respawn()  												--respawns enemies and items if it can
+	self.respawn()  												--re spawns enemies and items if it can
 	tilemap = loader.load(self.mapfile)
 	local pos = tilemap:drawPosition( tilemap.ol["Object1"] )
 	table.insert(tilemap.drawList, pos, drawInLayer) 						-- draws objects in that layer

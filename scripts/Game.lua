@@ -25,14 +25,14 @@ Game = {	currentMap 		= 1,												--the map id of the current map
 			mapList 		= {},												--holds all the maps
 			enemies 		= {},												--holds all enemies on the map
 			state 			= 'splash', 										--game states  (play, pause, menu, loading, battle) 
-			tileSize 		= 32,												--sets tileSize to 32 this is defualt size but can be changed based on map	
+			tileSize 		= 32,												--sets tileSize to 32 this is default size but can be changed based on map	
 			mapWidth 		= 0,												--gets set on map load
 			mapHeight 		= 0,												--gets set on map load
 			player_Health 	= 10,												--TEMP					
 			player_Water 	= 7,												--TEMP
 			width 			= love.graphics.getWidth(), 						--width of the screen
 			height 			= love.graphics.getHeight(),						--height of the screen
-			compainions 	= "", 												--may be used to hold the players compainion NPC's
+			compainions 	= "", 												--may be used to hold the players companion NPC's
 			idle 			= false,											--used to see if game has be idle for a while
 			checkIdle 		= false,											--used to see if game has be idle for a while
 			

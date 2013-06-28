@@ -53,7 +53,7 @@ function Eyeball:checkForPlayer()
 	elseif  self.facing == "right" 	then 	tempX = 1
 	end
 	
-	-- Get  a cone of tiles in the directon enemy is faceing and check if there is a player in it if so move towards the player if attack on sight is true
+	-- Get  a cone of tiles in the direction enemy is facing and check if there is a player in it if so move towards the player if attack on sight is true
 	if	attackOnSight== true then
 		
 	end

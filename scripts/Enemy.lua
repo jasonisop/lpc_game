@@ -1,5 +1,5 @@
 --[[
-	Class for storing at keeping trak of all the enemeys
+	Class for storing at keeping track of all the enemies
 
 --]]
 
@@ -49,7 +49,7 @@ local eyeball2 = Eyeball:new{health = 5,name = "eyeball",tileX = 6, tileY = 6, c
 
 --must register every map
 
---oustide map
+--outside map
 enemyHolder:registerEnemy(1, bat,eyeball)
 --inside map
 enemyHolder:registerEnemy(2,nil)
