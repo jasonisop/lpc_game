@@ -23,7 +23,9 @@ Eyeball = {	health 			= 10,
 			visionDistance 	= 5,
 			hate	 		= 0,
 			attackOnSight 	= true,
-			randomMove 		= false
+			randomMove 		= false,
+			loot 			= "",				--will need a loot setup
+			rect			= {}
 			}
 
 function Eyeball:new (o)
@@ -199,21 +201,16 @@ function Eyeball:setAnimation(facing,animationType)
 		end
 	 end
 end
---called when key is released
-function Eyeball:keyreleased(k)
 
-end
-
-function Eyeball:keypressed(k)
-	
-end
 
 function Eyeball:mousepressed(x, y, button)
-	--if you right click on a enemy
-	-- if button == "l" and x - global.tx > self.x and x - global.tx < self.x + 32 and y - global.ty > self.y and y - global.ty < self.y + 32 then
-		-- chatWindow:show(true)
-	-- end
+	--chatWindow:addText("Eyeball Pressed","System",Color_Crimson )
 end
+
+function Eyeball:mousereleased(x, y, button)
+	--chatWindow:addText("Eyeball released","System",Color_Crimson )
+end
+
 --set the image
 function Eyeball:setImage(v)	
 	self.image 	= love.graphics.newImage("images/".. v)

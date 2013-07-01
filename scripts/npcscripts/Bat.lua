@@ -23,7 +23,8 @@ Bat = {	health 				= 10,
 		deathProcessed		= false;
 		healthDiscription	= "Healthy", 
 		randomMove			= true,
-		loot 				=""				--will need a loot setup
+		loot 				= "",				--will need a loot setup
+		rect				= {}
 		}
 
 function Bat:new (o)
@@ -161,8 +162,8 @@ function Bat:moveTile(tX,tY)
 	if tile == nil then return end
 	if tile.properties.obstacle then return end
 	-- Otherwise change the guy's tile
-	self.tileX = self.tileX + tX
-	self.tileY = self.tileY + tY
+	self.tileX 	= self.tileX + tX
+	self.tileY 	= self.tileY + tY
 	self.x 		= self.tileX * 32
 	self.y 		= self.tileY * 32
 	--have the map check if we hit anything here
@@ -212,19 +213,14 @@ function Bat:setAnimation(facing,animationType)
 	 end
 end
 
---called when key is released
-function Bat:keyreleased(k)
-
-end
-
-function Bat:keypressed(k)
-	
-end
 function Bat:mousepressed(x, y, button)
-	--if you right click on a enemy
-	-- if button == "l" and x - global.tx > self.x and x - global.tx < self.x + 32 and y - global.ty > self.y and y - global.ty < self.y + 32 then
-	-- chatWindow:show(true)
-	-- end
+	if  button == "l" and x > self.rect.x and x < self.rect.x + self.rect.width
+	and y > self.rect.y and y < self.rect.y + self.rect.height then
+		chatWindow:addText("Bat pressed","System",Color_Crimson )
+	end
+end
+function Bat:mousereleased(x, y, button)
+	--chatWindow:addText("Bat released","System",Color_Crimson )
 end
 
 --set the image
@@ -274,6 +270,7 @@ function Bat:update(dt)
 		if self.dead and self.deathProcessed == false then
 			self.deathProcessed = true
 			chatWindow:addText("Was killed", "bat", Color_Yellow )
+			--need to fire off an event to create a loot box
 		end
 	end
 
@@ -281,6 +278,9 @@ function Bat:update(dt)
 		self:setAnimation(self.facing,"walk")
 	end
 	
+	--set the rect to current position hard coded to 32 will need to set that as a var on creation
+	self.rect = {x =self.x, y= self.y , width = 32, height = 32 }
+
 	 self.animation:update(dt)
 	
 end

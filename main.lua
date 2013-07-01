@@ -37,7 +37,7 @@ Game.mapList 		= {}						--holds all the maps
 Game.enemies 		= {}						--holds all enemies on the map
 Game.state 			= 'splash' 					--game states  (play, pause, menu, loading, battle) 
 Game.tileSize 		= 32						--sets tileSize to 32 this is default size but can be changed based on map	
-Game.mapWidth 		=  0						--gets set on map load
+Game.mapWidth 		= 0							--gets set on map load
 Game.mapHeight 		= 0							--gets set on map load
 Game.player_Health 	= 10						--TEMP					
 Game.player_Water 	= 7							--TEMP
@@ -163,6 +163,8 @@ end
 
 function love.mousepressed(x, y, button)
 	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do enemy:mousepressed(x, y, button) end
+	
+
 	characterScreen:mousepressed(x,y,button)
 	chatWindow:mousepressed(x,y,button)
 	inventoryscreen:mousepressed(x,y,button)
@@ -170,6 +172,8 @@ function love.mousepressed(x, y, button)
 end
 
 function love.mousereleased(x, y, button)
+	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do enemy:mousereleased(x, y, button) end
+
 	characterScreen:mousereleased(x, y, button)
 	chatWindow:mousereleased(x,y,button)
 	inventoryscreen:mousereleased(x,y,button)
@@ -218,7 +222,9 @@ end
 
 --this should render player and enemies 
 function drawInLayer()
-	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do enemy:draw() end
+	for k,enemy in ipairs(enemyHolder.container[Game.currentMap])
+		do enemy:draw() 
+	end
 	player:draw()
 end
 
