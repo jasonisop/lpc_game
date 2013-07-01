@@ -16,13 +16,13 @@ function Enemy:new (o)
 end
 
 function Enemy:registerEnemy(mapId , ... )
-	
-	self.container[mapId]= {}
-	for k,enemy in ipairs(arg) do 
-		table.insert(self.container[mapId],enemy) 
-		enemy:setLocation(enemy:getTileX(),enemy:getTileY(),enemy:getFacing())
-		enemy:setAnimation(enemy:getFacing(),"walk")
-		enemy:setup()
+   local arg = { ... } -- new line
+   self.container[mapId]= {}
+   for k,enemy in ipairs(arg) do 
+      table.insert(self.container[mapId],enemy) 
+      enemy:setLocation(enemy:getTileX(),enemy:getTileY(),enemy:getFacing())
+      enemy:setAnimation(enemy:getFacing(),"walk")
+      enemy:setup()
 	end
 end
 
