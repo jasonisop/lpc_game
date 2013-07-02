@@ -3,6 +3,7 @@
 
 --]]
 
+--base npc classes
 require('scripts/npcscripts/Bat')
 require('scripts/npcscripts/Eyeball')
 
@@ -16,7 +17,7 @@ function Enemy:new (o)
 end
 
 function Enemy:registerEnemy(mapId , ... )
-   local arg = { ... } -- new line
+   local arg = { ... } 
    self.container[mapId]= {}
    for k,enemy in ipairs(arg) do 
       table.insert(self.container[mapId],enemy) 

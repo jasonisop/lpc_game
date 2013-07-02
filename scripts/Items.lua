@@ -19,6 +19,7 @@ function Items:new (o)
 end
 
 function Items:registerItems(...)
+	local arg = ...
 	for k, item in ipairs(arg)do
 	table.insert(self.container,item) 
 	end

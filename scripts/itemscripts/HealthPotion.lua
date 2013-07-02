@@ -16,27 +16,28 @@
 	itemImage =  string  -still need to work on this part im guessing a string with only the exact image
 --]]
 
-HealthPotion = {itemId 			= 0001,
-				itemName 		= "HealthPotion", 
-				itemImage 		= love.graphics.newImage( "images/Icons/healthPotion.png"), 
-				stackable 		= true, 
-				stackAmound 	= 5, 
-				destroyUse 		= true, 
-				itemType 		= "consume",
-				value 			= 0, 
-				weight 			= 0, 
-				nodrop 			= false, 
-				uses 			= 1, 
-				itemDiscription = "", 
-				reuseTime 		= 5,
-				reuseCurrent 	= 0, 
-				x 				= 0, 
-				y 				= 0, 
-				dragging 		= { active = false, diffX = 0, diffY = 0 },
-				width 			= 32, 
-				height 			= 32, 
-				currentSlot 	= 0,
-				healAmount 		= 2
+HealthPotion = {itemId 			= 0001,															--this is the item id used in place of name
+				itemName 		= "HealthPotion", 												--item name used in place of id
+				itemImage 		= love.graphics.newImage( "images/Icons/healthPotion.png"), 	--image
+				stackable 		= true, 														--if there can be more then 1 of the item in a slot
+				stackAmound 	= 5, 															--how many you can stack if you can stack them
+				destroyUse 		= true, 														--if the item is destroyed upon use or not
+				itemType 		= "consume",													--the type of item(Weapons,consumable,wearable)
+				value 			= 0, 															--the value of the item, currently there is no money system in place
+				weight 			= 0, 															--how much the item weighs, needed if we use a weight system
+				nodrop 			= false, 														--if you can drop/destroy item or not
+				uses 			= 1, 															--how many times you can use the item 
+				itemDiscription = "", 															--discription of the item
+				reuseTime 		= 5,															--time in seconds before you can use the item again
+				reuseCurrent 	= 0, 															--NOT SURE!!!!!!!
+				x 				= 0, 															--x location in the inventory? maybe im not sure
+				y 				= 0, 															--y location in the inventory? maybe im not sure
+				dragging 		= { active = false, diffX = 0, diffY = 0 },						--table for holding draging info
+				width 			= 32, 															--width of the item? guessing for inventory screen.
+				height 			= 32, 															--height of the item? guessing for inventory screen.
+				currentSlot 	= 0,															--current slot in the inventory that the item is in
+				healAmount 		= 2,															--Ammount to heal - this is spcific to this item should change this to an effect 
+				randomLoot		= true,															--if this item can be added as random loot
 				}
 
 function HealthPotion:new (o)
