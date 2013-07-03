@@ -30,6 +30,14 @@ jupiter = require ('scripts/jupiter')
 --GameTemp = jupiter.load("gameSave.txt")
 --Game.currentMap = GameTemp[1].currentMap
 
+
+--sqlite Testing
+--local sqlite3 = require('sqlite3')
+--local db = sqlite3.open_memory()
+
+
+
+
 --sets a container to store Game stuff
 Game = {}
 Game.currentMap 	= 1							--the map id of the current map
@@ -65,6 +73,7 @@ end
 
 local OutsideMap = Outside:new()
 local InsideMap = Inside2:new()
+
 
 Game:registerMap(OutsideMap,InsideMap)
 
