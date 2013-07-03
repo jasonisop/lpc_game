@@ -120,7 +120,7 @@ function HealthPotion:mousepressed(x, y, button)
 end
 
 function HealthPotion:mousereleased(x, y, button)
-
+	--
 end
 
 --function is to time re-use 
@@ -132,7 +132,7 @@ function HealthPotion:update(dt)
 end
 
 function HealthPotion:draw()
-love.graphics.draw(itemImage,self.x, self.y )
+	love.graphics.draw(itemImage,self.x, self.y )
 end
 
 
