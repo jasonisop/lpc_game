@@ -23,17 +23,7 @@ require('scripts/SoundManager')
 require('scripts/mapscripts/Inside2')
 require('scripts/mapscripts/Outside')
 
---datasaving and loading
-jupiter = require ('scripts/jupiter')
---gameData = {_fileName = "gameSave.txt", Game}
---success = jupiter.save(gameData)
---GameTemp = jupiter.load("gameSave.txt")
---Game.currentMap = GameTemp[1].currentMap
 
-
---sqlite Testing
---local sqlite3 = require('sqlite3')
---local db = sqlite3.open_memory()
 
 
 

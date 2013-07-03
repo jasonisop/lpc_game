@@ -1,6 +1,8 @@
 --datasaving and loading
 --saving will be based char name files will be named  playerName_filename.txt
 
+
+
 jupiter = require ('scripts/jupiter')
 Database = {}
 
@@ -19,7 +21,7 @@ function Database:listGames()
 end
 
 function Database:saveGame()
---save the player data 
+--save the player data  should we append time to allow for multi saves
 	playerData = {_fileName = player.name .."_PlayerData.txt", player}
 	success = jupiter.save(playerData)
 
@@ -42,6 +44,7 @@ function Database:loadGame()
 	
 end
 
+--things that need saved
 
 
 
