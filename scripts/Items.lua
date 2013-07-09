@@ -9,32 +9,34 @@ require("scripts/itemscripts/HeathPotion")
 
 
 
-Items = {container ={} }
+Item = {		itemId 			= 0000,															--this is the item id used in place of name
+				itemName 		= "New Item", 													--item name used in place of id
+				itemImage 		= love.graphics.newImage( "images/Icons/healthPotion.png"), 	--image
+				stackable 		= false, 														--if there can be more then 1 of the item in a slot
+				stackAmound 	= 0, 															--how many you can stack if you can stack them
+				destroyUse 		= false, 														--if the item is destroyed upon use or not
+				itemType 		= "worn",														--the type of item(Weapons,consumable,wearable)
+				questItem		=false,															--if this is a item used in a quest
+				value 			= 0, 															--the value of the item, currently there is no money system in place
+				weight 			= 0, 															--how much the item weighs, needed if we use a weight system
+				nodrop 			= false, 														--if you can drop/destroy item or not
+				uses 			= 0, 															--how many times you can use the item 
+				itemDiscription = "", 															--discription of the item
+				reuseTime 		= 5,															--time in seconds before you can use the item again
+				reuseCurrent 	= 0, 															--NOT SURE!!!!!!!
+				randomLoot		= true,															--if this item can be added as random loot
+				
+				effect			= {}															--will need to have an effects system to know what does what			 
+		}
 
-function Items:new (o)
+function Item:new (o)
 	o = o or {}
 	setmetatable(o, self)
     self.__index = self
     return o
 end
 
-function Items:registerItems(...)
-	local arg = ...
-	for k, item in ipairs(arg)do
-	table.insert(self.container,item) 
-	end
+function Item:use( )
+	--check if item is usable and if so run its effect.
 end
 
-function Items:getDiscription(itemId)
-
-	for k, item in ipairs(self.container)do	
-		
-		if item.itemId == itemId then
-			return item.itemDiscription
-		end
-	end
-end
-
-function Items:addAndRegister()
-	
-end

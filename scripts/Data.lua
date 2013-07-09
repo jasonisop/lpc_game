@@ -38,7 +38,7 @@ end
 function Database:saveQuests( o )
 end
 
-function Database:loadQuests( )
+function Database:loadQuest( )
 	self.questsList = self.jupiter.load("questList.save")
 end
 
@@ -46,6 +46,9 @@ function Database:loadNPC( )
 	self.npcList = self.jupiter.load("npcList.save")
 end
 
+function Database:loadItem(  )
+	self.itemList = self.jupiter.load("itemList.save")
+end
 
 
 --------------------------------------------------------

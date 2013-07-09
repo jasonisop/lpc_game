@@ -44,6 +44,8 @@ Game.height 		= love.graphics.getHeight()	--height of the screen
 Game.compainions 	= "" 						--may be used to hold the players companion NPC's
 Game.idle 			= false						--used to see if game has be idle for a while
 Game.checkIdle 		= false						--used to see if game has be idle for a while
+Game.items			={}							--used to hold all the items in the game
+
 
 function Game:registerEnemys(...)
 	local arg = {...}
