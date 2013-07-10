@@ -1,4 +1,5 @@
-Bat = {	health 				= 10,
+Bat = {			
+		health 				= 10,
 		startHealth 		= 0, 
 		name 				= "", 
 		image 				= "", 
@@ -24,11 +25,11 @@ Bat = {	health 				= 10,
 		healthDiscription	= "Healthy", 
 		randomMove			= true,
 		loot 				= "",				--will need a loot setup
-		rect				= {}
+		rect				= {}	
 		}
 
 function Bat:new (o)
-	o = o or {}
+	o = o or { }
 	setmetatable(o, self)
     self.__index = self
     return o

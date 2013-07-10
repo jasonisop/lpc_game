@@ -24,7 +24,7 @@ require('scripts/mapscripts/Inside2')
 require('scripts/mapscripts/Outside')
 
 
-
+require('scripts/items')
 
 
 
@@ -118,6 +118,23 @@ function love.load()
 	--needs moved to player creation screen.
 	player:setStats()
 	soundManager.TestSound() --needs removed
+
+---------------------------------------------------
+----------testing----------------------
+	jupiter = require "scripts/jupiter"
+	require('scripts/Tserial')
+
+	--setup a table
+	testItem = Item:new()
+	temp = Tserial.pack(player, true, true)
+
+	data = {_fileName = "items.data",temp}
+	--write the file (Jupiter handles filenames by referring to data._fileName)
+	success = jupiter.save(data)
+	--load another file into a table
+	--newData = jupiter.load("filename.extension")
+-------------------------------------
+------------------------------------
 end
 
 function slowHeartBeats()

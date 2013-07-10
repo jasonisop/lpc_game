@@ -10,16 +10,14 @@
 
 
 
-
-
-Database = {	gameList 	= {},	--list of all the full saves  files are named by  "Playername_Date.save"
+Database = {
+				gameList 	= {},	--list of all the full saves  files are named by  "Playername_Date.save"
 				
 				questsList 	= {}, 	--list of all the quests file names
 				npcList		= {},	--list of all the npc file names
 				itemList	= {},	--list of every item in the game all loaded from one file
 
 				jupiter 	= require ('scripts/jupiter')
-
 			}
 
 function Database:new (o)
