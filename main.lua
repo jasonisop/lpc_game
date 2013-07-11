@@ -138,7 +138,7 @@ function love.load()
 
 	require("lsqlite3")
 
-	love.filesystem.setIdentity("lsqlite3_test")
+	--love.filesystem.setIdentity("lsqlite3_test")
 
 	love.filesystem.write("db", love.filesystem.read("db.dat"))
 
