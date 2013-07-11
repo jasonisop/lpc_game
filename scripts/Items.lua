@@ -44,6 +44,7 @@ function Item:getName()
 	return self.itemName
 end	
 
+--used for testing saving--
 function Item:getAll()
 	return { 	self.itemId, 
 				self.itemName, 
@@ -64,5 +65,6 @@ function Item:getAll()
 				self.randomLoot,
 				self.effect
 			}
+
 end
 

@@ -121,20 +121,43 @@ function love.load()
 
 ---------------------------------------------------
 ----------testing----------------------
-	jupiter = require "scripts/jupiter"
-	require('scripts/Tserial')
+--	jupiter = require "scripts/jupiter"
+--	require('scripts/Tserial')
 
 	--setup a table
-	testItem = Item:new()
-	temp = Tserial.pack(player, true, true)
+--	testItem = Item:new{itemId=12}
+--	temp = Tserial.pack(testItem:getAll(), true, true)
 
-	data = {_fileName = "items.data",temp}
+--	data = {_fileName = "items.data",temp}
 	--write the file (Jupiter handles filenames by referring to data._fileName)
-	success = jupiter.save(data)
+--	success = jupiter.save(data)
 	--load another file into a table
 	--newData = jupiter.load("filename.extension")
 -------------------------------------
 ------------------------------------
+
+	require("lsqlite3")
+
+	love.filesystem.setIdentity("lsqlite3_test")
+
+	love.filesystem.write("db", love.filesystem.read("db.dat"))
+
+	db = sqlite3.open(love.filesystem.getSaveDirectory() .. '/db')
+
+
+	test = {}
+
+	for a in db:nrows('SELECT * FROM test') do
+	  for i,v in pairs(a) do
+	    table.insert(test, string.format("%s => %s", i, v))
+	  end
+	end
+
+	db:close()
+	msg = table.concat(test, "\n")
+    chatWindow:addText("sqlite3 ".. msg ,"System",base_Color)
+	
+
 end
 
 function slowHeartBeats()
