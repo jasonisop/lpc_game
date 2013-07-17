@@ -24,9 +24,9 @@ require('scripts/mapscripts/Inside2')
 require('scripts/mapscripts/Outside')
 
 
-require('scripts/items')
+require('scripts/Items')
 
-
+require('scripts/Data')
 
 --sets a container to store Game stuff
 Game = {}
@@ -82,6 +82,7 @@ diceroller 		= DiceRoller:new()
 inventoryscreen = InventoryScreen:new()
 menu 			= Menu:new()
 soundManager	= SoundManager:new()
+database		= Database:new()
 
 -- set up the game and run  all the setups
 function love.load()
@@ -112,8 +113,10 @@ function love.load()
 	characterScreen:setup()
 	inventoryscreen:setup()
 	menu:setup()
+	database:setup()
 	
 	diceroller:setSeed()
+
 
 	--needs moved to player creation screen.
 	player:setStats()
@@ -136,26 +139,7 @@ function love.load()
 -------------------------------------
 ------------------------------------
 
-	require("lsqlite3")
 
-	--love.filesystem.setIdentity("lsqlite3_test")
-
-	love.filesystem.write("db", love.filesystem.read("db.dat"))
-
-	db = sqlite3.open(love.filesystem.getSaveDirectory() .. '/db')
-
-
-	test = {}
-
-	for a in db:nrows('SELECT * FROM test') do
-	  for i,v in pairs(a) do
-	    table.insert(test, string.format("%s => %s", i, v))
-	  end
-	end
-
-	db:close()
-	msg = table.concat(test, "\n")
-    chatWindow:addText("sqlite3 ".. msg ,"System",base_Color)
 	
 
 end

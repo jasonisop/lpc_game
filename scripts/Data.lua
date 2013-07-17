@@ -1,7 +1,9 @@
---datasaving and loading
---saving will be based char name files will be named  playerName_filename.txt
---things that need saved
 --[[
+
+	datasaving and loading
+	saving will be based char name files will be named  playerName_filename.txt
+	things that need saved
+
 	NPC's(stats, location)
 	Maps(any placed objects)
 	Player(stats, quests, inventory, npc dialog )
@@ -10,14 +12,15 @@
 
 
 
+
+require("lsqlite3")
+
 Database = {
 				gameList 	= {},	--list of all the full saves  files are named by  "Playername_Date.save"
-				
 				questsList 	= {}, 	--list of all the quests file names
 				npcList		= {},	--list of all the npc file names
 				itemList	= {},	--list of every item in the game all loaded from one file
-
-				jupiter 	= require ('scripts/jupiter')
+				db 			= {},	--datbase refrence
 			}
 
 function Database:new (o)
@@ -27,55 +30,74 @@ function Database:new (o)
 	return o
 end
 
+function Database:setup( )
+	--
+	--love.filesystem.setIdentity("lsqlite3_test")
+
+	--checks and copies over the database if it doesnt exist
+	local e = love.filesystem.exists( "data.dat" )
+
+ 	if e == false then
+		love.filesystem.write("data.dat", love.filesystem.read("db.dat"))
+ 		chatWindow:addText("database Created" ,"System",base_Color)
+ 	end
+end	
+
+----------------------
+	--this is just test code will be moved later on	
+--	db = sqlite3.open(love.filesystem.getSaveDirectory() .. '/data.dat')
+
+--	test = {}
+
+--	for a in db:nrows('SELECT * FROM test') do
+--	  for i,v in pairs(a) do
+--	    table.insert(test, string.format("%s => %s", i, v))
+--	  end
+--	end
+
+--	db:close()
+--	msg = table.concat(test, "\n")
+--  chatWindow:addText(msg ,"System",base_Color)
+
+--use database from FLASH RPG GAME.
+
 function Database:listGames()
-	self.gameList = self.jupiter.load("gameList.save")
-	return self.gameList
+	--open the datbase
+	self.db = sqlite3.open(love.filesystem.getSaveDirectory() .. '/data.dat')
+
+	for a in db:nrows('SELECT game_name FROM games') do
+		for i,v in pairs(a) do
+	    	table.insert(gameList, string.format("%s => %s", i, v))
+		end
+	end
+
+	--close the connection to the database
+	db:close()
 end
 
-
-function Database:saveQuests( o )
-end
-
-function Database:loadQuest( )
-	self.questsList = self.jupiter.load("questList.save")
-end
-
-function Database:loadNPC( )
-	self.npcList = self.jupiter.load("npcList.save")
-end
-
-function Database:loadItem(  )
-	self.itemList = self.jupiter.load("itemList.save")
-end
-
-
---------------------------------------------------------
---unsure of function below this line
---------------------------------------------------------
 
 function Database:saveGame()
---save the player data  should we append time to allow for multi saves
-	playerData = {_fileName = player.name .."_PlayerData.txt", player}
-	success = self.jupiter.save(playerData)
-
---save the game data
-	gameData = {_fileName = player.name .."_GameData.txt", Game}
-	success = self.jupiter.save(gameData)
-	
---save npc data
-	--not sure if im going to be saving this or just letting it reset may just  save "boss" npc's
-
---gameData = {_fileName = "gameSave.txt", Game}
---success = jupiter.save(gameData)
 end
 
 function Database:loadGame()
---Nested tables are stored in a logical format similar to that of lua syntax: table.index.subIndex.nIndex=value
-
-	GameTemp = self.jupiter.load(player.name .."_GameData.txt")
-	Game.currentMap = GameTemp[1].currentMap
-	
 end
+
+
+function Database:saveQuests( )
+end
+
+function Database:loadQuest( )
+
+end
+
+function Database:loadNPC( )
+
+end
+
+function Database:loadItem(  )
+end
+
+
 
 
 
