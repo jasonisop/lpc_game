@@ -1,5 +1,22 @@
 --[[
 	this class stores all the items in the game in one place this is NOT the players inventory 
+
+
+	will need to have tables in the database for random item creation
+
+	RARITY chance of getting the item will add to stats of the item game should not generate artifacts
+	common 74%, uncommon 20%, rare 5%, legandary 1%, artifact 
+
+	QUILITY what shape the item is in will effect stats of the item and value
+	broken 10%, worn 20%, normal 55%, fine 10%, pristine 5%
+
+	MATERIAL what the item is made of depends on the type of item. 
+	wood(will have a few kinds), bone, crystal, copper, silver, gold, mithril, iron, steel,
+
+	TYPE
+	ring, wand, potion, armor(few types), weapon(few types), misc, 
+
+	EFFECTS
 	
 ]]
 

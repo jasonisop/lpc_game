@@ -66,39 +66,39 @@ function Database:listGames()
 	self.db = sqlite3.open(love.filesystem.getSaveDirectory() .. '/data.dat')
 
 	for a in db:nrows('SELECT game_name FROM games') do
-		for i,v in pairs(a) do
-	    	table.insert(gameList, string.format("%s => %s", i, v))
-		end
+		  	table.insert(gameList, string.format("%s => %s", a))
 	end
 
 	--close the connection to the database
 	db:close()
 end
 
+function Database:loadGame(v)
+	--v is the savename to load
+	self.db = sqlite3.open(love.filesystem.getSaveDirectory() .. '/data.dat')
+
+	--load in game data from listed save
+	--reset all game data from table info
+
+	--close the connection to the database
+	db:close()
+end
+
+function Database:loadQuest()
+end
+
+function Database:loadNPC()
+end
+
+function Database:loadItem()
+end
+
 
 function Database:saveGame()
 end
 
-function Database:loadGame()
+function Database:saveQuests()
 end
-
-
-function Database:saveQuests( )
-end
-
-function Database:loadQuest( )
-
-end
-
-function Database:loadNPC( )
-
-end
-
-function Database:loadItem(  )
-end
-
-
-
 
 
 
