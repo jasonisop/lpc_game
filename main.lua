@@ -138,11 +138,9 @@ function love.load()
 	--newData = jupiter.load("filename.extension")
 -------------------------------------
 ------------------------------------
-
-
-	
-
 end
+
+
 
 function slowHeartBeats()
 	--just temp for now needs better control
