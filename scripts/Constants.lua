@@ -1,0 +1,51 @@
+--this file holds all the game constants
+
+--Damage types
+RPG_DMG_FIRE 		= 0
+RPG_DMG_COLD		= 1
+RPG_DMG_POISON		= 2
+RPG_DMG_DISEASE		= 3
+RPG_DMG_ACID		= 4
+RPG_DMG_ELECTRICAL	= 5
+RPG_DMG_MAGICAL		= 6
+RPG_DMG_SLASHING	= 7
+RPG_DMG_IMPACT		= 8
+RPG_DMG_PIERCING	= 9
+RPG_DMG_CLEAVE		= 10
+RPG_DMG_PUMMEL		= 11
+RPG_DMG_PIERCING	= 12
+RPG_DMG_CLAWS		= 13
+RPG_DMG_CRITICAL	= 14
+RPG_DMG_PHYSICAL	= 15
+RPG_DMG_DRAIN		= 16
+RPG_DMG_UNSTOPPABLE	= 17
+
+
+RPG_RESIST_PHYSICAL		=0
+RPG_RESIST_MAGICAL		=1
+RPG_RESIST_FIRE			=2
+RPG_RESIST_COLD			=3
+RPG_RESIST_POISON		=4
+RPG_RESIST_DISEASE		=5
+RPG_RESIST_ACID			=6
+RPG_RESIST_ELECTRICAL	=7
+RPG_RESIST_UNSTOPPABLE	=8
+
+
+
+
+--Material Constants
+MATERIALS = [	"Oak","Pine","Ironwood"
+				"Copper","Silver","Gold","Iron","Steel","Mithril",
+				"Bone","Crystal","Stone"
+				"Alexandrite","Aquamarine","Diamond","Emerald","Opal","Pearl","Ruby","Sapphire","Spinel","Topaz",
+			]
+
+
+
+--Item Constants
+ITEM_RING_ALLOWED_RARITIES 	= []
+ITEM_RING_ALLOWED_QUALITIES	= []
+ITEM_RING_MAX_MATERIALS		= 3
+ITEM_RING_ALLOWED_MATERIALS = []
+ITEM_RING_ALLOWED_EFFECTS	= []
