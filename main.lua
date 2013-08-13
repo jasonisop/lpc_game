@@ -66,7 +66,6 @@ end
 local OutsideMap = Outside:new()
 local InsideMap = Inside2:new()
 
-
 Game:registerMap(OutsideMap,InsideMap)
 
 -- should make these part of the game object should also combine Game {}   and game{}
