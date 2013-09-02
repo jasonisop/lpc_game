@@ -70,7 +70,7 @@ function Bat:checkForPlayer()
 	end
 				
 	if	player:getTileX() == self.tileX + tempX and player:getTileY() ==  self.tileY + tempY and self.dead == false then
-		global.player_Health = global.player_Health - 1
+		Game.player_Health = Game.player_Health - 1
 	end
 end
 
