@@ -62,7 +62,7 @@ function Eyeball:checkForPlayer()
 	
 	if	player:getTileX() == self.tileX + tempX and player:getTileY() ==  self.tileY + tempY  and self.dead == false then
 		--Will need to change this to an attack not just a auto hit
-		global.player_Health = global.player_Health - 1
+		Game.player_Health = Game.player_Health - 1
 	end
 end
 
