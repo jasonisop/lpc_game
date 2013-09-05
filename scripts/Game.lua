@@ -21,7 +21,10 @@ require('scripts/SoundManager')
 
 require('scripts/MapList') 														--this is a bunch map requires
 
-Game = {	currentMap 		= 1,												--the map id of the current map
+Game = {	
+      --p>> Moved splash to top
+      splashScreen 	= SplashScreen:new(),	--splash screen will also show starting credits
+      currentMap 		= 1,												--the map id of the current map
 			mapList 		= {},												--holds all the maps
 			enemies 		= {},												--holds all enemies on the map
 			state 			= 'splash', 										--game states  (play, pause, menu, loading, battle) 
@@ -37,7 +40,7 @@ Game = {	currentMap 		= 1,												--the map id of the current map
 			checkIdle 		= false,											--used to see if game has be idle for a while
 			
 			player			= Player:new{x=10*Game.tileSize,y=14*Game.tileSize},--player class
-			splashScreen 	= SplashScreen:new(),								--splash screen will also show starting credits
+			
 			playerHud 		= PlayerHud:new(), 									
 			chatWindow 		= ChatWindow:new(),
 			hotbar 			= Hotbar:new(),

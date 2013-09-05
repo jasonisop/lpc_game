@@ -1,3 +1,5 @@
+-- Inside Where??
+
 require ('scripts/Map')
 
 Inside2 = Map:new{ mapfile = "Inside2.tmx"}

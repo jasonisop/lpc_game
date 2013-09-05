@@ -3,7 +3,7 @@ Eyeball = {	health 			= 10,
 			name 			= "", 
 			image 			= "", 
 			speed 			= 150, 
-			enemyType 		= "basic", --p>> changed from basic to eyeball then back
+			enemyType 		= "basic", 
 			facing 			= "down", 
 			x 				= 100, 
 			y 				= 100, 
@@ -22,7 +22,7 @@ Eyeball = {	health 			= 10,
 			dead 			= false, 
 			visionDistance 	= 5,
 			hate	 		= 0,
-			attackOnSight 	= true, --p>> We need some AI for this??
+			attackOnSight 	= true,
 			randomMove 		= false,
 			loot 			= "",				--will need a loot setup
 			rect			= {}
@@ -59,7 +59,7 @@ function Eyeball:checkForPlayer()
 	if	attackOnSight== true then
 		
 	end
-	--p>> does player need to be Player:getTileX??? no see main.lua
+	
 	if	player:getTileX() == self.tileX + tempX and player:getTileY() ==  self.tileY + tempY  and self.dead == false then
 		--Will need to change this to an attack not just a auto hit
 		Game.player_Health = Game.player_Health - 1
@@ -178,13 +178,11 @@ function Eyeball:checkTile(tX,tY)
 end
 
 function Eyeball:setAnimation(facing,animationType)
-	--p>> self.facing = facing test
-	image = "mezmer_eyeball.png"
-  
+	self.facing = facing
+	
 	if animationType == "walk" then
-		--p>> This was changed to store the image name
-		image = "mezmer_eyeball.png"
-    Eyeball:setImage(image)
+		
+		Eyeball:setImage("Monster/eyeball.png")
 	
 		if 	 	self.facing == "up" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,1'), 0.4)
 		elseif  self.facing == "left" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,2'), 0.4)
@@ -194,8 +192,7 @@ function Eyeball:setAnimation(facing,animationType)
 	end
 	
 	if animationType =="stand" then
-			
-    Eyeball:setImage(image)
+		Eyeball:setImage("Monster/eyeball.png")
 		
 		if 	 	self.facing == "up" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-1,1'), 0.1)
 		elseif  self.facing == "left" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-1,2'), 0.1)
@@ -203,74 +200,24 @@ function Eyeball:setAnimation(facing,animationType)
 		elseif  self.facing == "right" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-1,4'), 0.1)
 		end
 	 end
-   if animationType == "hit" then
-		--p>> This was changed to store the image name
-		image = "mezmer_eyeball.png"
-    love.graphics.print( " in enemy" ..image,0,0)
-    Eyeball:setImage("damaged_".."eyeball.png")
-	
-		if 	 	self.facing == "up" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,1'), 0.4)
-		elseif  self.facing == "left" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,2'), 0.4)
-		elseif  self.facing == "down" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,3'), 0.4)
-		elseif  self.facing == "right" 	then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,4'), 0.4)
-		end
-	end
-   --p>>Want to draw flash of damaged... Fast heartbeat  Eyeball:draw(Eyeball:getImage(), Eyeball:getX()  , Eyeball:getY() )
-   --main.drawInLayer()
-   --Eyeball:setImage("mezmer_eyeball.png")
-     	
 end
 
 
 function Eyeball:mousepressed(x, y, button)
-  --p>> check if click was within the eyeball box
-  if Eyeball:getX() >= x and Eyeball:getX() + 32 <= x  then
-    if Eyeball:getY() >= y and Eyeball:getY() + 32 <= y  then
-    chatWindow:addText("Eyeball pressed x: "..x.." y: "..y.."but: "..tostring(button),"System",Color_Crimson )
-    end
-  end
+	--chatWindow:addText("Eyeball Pressed","System",Color_Crimson )
 end
 
 function Eyeball:mousereleased(x, y, button)
-  --p>> check if click was within the eyeball box
-  if Eyeball:getX() >= x and Eyeball:getX() + 32 <= x  then
-    if Eyeball:getY() >= y and Eyeball:getY() + 32 <= y  then
-    chatWindow:addText("Eyeball released x: "..x.." y: "..y.."but: "..tostring(button),"System",Color_Crimson )
-    end
-  end
+	--chatWindow:addText("Eyeball released","System",Color_Crimson )
 end
 
 --set the image
 function Eyeball:setImage(v)	
-  --p>> changed this to point to monster directory 
-	self.image 	= love.graphics.newImage("images/Monster/".. v)
+	self.image 	= love.graphics.newImage("images/".. v)
 	self.g	 	= self.anim8.newGrid(32,38, self.image:getWidth(),self.image:getHeight())
 end
 
---p>> Need to find out current image to return after displaying damage graphic
-function Eyeball:getImage()	
-	return self.image
-end
-
 function Eyeball:update(dt)
-  --could move this to improve performance >>put this near/in damage function. dev:nested to reduce # of if statements for performance.
-	if self.health > 8 then
-		self.healthDiscription = "Healthy"
-	else	if self.health > 5 then
-          self.healthDiscription = "Wounded"
-        else	if self.health > 2 then
-                self.healthDiscription = "Wounded"
-              else if self.health > 0 then
-                self.healthDiscription = "Near Death"
-                   end
-              end
-        end
-  end
-  --p>> This was added to return the eyeball to normal graphics after a hit.
-  if(tostring(Eyeball:getImage())	== "damaged_eyeball.png") then
-    Eyeball:setImage("mezmer_eyeball.png")
-  end
-  --[===[
 	if self.health == 10 then
 		self.healthDiscription = "Healthy"
 	end
@@ -302,12 +249,10 @@ function Eyeball:update(dt)
 	if self.health == 1 then
 		self.healthDiscription = "Near Death"
 	end
-	--]===]
-  
+	
 	if self.health == 0 then
 		self.dead = true
 	end
-  
 
 	if self.animating == false then
 		self:setAnimation(self.facing,"walk")
@@ -329,10 +274,7 @@ function Eyeball:draw()
 	--the off set is to correctly place the player
 	if self.dead == false then
 		self.animation:draw(self.image, self.x  , self.y  )
-		--p>> This will draw once for damaged then revert to normal graphic.
-    if animationType == "hit" then
-      animationType = "stand"
-    end  
+		
 		local Len = string.len(self.name .." " ..tostring(self.healthDiscription))
 		love.graphics.print( self.name .." " ..tostring(self.healthDiscription), self.x - Len * 5 , self.y -10)
 	end

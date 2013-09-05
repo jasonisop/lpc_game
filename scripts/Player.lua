@@ -236,14 +236,18 @@ function Player:checkTile(tX,tY)
 
 end
 
---gets called every second currently
+--gets called every second currently 
 function Player:heartBeat()
 	
 	--see if the player is alive
 	if Game.player_Health == 0 and self.dead == false then
 		self.canMove = false
 		--run a death function
-		Player:setAnimation(self.facing,"deathSpin")
+		Player:setAnimation(self.facing,"deathSpin") 
+    
+    --p>>player = nil This will crash the game.
+    Game.state = 'splash' --p>> Start gameover when player dies.
+    --p>>Game:new (o)
 	end
 end
 
@@ -374,7 +378,7 @@ Player:setImageWEAPON("Chars/png/walkcycle/"..self.itmHEAD)               --some
 	
 	if animationType == "death" then
 		chatWindow:addText("you have died","System",base_Color ) -- this really should be moved somewhere else
-		--play death music
+		--play death music koertes-ccby-birdsongloop16s.ogg ??
 		Player:setImage("Chars/png/hurt/BODY_male.png")
 		Player:setImageHEAD("Chars/png/hurt/"..self.itmHEAD)
 		Player:setImageTORSO("Chars/png/hurt/"..self.itmTORSO)
@@ -513,10 +517,9 @@ end
 
 --called when key is released
 function Player:keyreleased(k)
-	
 	if k == "up" or k== "w" then
 		self.up 		= false
-		self.animating 	= false
+		self.animating 	= false 
 	end
 		
 	if k == "down" or k== "s" then
@@ -533,14 +536,28 @@ function Player:keyreleased(k)
 		self.right 		= false
 		self.animating 	= false
 	end	
-	
+	--[==[This can be moved to the end and the rest nested. 
+  --Start comment. Erase '[' to re-enable
+  --p>>NOTE: I had a bug here... elseif is treated different than else if
+  if k == "up" or k== "w" then
+		self.up 		= false
+  elseif k == "down" or k== "s" then
+		self.down 		= false
+    elseif k == "left" or k== "a" then
+		  self.left 		= false
+      elseif k == "right" or k== "d" then
+          self.right 		= false
+  end
+  self.animating 	= false
+  --]==] --end of comment
+  
 	-- test if any movment buttons are down if none are go to stand animation
 	if self.up == false and self.down == false and self.left == false and self.right == false then
 		--should try and set up a idle animation
 		self:setAnimation(self.facing,"stand")
 	end
 	
-end
+end --p>>End of function Player:keyreleased(k)
 
 function Player:keypressed(k)
 
@@ -549,8 +566,8 @@ function Player:keypressed(k)
 	self.left	= false
 	self.right	= false
 		
-		if self.up == true or self.down == true or self.right == true or self.left == true 	then	--Why am i testing this and not doing any thing with it?
-		
+		if self.up == true or self.down == true or self.right == true or self.left == true 	then	--Why am i testing this and not doing any thing with it? --p>> Why you initalize to false before testing for true??
+		chatWindow:addText("You are already going one direction...","System",Color_Crimson )
 		else
 			if k == "up" or k== "w" then
 				self.up 		= true
@@ -581,15 +598,18 @@ function Player:keypressed(k)
 		self:setAnimation(self.facing,"attack")
 		self.animating 	= true
 		--check if there is something there(enemy) and deal it damage
+    --p>>also switch npcs graphic to 'damaged_'..gfx and back.
 		self:attack()
 	end	
 	
 	if k == "p" then
-		self:setAnimation(self.facing,"spell")
+    --p>> Temp fix for crash missing graphic.
+    chatWindow:addText("You have no spells yet...","System",Color_Crimson )
+		--self:setAnimation(self.facing,"spell")
 		self.animating 	= true
 	end	
 
-	--testing function  its a telaporter or somethin like that
+	--testing function  its a telaporter or something like that
 	if k == "g" and player.dead == false then
 		testTemp = 	HealthPotion:new()
 		inventoryscreen:addItemToSlot( 1, "Why does it say im a slot?" )
@@ -598,9 +618,11 @@ function Player:keypressed(k)
 end
 
 
---attack function this should be  change to more oldschool rpg style
+--attack function this should be change to more oldschool rpg style
+--p>> As far as design goes... I would really like to see an RPG with Worms Tactics battle engine.
 function Player:attack()
 	--check for enemy and that your facing it
+  --p>> This is not working right I think that something is missing here. The sound effect for hit/attack plays 12 times in a row. So I think this function is being called too often. Also there is a bug when u attack the top of a monster facing down. No hits from monster. I think i should be if the monster is in an adjacent tile.
 	local tX = 0
 	local tY = 0
 	
@@ -610,18 +632,29 @@ function Player:attack()
 	if player.facing == "right" then tX = 1  end
 
 	-- currently it does 1 damage as punch is the only weapon we have
+  --p>> So the attack roll message was modified below.
 	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do	
 		if enemy:getTileX() == self.tileX + tX and enemy:getTileY() == self.tileY + tY and enemy:getDeath() == false then
 			--do some fancy math and see if the hit really does hit and if it does any damage
+      --p>>Could be a simple percent. <10 = miss; 11-89=hit 90-100=critical hit.
 			-- roll 1d100  if that is under the attack stat - the defence stat of enemy then it is a hit.
-			atkRoll = diceroller:Roll(100,1)
-			chatWindow:addText("attack roll ".. atkRoll ,"System",base_Color)
+			atkRoll = diceroller:Roll(100,1) --p>> could be chance or success ratio
+			--p>>chatWindow:addText("attack roll ".. atkRoll ,"System",base_Color)
+			chatWindow:addText("You punch for 1 damage   Chance: ".. atkRoll ,"System",base_Color)
 			
 			--if atkRoll
 			
-			enemy:setHealth(enemy:getHealth() - self.weaponDamage)	
-		--	chatWindow:addText("you hit ".. enemy:getName() ,"System",base_Color)
-			return
+			enemy:setHealth(enemy:getHealth() - self.weaponDamage)
+     
+   
+      chatWindow:addText(enemy:getName()..": "..tostring(enemy.health)..".. " ,"System",base_Color)
+      --p>> This changes animation to hit. I want to redraw faster.
+      enemy:setAnimation(enemy.facing, "hit") --p>> this only affects eyeball
+      --p>>I think we need this. --Confusion between Enemy: and enemy:
+      --Enemy:setAnimation(Enemy.facing, "hit")
+      --p>>This plays 12 times... It crashes if we change playLooping to play
+      TEsound.playLooping({"audio/soundFx/pumpkin_break_02.ogg","audio/soundFx/pumpkin_break_01_0.ogg"},"Attack",1,.5,1)
+      return
 		end
 	end
 end
@@ -795,6 +828,7 @@ function Player:update(dt)
 		
 	if self.animstarted and self.animation:getFrame() == 8 and self.dead == false then
 		self.dead = true
+    TEsound.playLooping("audio/soundFx/koertes-ccby-birdsongloop16s.ogg","Attack",1,1,1)
 		self:setAnimation(self.facing,"death")
 	end
 	--animation updateblock

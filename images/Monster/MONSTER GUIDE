@@ -1,0 +1,22 @@
+This is a simple outline of how monsters should be named.
+
+Base Class 	Every base class monster has a simple 'name.png' and includes a 'damaged_name.png' for damage.
+		different monsters of the same class are simply prefixed with their demographic Ex. Tropical_ 
+ bat.png
+  tropical_
+  blue_
+  mountain_
+  invisible_
+  dark_
+ 
+ eyeball.png
+  mezmer_
+
+ Slime
+  --sludge
+  --puddle
+  
+  
+... 
+ 
+
