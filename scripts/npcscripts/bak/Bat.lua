@@ -1,10 +1,10 @@
 Bat = {			
 		health 				= 10,
 		startHealth 		= 0, 
-		name 				= "Tropical Bat",  --p>> test doesn't display self.name = "bat"
+		name 				= "", 
 		image 				= "", 
 		speed 				= 150, 
-		enemyType 			= "basic", --p>> changed from basic to bat then back
+		enemyType 			= "basic", 
 		facing 				= "down", 
 		x 					= 100, 
 		y 					= 100, 
@@ -12,7 +12,7 @@ Bat = {
 		tileY 				= 0, 
 		g 					= {}, 
 		anim8 				= require ('scripts/anim8'), 
-		animation 			= {},  --p>> Does this hold animationType??
+		animation 			= {}, 
 		noWalk 				= false,
 		animating 			= true, 
 		up 					= false, 
@@ -192,17 +192,19 @@ end
 function Bat:setAnimation(facing,animationType)
 	self.facing = facing
 	
-	if animationType =="walk" then
-		Bat:setImage("tropical_bat.png")
+	if animationType == "walk" then
+		
+		Bat:setImage("Monster/bat.png")
+	
 		if 	 	self.facing == "up" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,1'), 0.4)
 		elseif  self.facing == "left" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,2'), 0.4)
 		elseif  self.facing == "down" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,3'), 0.4)
 		elseif  self.facing == "right" then self.animation = self.anim8.newAnimation('loop', self.g('1-3,4'), 0.4)
 		end
 	end
-  
-  if animationType =="stand" then
-		Bat:setImage("tropical_bat.png")
+	
+	if animationType =="stand" then
+		Bat:setImage("Monster/bat.png")
 		
 		if 	 	self.facing == "up" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-1,1'), 0.1)
 		elseif  self.facing == "left" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-1,2'), 0.1)
@@ -211,23 +213,9 @@ function Bat:setAnimation(facing,animationType)
 		end
 	 end
 end
-  
-  --Added this for hit the idea is to flash damage gfx then return to last animationType
-  --This would be better as a function.
-  	if animationType == "hit" then
-		  --p>> displays enemy damage graphic.
-      Bat:setImage("damaged_bat.png") --p>> change to damage graphic currently hardcoded all bats have the same damage graphic.
-			 	
-		if 	 	self.facing == "up" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,1'), 0.4)
-		elseif  self.facing == "left" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,2'), 0.4)
-		elseif  self.facing == "down" then 	self.animation = self.anim8.newAnimation('loop', self.g('1-3,3'), 0.4)
-		elseif  self.facing == "right" then self.animation = self.anim8.newAnimation('loop', self.g('1-3,4'), 0.4)
-  end
-  --p>> want to flash damaged then Bat:setImage("tropical_bat.png") 
-end
-	
+
 function Bat:mousepressed(x, y, button)
-	if  button == "mu" and x > self.rect.x and x < self.rect.x + self.rect.width
+	if  button == "l" and x > self.rect.x and x < self.rect.x + self.rect.width
 	and y > self.rect.y and y < self.rect.y + self.rect.height then
 		chatWindow:addText("Bat pressed","System",Color_Crimson )
 	end
@@ -238,24 +226,43 @@ end
 
 --set the image
 function Bat:setImage(v)	
-	self.image = love.graphics.newImage("images/Monster/".. v)
+	self.image = love.graphics.newImage("images/".. v)
 	self.g = self.anim8.newGrid(32,32, self.image:getWidth(),self.image:getHeight())
 end
 
 function Bat:update(dt)
---could move this to improve performance >>put this near/in damage function. dev:nested to reduce # of if statements for performance.
-	if self.health > 8 then
+--could move this to improve performance
+	if self.health == 10 then
 		self.healthDiscription = "Healthy"
-	else	if self.health > 5 then
-          self.healthDiscription = "Wounded"
-        else	if self.health > 2 then
-                self.healthDiscription = "Wounded"
-              else if self.health > 0 then
-                self.healthDiscription = "Near Death"
-                   end
-              end
-        end
-  end
+	end
+	if self.health == 9 then
+		self.healthDiscription = "Healthy"
+	end
+	if self.health == 8 then
+		self.healthDiscription = "Wounded"
+	end
+	if self.health == 7 then
+		self.healthDiscription = "Wounded"
+	end
+		if self.health == 6 then
+		self.healthDiscription = "Wounded"
+	end
+	if self.health == 5 then
+		self.healthDiscription = "Wounded"
+	end
+	if self.health ==  4 then
+		self.healthDiscription = "Hurting"
+	end
+	if self.health == 3 then
+		self.healthDiscription = "Hurting"
+	end
+	
+	if self.health == 2 then
+		self.healthDiscription = "Near Death"
+	end
+	if self.health == 1 then
+		self.healthDiscription = "Near Death"
+	end
 	
 
 	if self.health == 0 then
@@ -293,15 +300,12 @@ function Bat:draw()
 	--the off set is to correctly place the enemy
 	if self.dead == false then
 		self.animation:draw(self.image, self.x  , self.y  )
-		--p>> This will draw once for damaged then revert to normal graphic.
-    if animationType == "hit" then
-      Bat:setImage("tropical_bat.png") --p>> change to damage graphic currently hardcoded all bats have the same damage graphic.
-      animationType = "stand"
-    end  
-		local Len = string.len(self.name .." " ..tostring(self.healthDiscription))
-		love.graphics.print( self.name .." " ..tostring(self.healthDiscription), self.x - Len * 5 , self.y -10)
+		
+		-- local Len = string.len(self.name .." " ..tostring(self.healthDiscription))
+		-- love.graphics.print( self.name .." " ..tostring(self.healthDiscription), self.x - Len * 5 , self.y -10)
 	end
 
 	
 end
+
 

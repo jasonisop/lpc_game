@@ -1,3 +1,5 @@
+--Where is this outside???
+
 require ('scripts/Map')
 
 Outside = Map:new{ mapfile = "Outside.tmx"}
@@ -24,13 +26,13 @@ function Outside:load()
 
 --might add tiles that state that its a door and where they connect too
 --this would make map building easy on the coding side also have the enemies created that way as well.
+-- SOMETHING IS VERY LAGGY HERE?? 3secs to enter small house? Can we cache it beforehand??
 function Outside:checkTile(x,y)
 	--To enter the house
 	if x == 13 and y == 13 then	
 		
 		player:setLocation(13,12,"up")
 		Game.currentMap = 2
-		
 		Game.mapList[Game.currentMap]:load()--loads in the new map
 	end
 end
