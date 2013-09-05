@@ -23,17 +23,24 @@
 
 Item = {}
 
---[[
-function Item:new (o)
+
+function Item:new (o , ... )
+	local arg = {...}
 	o = o or {}
 	setmetatable(o, self)
     self.__index = self
+    self.createItem(arg)
     return o
 end
---]]
 
 
-function Item:createItem(itemSpecs)
+
+function Item:createItem(...)
+	local arg = {...}
+
+	--loop thru the arguments to build the item
+
+
 	--[[
 		itemTable.archType = array of allowed item archTypes If blank random type unless specific item is chosen such as "dagger"
 		itemTable.type = array of allowed types of items  so if you want a dagger, spear, or longbow you would set archType to weapon, and type to those 3
@@ -41,7 +48,7 @@ function Item:createItem(itemSpecs)
 		itemTable.quality = array of allowed qualities note that some rarity levels will have limits on quality and will overide this!
 		itmeTable.numMats = number of allowed materials if blank will be random 1-3 depending on item type and type will overide if needed
 		itemTable.materials = array of allowed material 
---]]
+	--]]
 
 
 

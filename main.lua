@@ -121,6 +121,7 @@ function love.load()
 	player:setStats()
 	soundManager.TestSound() --needs removed
 
+
 ---------------------------------------------------
 ----------testing----------------------
 --	jupiter = require "scripts/jupiter"
@@ -137,7 +138,11 @@ function love.load()
 	--newData = jupiter.load("filename.extension")
 -------------------------------------
 ------------------------------------
+
+
 end
+
+
 
 
 
