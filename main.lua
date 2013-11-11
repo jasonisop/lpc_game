@@ -26,7 +26,7 @@ require('scripts/mapscripts/Outside')
 
 require('scripts/Items')
 
-require('scripts/Data')
+--require('scripts/Data')
 
 --sets a container to store Game stuff
 Game = {}
@@ -81,7 +81,7 @@ diceroller 		= DiceRoller:new()
 inventoryscreen = InventoryScreen:new()
 menu 			= Menu:new()
 soundManager	= SoundManager:new()
-database		= Database:new()
+--database		= Database:new()
 
 -- set up the game and run  all the setups
 function love.load()
@@ -112,7 +112,7 @@ function love.load()
 	characterScreen:setup()
 	inventoryscreen:setup()
 	menu:setup()
-	database:setup()
+	--database:setup()
 	
 	diceroller:setSeed()
 
