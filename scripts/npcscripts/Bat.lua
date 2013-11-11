@@ -1,4 +1,4 @@
-Bat = {			
+ Bat = {			
 		health 				= 10,
 		startHealth 		= 0, 
 		name 				= "", 
@@ -307,5 +307,3 @@ function Bat:draw()
 
 	
 end
-
-

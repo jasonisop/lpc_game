@@ -1,7 +1,6 @@
 -- the game class
---[[
-	will need to set up this class so every
-	
+--[[ Notes
+		
 
 	
 --]]

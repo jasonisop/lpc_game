@@ -7,7 +7,7 @@
 require('scripts/npcscripts/Bat')
 require('scripts/npcscripts/Eyeball')
 
-Enemy = { container = {} }
+local Enemy = { container = {} }
 
 function Enemy:new (o)
 	o = o or {}
