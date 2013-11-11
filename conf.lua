@@ -4,7 +4,7 @@ function love.conf(t)
 	
 	t.screen.width = 800
 	t.screen.height = 600
-	t.screen.vsync = true
+	t.screen.vsync = false
 	t.screen.fsaa = 0
 	t.modules.audio = true
 	t.modules.event = true
