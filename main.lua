@@ -1,18 +1,15 @@
 
 local Game 		= require('scripts/Game')
-local Camera 	= require ('scripts/Camera')
+local Camera 	= require('scripts/Camera')
 
 
 
 -- set up the game and run  all the setups
 function love.load()
 	
-	--set to a local inside game
-	width = love.graphics.getWidth()
-	height = love.graphics.getHeight()
-	Camera:setBounds(0, 0, width, height)
-	
+	Camera:setBounds(0, 0, Game.screenWidth, Game.screenHeight)
 	Game.load()
+
 	
 	local font = love.graphics.newImageFont("images/imagefont.png",
     " abcdefghijklmnopqrstuvwxyz" ..
@@ -20,7 +17,7 @@ function love.load()
     "123456789.,!?-+/():;%&`'*#=[]\"")
 	love.graphics.setFont(font) -- Sets the font to the image based one
 
-	Camera:scale(1)				--sets camera scale .5 is twice as big
+--	Camera:scale(1)				--sets camera scale .5 is twice as big
 	
 end
 

@@ -10,4 +10,7 @@ local Player = Mob:new{name = 'Player'} 	--This way it overides the generic mob 
 
 --functions that are specific to the Player class
 
+
+
+
 return Player

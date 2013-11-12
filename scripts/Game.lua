@@ -1,5 +1,7 @@
-local Game = 	{	Mobs	= {}, --table holds all mobil objects(enemies, pc's, ect...)
-					Map 	= require ('scripts/Map'),
+local Game = 	{	Mobs		= {}, --table holds all mobil objects(enemies, pc's, ect...)
+					Map 		= require ('scripts/Map'),
+					screenWidth	= love.graphics.getWidth(),
+					screenHeight= love.graphics.getHeight(),
 				}	
 
 
