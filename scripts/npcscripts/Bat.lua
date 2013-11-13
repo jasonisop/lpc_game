@@ -304,6 +304,4 @@ function Bat:draw()
 		-- local Len = string.len(self.name .." " ..tostring(self.healthDiscription))
 		-- love.graphics.print( self.name .." " ..tostring(self.healthDiscription), self.x - Len * 5 , self.y -10)
 	end
-
-	
 end

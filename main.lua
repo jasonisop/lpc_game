@@ -16,18 +16,15 @@ require('scripts/Enemy')
 require('scripts/Camera')
 require('scripts/Splash')
 require('scripts/Menu')
-
 require('scripts/SoundManager')
 
 --list of maps should be moved somewhere else
 require('scripts/mapscripts/Inside2')
 require('scripts/mapscripts/Outside')
 
-
 require('scripts/Items')
 
 --require('scripts/Data')
-
 --sets a container to store Game stuff
 Game = {}
 Game.currentMap 	= 1							--the map id of the current map
@@ -63,12 +60,12 @@ function Game:registerMap(...)
 	for k,map in ipairs(arg) do table.insert(Game.mapList,map) end
 end
 
-local OutsideMap = Outside:new()
-local InsideMap = Inside2:new()
+local OutsideMap	= Outside:new()
+local InsideMap		= Inside2:new()
 
 Game:registerMap(OutsideMap,InsideMap)
 
--- should make these part of the game object should also combine Game {}   and game{}
+--should make these part of the game object should also combine Game {}   and game{}
 --create a new player and starts the player on the starting tile of 10 - 14
 player = Player:new{x=10*Game.tileSize,y=14*Game.tileSize}
 

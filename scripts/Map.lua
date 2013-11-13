@@ -9,9 +9,6 @@ loader = require("scripts/AdvTiledLoader.Loader")
 loader.path = "maps/"
 loader.useSpriteBatch = true
 
-
-
-
 function Map:new (o)
 	o = o or {}
 	setmetatable(o, self)
@@ -38,5 +35,4 @@ function Map:draw()
 	tilemap:autoDrawRange(-ftx , -fty  , 1 , 32) 
 	tilemap:draw() 
 end
-		  
 
