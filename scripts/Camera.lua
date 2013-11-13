@@ -8,7 +8,7 @@ Camera.rotation = 0
 function Camera:set()
   love.graphics.push()
   love.graphics.rotate(-self.rotation)
-  love.graphics.scale(1 / self.scaleX, 1 / self.scaleY)
+  love.graphics.scale(self.scaleX, self.scaleY)
   love.graphics.translate(-self._x, -self._y)
 end
  

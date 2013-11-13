@@ -1,7 +1,11 @@
+--[[
+
+
+
+--]]
 
 local Game 		= require('scripts/Game')
 local Camera 	= require('scripts/Camera')
-
 
 
 -- set up the game and run  all the setups
@@ -17,7 +21,7 @@ function love.load()
     "123456789.,!?-+/():;%&`'*#=[]\"")
 	love.graphics.setFont(font) -- Sets the font to the image based one
 
---	Camera:scale(1)				--sets camera scale .5 is twice as big
+	Camera:scale(2)				--sets camera scale .5 is twice as big
 	
 end
 
