@@ -25,6 +25,10 @@ require('scripts/mapscripts/Outside')
 require('scripts/Items')
 
 --require('scripts/Data')
+
+--[[ SWITCHING THIS OVER TO USE Game.lua
+
+
 --sets a container to store Game stuff
 Game = {}
 Game.currentMap 	= 1							--the map id of the current map
@@ -65,8 +69,12 @@ local InsideMap		= Inside2:new()
 
 Game:registerMap(OutsideMap,InsideMap)
 
---should make these part of the game object should also combine Game {}   and game{}
---create a new player and starts the player on the starting tile of 10 - 14
+--]]
+
+
+local  game = Game:new()
+
+
 player = Player:new{x=10*Game.tileSize,y=14*Game.tileSize}
 
 splashScreen 	= SplashScreen:new()
@@ -117,26 +125,6 @@ function love.load()
 	--needs moved to player creation screen.
 	player:setStats()
 	soundManager.TestSound() --needs removed
-
-
----------------------------------------------------
-----------testing----------------------
---	jupiter = require "scripts/jupiter"
---	require('scripts/Tserial')
-
-	--setup a table
---	testItem = Item:new{itemId=12}
---	temp = Tserial.pack(testItem:getAll(), true, true)
-
---	data = {_fileName = "items.data",temp}
-	--write the file (Jupiter handles filenames by referring to data._fileName)
---	success = jupiter.save(data)
-	--load another file into a table
-	--newData = jupiter.load("filename.extension")
--------------------------------------
-------------------------------------
-
-
 end
 
 
