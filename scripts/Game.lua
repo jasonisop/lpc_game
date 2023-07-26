@@ -20,6 +20,9 @@ require('scripts/SoundManager')
 
 require('scripts/MapList') 														--this is a bunch map requires
 
+local OutsideMap	= Outside:new()
+local InsideMap 	= Inside2:new()
+
 Game = {	currentMap 		= 1,												--the map id of the current map
 			mapList 		= {},												--holds all the maps
 			enemies 		= {},												--holds all enemies on the map
@@ -34,7 +37,7 @@ Game = {	currentMap 		= 1,												--the map id of the current map
 			compainions 	= "", 												--may be used to hold the players companion NPC's
 			idle 			= false,											--used to see if game has be idle for a while
 			checkIdle 		= false,											--used to see if game has be idle for a while
-			player			= Player:new{x=10*Game.tileSize,y=14*Game.tileSize},--player class
+			player			= Player:new{x=10*32,y=14*32},--player class
 			splashScreen 	= SplashScreen:new(),								--splash screen will also show starting credits
 			playerHud 		= PlayerHud:new(), 									
 			chatWindow 		= ChatWindow:new(),
@@ -44,9 +47,13 @@ Game = {	currentMap 		= 1,												--the map id of the current map
 			inventoryscreen = InventoryScreen:new(),
 			menu 			= Menu:new(),
 			soundManager	= SoundManager:new(),
-			jupiter 		= require ('scripts/jupiter'),						--Class for saving and loading might use if database fails
+			jupiter 		= require ('scripts/jupiter'),			--Class for saving and loading might use if database fails
 		}
-		
+
+
+
+--Game:registerMap(OutsideMap,InsideMap)		
+
 function Game:new (o)
 	o = o or {}
 	setmetatable(o, self)
@@ -71,7 +78,3 @@ function Game:registerMap(...)
 	for k,map in ipairs(arg) do table.insert(self.mapList,map) end
 end
 
-local OutsideMap	= Outside:new()
-local InsideMap 	= Inside2:new()
-
-Game:registerMap(OutsideMap,InsideMap)

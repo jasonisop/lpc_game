@@ -5,7 +5,8 @@
 	needs battle screens
 ]]
 
-require('scripts/Player')
+require('scripts/Game')
+--require('scripts/Player')
 require('scripts/Gui_playerHud')
 require('scripts/Gui_chatWindow')
 require('scripts/Gui_hotbar')
@@ -17,76 +18,19 @@ require('scripts/Camera')
 require('scripts/Splash')
 require('scripts/Menu')
 require('scripts/SoundManager')
+require('scripts/Items')
 
 --list of maps should be moved somewhere else
 require('scripts/mapscripts/Inside2')
 require('scripts/mapscripts/Outside')
 
-require('scripts/Items')
-
---require('scripts/Data')
-
---[[ SWITCHING THIS OVER TO USE Game.lua
-
-
---sets a container to store Game stuff
-Game = {}
-Game.currentMap 	= 1							--the map id of the current map
-Game.mapList 		= {}						--holds all the maps
-Game.enemies 		= {}						--holds all enemies on the map
-Game.state 			= 'splash' 					--game states  (play, pause, menu, loading, battle) 
-Game.tileSize 		= 32						--sets tileSize to 32 this is default size but can be changed based on map	
-Game.mapWidth 		= 0							--gets set on map load
-Game.mapHeight 		= 0							--gets set on map load
-Game.player_Health 	= 10						--TEMP					
-Game.player_Water 	= 7							--TEMP
-Game.width 			= love.graphics.getWidth() 	--width of the screen
-Game.height 		= love.graphics.getHeight()	--height of the screen
-Game.compainions 	= "" 						--may be used to hold the players companion NPC's
-Game.idle 			= false						--used to see if game has be idle for a while
-Game.checkIdle 		= false						--used to see if game has be idle for a while
-Game.items			={}							--used to hold all the items in the game
-
-
-function Game:registerEnemys(...)
-	local arg = {...}
-	for k,enemy in ipairs(arg) do table.insert(Game.enemies,enemy) end
-end
-
-function Game:removeEnemys()
-	for k,enemy in ipairs(Game.enemies) do table.remove(Game.enemies,k) end
-	Game.enemies = nil
-	Game.enemies = {}
-end
-
-function Game:registerMap(...)
-	local arg = {...}
-	for k,map in ipairs(arg) do table.insert(Game.mapList,map) end
-end
-
-local OutsideMap	= Outside:new()
-local InsideMap		= Inside2:new()
-
-Game:registerMap(OutsideMap,InsideMap)
-
---]]
-
-
-local  game = Game:new()
-
-
-player = Player:new{x=10*Game.tileSize,y=14*Game.tileSize}
-
-splashScreen 	= SplashScreen:new()
-playerHud 		= PlayerHud:new() 
-chatWindow 		= ChatWindow:new()
-hotbar 			= Hotbar:new()
-characterScreen	= CharacterScreen:new()
-diceroller 		= DiceRoller:new()
+diceroller = DiceRoller:new()
+chatWindow = ChatWindow:new()
+playerHud = PlayerHud:new()
+hotbar =  Hotbar:new()
+characterScreen = CharacterScreen:new()
 inventoryscreen = InventoryScreen:new()
-menu 			= Menu:new()
-soundManager	= SoundManager:new()
---database		= Database:new()
+
 
 -- set up the game and run  all the setups
 function love.load()
@@ -94,13 +38,6 @@ function love.load()
 	normalCron = cron.every(1, heartBeats)
 	fastCron = cron.every(.5, fastHeartBeats)
 	slowCron = cron.every(8, slowHeartBeats)
-
-	--load the firstmap
-	Game.mapList[Game.currentMap]:load()
-		
-   	--places the players on tile 5 5 to start
-	player:setAnimation("down","stand")
-	player:setLocation(5,5,"down")
 	
 	--creates a image based font to use
 	font = love.graphics.newImageFont("images/imagefont.png",
@@ -109,26 +46,37 @@ function love.load()
     "123456789.,!?-+/():;%&`'*#=[]\"")
 	love.graphics.setFont(font) -- Sets the font to the image based one
 	
-	splashScreen:setup()
-	--sets up the player hud
-    playerHud:setup()
-	chatWindow:setup()
-	hotbar:setup()
-	characterScreen:setup()
-	inventoryscreen:setup()
-	menu:setup()
+--	splashScreen:setup()
+		
 	--database:setup()
 	
 	diceroller:setSeed()
 
 
+--	soundManager.TestSound() --needs removed	
+	
+	chatWindow:setup()
+	
+	--game
+	Game = Game:new()
 	--needs moved to player creation screen.
-	player:setStats()
-	soundManager.TestSound() --needs removed
+	Game.player:setStats()
+	Game.registerMap(OutsideMap,InsideMap)	
+	
+	--load the firstmap
+--	Game.mapList[Game.currentMap]:load()   	--	Game.mapList[Game.currentMap]:load()  
+	
+	--sets up the player hud
+    playerHud:setup()
+	
+	hotbar:setup()
+	characterScreen:setup()
+	inventoryscreen:setup()
+--	menu:setup()
+	--places the players on tile 5 5 to start
+--	player:setAnimation("down","stand")
+--	player:setLocation(5,5,"down")
 end
-
-
-
 
 
 function slowHeartBeats()
@@ -159,9 +107,9 @@ end
 
 -- main game loop  currently 
 function love.update(dt)
-	soundManager:update(dt)
+--	soundManager:update(dt)
 	chatWindow:update(dt)
-	player:update(dt)
+	Game.player:update(dt)
 	cron.update(dt)
 	playerHud:update(dt)
 	characterScreen:update(dt)
@@ -243,3 +191,5 @@ end
 function math.clamp(x, min, max)
 	return x < min and min or (x > max and max or x)
 end
+
+--end mass comment
