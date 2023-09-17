@@ -7,8 +7,8 @@ Player = {	name 			= "Hero", 		--Player name set in char builder
 			startingHealth 	= 10,			--players heath when starting the game
 			mana 			= 10, 			--players current mana
 			startingMana 	= 10, 			--players mana when starting the game
-			x 				= 100, 			--players  x location on the screen
-			y 				= 100, 			--players y location on the screen
+			x 				= 50, 			--players  x location on the screen
+			y 				= 50, 			--players y location on the screen
 			tileX 			= 0, 			-- the tileX that the player is on on the tilemap
 			tileY 			= 0,			--the tileY that the player is on on the tilemap
 			noWalk 			= false, 		--if the player can move
@@ -57,7 +57,12 @@ Player = {	name 			= "Hero", 		--Player name set in char builder
 			itmWEAPON 		="WEAPON_dagger.png",
 			itmSHEILD 		="WEAPON_shield_cutout_body.png",
 			itmARMS 		="TORSO_leather_armor_bracers.png",		 			 				 		 			  			
-			itmSHOULDERS	="TORSO_leather_armor_shoulders.png"			
+			itmSHOULDERS	="TORSO_leather_armor_shoulders.png",	
+			
+			--new section for testing animation THIS WORKS... WHY THE HELL DOESNT the others
+			imageTest = "",
+			gTest 	  = {},
+			animationTest     =  {}
 			}
 
 -- im not sure im going to be needing more then one player 		
@@ -132,7 +137,10 @@ function Player:setFacing(v)
 end		
 
 --New player setup
-function Player:setUp()
+function Player:setup()
+
+	self:setAnimation(self.facing,"stand")
+	
 	--set up the players stats to random numbers
 	self:setStats()
 --	self.inventory[1] = HealthPotion:new()
@@ -141,12 +149,12 @@ end
 
 function Player:setStats()
 	--roll 6 sets of stats, using 4D6 and droping the lowest one (DieType,NumberDie,NumberDrop,NumberStats)
-	self.stats =   {STR 		= diceroller:RollStat(6,4,1,1), 
-					DEX 		= diceroller:RollStat(6,4,1,1), 
-					CON 		= diceroller:RollStat(6,4,1,1),
-					INT 		= diceroller:RollStat(6,4,1,1), 
-					WIS 		= diceroller:RollStat(6,4,1,1), 
-					CHA 		= diceroller:RollStat(6,4,1,1),
+	self.stats =   {STR 		= Game.diceroller:RollStat(6,4,1,1), 
+					DEX 		= Game.diceroller:RollStat(6,4,1,1), 
+					CON 		= Game.diceroller:RollStat(6,4,1,1),
+					INT 		= Game.diceroller:RollStat(6,4,1,1), 
+					WIS 		= Game.diceroller:RollStat(6,4,1,1), 
+					CHA 		= Game.diceroller:RollStat(6,4,1,1),
 					ATTACK 		= {10}, 
 					RANGEATTACK = {10}, 
 					DEFENSE 	= {5}	
@@ -196,43 +204,43 @@ function Player:setLocation(tX,tY,facing)
 end
 
 function Player:moveTile(tX,tY)
-	local tile = layer.tileData(self.tileX + tX, self.tileY + tY)
+--	local tile = layer.tileData(self.tileX + tX, self.tileY + tY)
 	
 	--checks for collision currently only nil work as no tile is set  as obstacle
-	if tile == nil then return end
-	if tile.properties.obstacle then return end
+--	if tile == nil then return end
+--	if tile.properties.obstacle then return end
 
 	-- Otherwise change the guy's tile
 	self.tileX = self.tileX + tX
 	self.tileY = self.tileY + tY
 		
 	--have the map check if we hit anything here this is what triggers map changes ect... 
-	Game.mapList[Game.currentMap]:checkTile(self.tileX,self.tileY)
+--	Game.mapList[Game.currentMap]:checkTile(self.tileX,self.tileY)
 end
 
 function Player:checkTile(tX,tY)
 	
-	local tile = layer.tileData(self.tileX + tX, self.tileY + tY)
+--	local tile = layer.tileData(self.tileX + tX, self.tileY + tY)
 	
 	-- If the tile doesn't exist or is an obstacle then exit the function
-	if tile == nil then 
-		self.noWalk = true 
-		return 
-	end
+--	if tile == nil then 
+--		self.noWalk = true 
+--		return 
+--	end
 	
-	if tile.properties.obstacle then 
-		self.noWalk = true 
-		return 
-	end
+--	if tile.properties.obstacle then 
+--		self.noWalk = true 
+--		return 
+--	end
 		
-	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do	
-		if enemy:getTileX() == self.tileX + tX and enemy:getTileY() == self.tileY + tY and enemy:getDeath() == false then
-			self.noWalk = true 
-		return
-		end
-	end
+--	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do	
+--		if enemy:getTileX() == self.tileX + tX and enemy:getTileY() == self.tileY + tY and enemy:getDeath() == false then
+--			self.noWalk = true 
+--		return
+--		end
+--	end
 	
-	self.noWalk = false
+--	self.noWalk = false
 
 end
 
@@ -243,7 +251,7 @@ function Player:heartBeat()
 	if Game.player_Health == 0 and self.dead == false then
 		self.canMove = false
 		--run a death function
-		Player:setAnimation(self.facing,"deathSpin")
+		self:setAnimation(self.facing,"deathSpin")
 	end
 end
 
@@ -256,257 +264,258 @@ function Player:setAnimation(facing,animationType)
 	--Game.checkIdle = false
 	self.facing = facing
 	
-		Player:setImage("Chars/png/walkcycle/BODY_male.png")
-		Player:setImageHEAD("Chars/png/walkcycle/"..self.itmHEAD )
-		Player:setImageTORSO("Chars/png/walkcycle/"..self.itmTORSO)
-		Player:setImageLEGS("Chars/png/walkcycle/"..self.itmLEGS)
-		Player:setImageBELT("Chars/png/walkcycle/"..self.itmBELT)
-		Player:setImageFEET("Chars/png/walkcycle/"..self.itmFEET)
-Player:setImageWEAPON("Chars/png/walkcycle/"..self.itmHEAD)               --somethin wrong here should be set to a blank image here 
-		Player:setImageSHEILD("Chars/png/walkcycle/"..self.itmSHEILD)
-		Player:setImageARMS("Chars/png/walkcycle/"..self.itmARMS)
-		Player:setImageSHOULDERS("Chars/png/walkcycle/"..self.itmSHOULDERS)
+	    
+		self:setImage("Chars/png/walkcycle/BODY_male.png")
+		self:setImageHEAD("Chars/png/walkcycle/"..self.itmHEAD )
+		self:setImageTORSO("Chars/png/walkcycle/"..self.itmTORSO)
+		self:setImageLEGS("Chars/png/walkcycle/"..self.itmLEGS)
+		self:setImageBELT("Chars/png/walkcycle/"..self.itmBELT)
+		self:setImageFEET("Chars/png/walkcycle/"..self.itmFEET)
+		self:setImageWEAPON("Chars/png/walkcycle/"..self.itmHEAD)               --somethin wrong here should be set to a blank image here 
+		self:setImageSHEILD("Chars/png/walkcycle/"..self.itmSHEILD)
+		self:setImageARMS("Chars/png/walkcycle/"..self.itmARMS)
+		self:setImageSHOULDERS("Chars/png/walkcycle/"..self.itmSHOULDERS)
 	
-	
-	if animationType == "walk"  and player.dead == false and self.canMove == true then
-		
-		if 	 	self.facing == "up" then 	self.animation 			= self.anim8.newAnimation('loop', self.g('2-9,1'), 0.1)
-											self.animationHEAD 		= self.anim8.newAnimation('loop', self.gHEAD('2-9,1'), 0.1)
-											self.animationTORSO 	= self.anim8.newAnimation('loop', self.gTORSO('2-9,1'), 0.1)
-											self.animationLEGS 		= self.anim8.newAnimation('loop', self.gLEGS('2-9,1'), 0.1)
-											self.animationBELT 		= self.anim8.newAnimation('loop', self.gBELT('2-9,1'), 0.1)
-											self.animationFEET 		= self.anim8.newAnimation('loop', self.gFEET('2-9,1'), 0.1)
-											self.animationWEAPON 	= self.anim8.newAnimation('loop', self.gWEAPON('2-9,1'), 0.1)
-											self.animationSHEILD 	= self.anim8.newAnimation('loop', self.gSHEILD('2-9,1'), 0.1)
-											self.animationARMS 		= self.anim8.newAnimation('loop', self.gARMS('2-9,1'), 0.1)
-											self.animationSHOULDERS = self.anim8.newAnimation('loop', self.gSHOULDERS('2-9,1'), 0.1)
-		elseif  self.facing == "left" then 	self.animation 			= self.anim8.newAnimation('loop', self.g('2-9,2'), 0.1)
-											self.animationHEAD 		= self.anim8.newAnimation('loop', self.gHEAD('2-9,2'), 0.1)
-											self.animationTORSO 	= self.anim8.newAnimation('loop', self.gTORSO('2-9,2'), 0.1)
-											self.animationLEGS 		= self.anim8.newAnimation('loop', self.gLEGS('2-9,2'), 0.1)
-											self.animationBELT 		= self.anim8.newAnimation('loop', self.gBELT('2-9,2'), 0.1)
-											self.animationFEET 		= self.anim8.newAnimation('loop', self.gFEET('2-9,2'), 0.1)
-											self.animationWEAPON 	= self.anim8.newAnimation('loop', self.gWEAPON('2-9,2'), 0.1)
-											self.animationSHEILD 	= self.anim8.newAnimation('loop', self.gSHEILD('2-9,2'), 0.1)
-											self.animationARMS 		= self.anim8.newAnimation('loop', self.gARMS('2-9,2'), 0.1)
-											self.animationSHOULDERS = self.anim8.newAnimation('loop', self.gSHOULDERS('2-9,2'), 0.1)
-		elseif  self.facing == "down" then 	self.animation 			= self.anim8.newAnimation('loop', self.g('2-9,3'), 0.1)
-											self.animationHEAD 		= self.anim8.newAnimation('loop', self.gHEAD('2-9,3'), 0.1)
-											self.animationTORSO 	= self.anim8.newAnimation('loop', self.gTORSO('2-9,3'), 0.1)
-											self.animationLEGS 		= self.anim8.newAnimation('loop', self.gLEGS('2-9,3'), 0.1)
-											self.animationBELT 		= self.anim8.newAnimation('loop', self.gBELT('2-9,3'), 0.1)
-											self.animationFEET 		= self.anim8.newAnimation('loop', self.gFEET('2-9,3'), 0.1)
-											self.animationWEAPON 	= self.anim8.newAnimation('loop', self.gWEAPON('2-9,3'), 0.1)
-											self.animationSHEILD 	= self.anim8.newAnimation('loop', self.gSHEILD('2-9,3'), 0.1)
-											self.animationARMS 		= self.anim8.newAnimation('loop', self.gARMS('2-9,3'), 0.1)
-											self.animationSHOULDERS = self.anim8.newAnimation('loop', self.gSHOULDERS('2-9,3'), 0.1)
+	Game.chatWindow:addText(animationType,"TESTMESSAGE" ,base_Color )
+	if animationType == "walk"  and self.dead == false and self.canMove == true then
+																		        
+		if 	 	self.facing == "up" then 	self.animation 			= self.anim8.newAnimation(self.g('2-9',1), 0.1)
+											self.animationHEAD 		= self.anim8.newAnimation(self.gHEAD('2-9',1), 0.1)
+											self.animationTORSO 	= self.anim8.newAnimation( self.gTORSO('2-9',1), 0.1)
+											self.animationLEGS 		= self.anim8.newAnimation(  self.gLEGS('2-9',1), 0.1)
+											self.animationBELT 		= self.anim8.newAnimation(  self.gBELT('2-9',1), 0.1)
+											self.animationFEET 		= self.anim8.newAnimation(  self.gFEET('2-9',1), 0.1)
+											self.animationWEAPON 	= self.anim8.newAnimation(  self.gWEAPON('2-9',1), 0.1)
+											self.animationSHEILD 	= self.anim8.newAnimation(  self.gSHEILD('2-9',1), 0.1)
+											self.animationARMS 		= self.anim8.newAnimation(  self.gARMS('2-9',1), 0.1)
+											self.animationSHOULDERS = self.anim8.newAnimation(  self.gSHOULDERS('2-9',1), 0.1)
+		elseif  self.facing == "left" then 	self.animation 			= self.anim8.newAnimation(self.g('2-9',2), 0.1)
+											self.animationHEAD 		= self.anim8.newAnimation(  self.gHEAD('2-9',2), 0.1)
+											self.animationTORSO 	= self.anim8.newAnimation(  self.gTORSO('2-9',2), 0.1)
+											self.animationLEGS 		= self.anim8.newAnimation(  self.gLEGS('2-9',2), 0.1)
+											self.animationBELT 		= self.anim8.newAnimation(  self.gBELT('2-9',2), 0.1)
+											self.animationFEET 		= self.anim8.newAnimation(  self.gFEET('2-9',2), 0.1)
+											self.animationWEAPON 	= self.anim8.newAnimation(  self.gWEAPON('2-9',2), 0.1)
+											self.animationSHEILD 	= self.anim8.newAnimation(  self.gSHEILD('2-9',2), 0.1)
+											self.animationARMS 		= self.anim8.newAnimation(  self.gARMS('2-9',2), 0.1)
+											self.animationSHOULDERS = self.anim8.newAnimation(  self.gSHOULDERS('2-9',2), 0.1)
+		elseif  self.facing == "down" then 	self.animation 			= self.anim8.newAnimation(self.g('2-9',3), 0.1)
+											self.animationHEAD 		= self.anim8.newAnimation(  self.gHEAD('2-9',3), 0.1)
+											self.animationTORSO 	= self.anim8.newAnimation(  self.gTORSO('2-9',3), 0.1)
+											self.animationLEGS 		= self.anim8.newAnimation(  self.gLEGS('2-9',3), 0.1)
+											self.animationBELT 		= self.anim8.newAnimation(  self.gBELT('2-9',3), 0.1)
+											self.animationFEET 		= self.anim8.newAnimation(  self.gFEET('2-9',3), 0.1)
+											self.animationWEAPON 	= self.anim8.newAnimation(  self.gWEAPON('2-9',3), 0.1)
+											self.animationSHEILD 	= self.anim8.newAnimation(  self.gSHEILD('2-9',3), 0.1)
+											self.animationARMS 		= self.anim8.newAnimation(  self.gARMS('2-9',3), 0.1)
+											self.animationSHOULDERS = self.anim8.newAnimation(  self.gSHOULDERS('2-9',3), 0.1)
 											
-		elseif  self.facing == "right" then self.animation 			= self.anim8.newAnimation('loop', self.g('2-9,4'), 0.1)
-											self.animationHEAD 		= self.anim8.newAnimation('loop', self.gHEAD('2-9,4'), 0.1)
-											self.animationTORSO 	= self.anim8.newAnimation('loop', self.gTORSO('2-9,4'), 0.1)
-											self.animationLEGS 		= self.anim8.newAnimation('loop', self.gLEGS('2-9,4'), 0.1)
-											self.animationBELT 		= self.anim8.newAnimation('loop', self.gBELT('2-9,4'), 0.1)
-											self.animationFEET 		= self.anim8.newAnimation('loop', self.gFEET('2-9,4'), 0.1)
-											self.animationWEAPON 	= self.anim8.newAnimation('loop', self.gWEAPON('2-9,4'), 0.1)
-											self.animationSHEILD 	= self.anim8.newAnimation('loop', self.gSHEILD('2-9,4'), 0.1)
-											self.animationARMS 		= self.anim8.newAnimation('loop', self.gARMS('2-9,4'), 0.1)
-											self.animationSHOULDERS = self.anim8.newAnimation('loop', self.gSHOULDERS('2-9,4'), 0.1)
+		elseif  self.facing == "right" then self.animation 			= self.anim8.newAnimation(self.g('2-9',4), 0.1)
+											self.animationHEAD 		= self.anim8.newAnimation(  self.gHEAD('2-9',4), 0.1)
+											self.animationTORSO 	= self.anim8.newAnimation(  self.gTORSO('2-9',4), 0.1)
+											self.animationLEGS 		= self.anim8.newAnimation(  self.gLEGS('2-9',4), 0.1)
+											self.animationBELT 		= self.anim8.newAnimation(  self.gBELT('2-9',4), 0.1)
+											self.animationFEET 		= self.anim8.newAnimation(  self.gFEET('2-9',4), 0.1)
+											self.animationWEAPON 	= self.anim8.newAnimation(  self.gWEAPON('2-9',4), 0.1)
+											self.animationSHEILD 	= self.anim8.newAnimation(  self.gSHEILD('2-9',4), 0.1)
+											self.animationARMS 		= self.anim8.newAnimation(  self.gARMS('2-9',4), 0.1)
+											self.animationSHOULDERS = self.anim8.newAnimation(  self.gSHOULDERS('2-9',4), 0.1)
 		end
 	end
 	
-	if animationType == "stand" and player.dead == false and self.canMove == true then
+	if animationType == "stand" and self.dead == false and self.canMove == true then
 		
-		if 	 	self.facing == "up" then 	self.animation 			= self.anim8.newAnimation('loop', self.g('1-1,1'), 0.1)
-											self.animationHEAD 		= self.anim8.newAnimation('loop', self.gHEAD('1-1,1'), 0.1)
-											self.animationTORSO 	= self.anim8.newAnimation('loop', self.gTORSO('1-1,1'), 0.1)
-											self.animationLEGS 		= self.anim8.newAnimation('loop', self.gLEGS('1-1,1'), 0.1)
-											self.animationBELT 		= self.anim8.newAnimation('loop', self.gBELT('1-1,1'), 0.1)
-											self.animationFEET 		= self.anim8.newAnimation('loop', self.gFEET('1-1,1'), 0.1)
-											self.animationWEAPON 	= self.anim8.newAnimation('loop', self.gWEAPON('1-1,1'), 0.1)
-											self.animationSHEILD 	= self.anim8.newAnimation('loop', self.gSHEILD('1-1,1'), 0.1)
-											self.animationARMS 		= self.anim8.newAnimation('loop', self.gARMS('1-1,1'), 0.1)
-											self.animationSHOULDERS = self.anim8.newAnimation('loop', self.gSHOULDERS('1-1,1'), 0.1)
-		elseif  self.facing == "left" then 	self.animation 			= self.anim8.newAnimation('loop', self.g('1-1,2'), 0.1)
-											self.animationHEAD 		= self.anim8.newAnimation('loop', self.gHEAD('1-1,2'), 0.1)
-											self.animationTORSO 	= self.anim8.newAnimation('loop', self.gTORSO('1-1,2'), 0.1)
-											self.animationLEGS 		= self.anim8.newAnimation('loop', self.gLEGS('1-1,2'), 0.1)
-											self.animationBELT 		= self.anim8.newAnimation('loop', self.gBELT('1-1,2'), 0.1)
-											self.animationFEET 		= self.anim8.newAnimation('loop', self.gFEET('1-1,2'), 0.1)
-											self.animationWEAPON 	= self.anim8.newAnimation('loop', self.gWEAPON('1-1,2'), 0.1)
-											self.animationSHEILD 	= self.anim8.newAnimation('loop', self.gSHEILD('1-1,2'), 0.1)
-											self.animationARMS 		= self.anim8.newAnimation('loop', self.gARMS('1-1,2'), 0.1)
-											self.animationSHOULDERS = self.anim8.newAnimation('loop', self.gSHOULDERS('1-1,2'), 0.1)
-		elseif  self.facing == "down" then 	self.animation 			= self.anim8.newAnimation('loop', self.g('1-1,3'), 0.1)
-											self.animationHEAD 		= self.anim8.newAnimation('loop', self.gHEAD('1-1,3'), 0.1)
-											self.animationTORSO 	= self.anim8.newAnimation('loop', self.gTORSO('1-1,3'), 0.1)
-											self.animationLEGS 		= self.anim8.newAnimation('loop', self.gLEGS('1-1,3'), 0.1)
-											self.animationBELT 		= self.anim8.newAnimation('loop', self.gBELT('1-1,3'), 0.1)
-											self.animationFEET 		= self.anim8.newAnimation('loop', self.gFEET('1-1,3'), 0.1)
-											self.animationWEAPON 	= self.anim8.newAnimation('loop', self.gWEAPON('1-1,3'), 0.1)
-											self.animationSHEILD 	= self.anim8.newAnimation('loop', self.gSHEILD('1-1,3'), 0.1)
-											self.animationARMS 		= self.anim8.newAnimation('loop', self.gARMS('1-1,3'), 0.1)
-											self.animationSHOULDERS = self.anim8.newAnimation('loop', self.gSHOULDERS('1-1,3'), 0.1)
-		elseif  self.facing == "right" then self.animation 			= self.anim8.newAnimation('loop', self.g('1-1,4'), 0.1)
-											self.animationHEAD 		= self.anim8.newAnimation('loop', self.gHEAD('1-1,4'), 0.1)
-											self.animationTORSO 	= self.anim8.newAnimation('loop', self.gTORSO('1-1,4'), 0.1)
-											self.animationLEGS 		= self.anim8.newAnimation('loop', self.gLEGS('1-1,4'), 0.1)
-											self.animationBELT 		= self.anim8.newAnimation('loop', self.gBELT('1-1,4'), 0.1)
-											self.animationFEET 		= self.anim8.newAnimation('loop', self.gFEET('1-1,4'), 0.1)
-											self.animationWEAPON 	= self.anim8.newAnimation('loop', self.gWEAPON('1-1,4'), 0.1)
-											self.animationSHEILD 	= self.anim8.newAnimation('loop', self.gSHEILD('1-1,4'), 0.1)
-											self.animationARMS 		= self.anim8.newAnimation('loop', self.gARMS('1-1,4'), 0.1)
-											self.animationSHOULDERS = self.anim8.newAnimation('loop', self.gSHOULDERS('1-1,4'), 0.1)
+		if 	 	self.facing == "up" then 	self.animation 			= self.anim8.newAnimation(self.g('1-1',1), 0.1)
+											self.animationHEAD 		= self.anim8.newAnimation(  self.gHEAD('1-1',1), 0.1)
+											self.animationTORSO 	= self.anim8.newAnimation(  self.gTORSO('1-1',1), 0.1)
+											self.animationLEGS 		= self.anim8.newAnimation(  self.gLEGS('1-1',1), 0.1)
+											self.animationBELT 		= self.anim8.newAnimation(  self.gBELT('1-1',1), 0.1)
+											self.animationFEET 		= self.anim8.newAnimation(  self.gFEET('1-1',1), 0.1)
+											self.animationWEAPON 	= self.anim8.newAnimation(  self.gWEAPON('1-1',1), 0.1)
+											self.animationSHEILD 	= self.anim8.newAnimation(  self.gSHEILD('1-1',1), 0.1)
+											self.animationARMS 		= self.anim8.newAnimation(  self.gARMS('1-1',1), 0.1)
+											self.animationSHOULDERS = self.anim8.newAnimation(  self.gSHOULDERS('1-1',1), 0.1)
+		elseif  self.facing == "left" then 	self.animation 			= self.anim8.newAnimation(self.g('1-1',2), 0.1)
+											self.animationHEAD 		= self.anim8.newAnimation(  self.gHEAD('1-1',2), 0.1)
+											self.animationTORSO 	= self.anim8.newAnimation(  self.gTORSO('1-1',2), 0.1)
+											self.animationLEGS 		= self.anim8.newAnimation(  self.gLEGS('1-1',2), 0.1)
+											self.animationBELT 		= self.anim8.newAnimation(  self.gBELT('1-1',2), 0.1)
+											self.animationFEET 		= self.anim8.newAnimation(  self.gFEET('1-1',2), 0.1)
+											self.animationWEAPON 	= self.anim8.newAnimation(  self.gWEAPON('1-1',2), 0.1)
+											self.animationSHEILD 	= self.anim8.newAnimation(  self.gSHEILD('1-1',2), 0.1)
+											self.animationARMS 		= self.anim8.newAnimation(  self.gARMS('1-1',2), 0.1)
+											self.animationSHOULDERS = self.anim8.newAnimation(  self.gSHOULDERS('1-1',2), 0.1)
+		elseif  self.facing == "down" then 	self.animation 			= self.anim8.newAnimation(self.g('1-1',3), 0.1)
+											self.animationHEAD 		= self.anim8.newAnimation(  self.gHEAD('1-1',3), 0.1)
+											self.animationTORSO 	= self.anim8.newAnimation(  self.gTORSO('1-1',3), 0.1)
+											self.animationLEGS 		= self.anim8.newAnimation(  self.gLEGS('1-1',3), 0.1)
+											self.animationBELT 		= self.anim8.newAnimation(  self.gBELT('1-1',3), 0.1)
+											self.animationFEET 		= self.anim8.newAnimation(  self.gFEET('1-1',3), 0.1)
+											self.animationWEAPON 	= self.anim8.newAnimation(  self.gWEAPON('1-1',3), 0.1)
+											self.animationSHEILD 	= self.anim8.newAnimation(  self.gSHEILD('1-1',3), 0.1)
+											self.animationARMS 		= self.anim8.newAnimation(  self.gARMS('1-1',3), 0.1)
+											self.animationSHOULDERS = self.anim8.newAnimation(  self.gSHOULDERS('1-1',3), 0.1)
+		elseif  self.facing == "right" then self.animation 			= self.anim8.newAnimation(self.g('1-1',4), 0.1)
+											self.animationHEAD 		= self.anim8.newAnimation(  self.gHEAD('1-1',4), 0.1)
+											self.animationTORSO 	= self.anim8.newAnimation(  self.gTORSO('1-1',4), 0.1)
+											self.animationLEGS 		= self.anim8.newAnimation(  self.gLEGS('1-1',4), 0.1)
+											self.animationBELT 		= self.anim8.newAnimation(  self.gBELT('1-1',4), 0.1)
+											self.animationFEET 		= self.anim8.newAnimation(  self.gFEET('1-1',4), 0.1)
+											self.animationWEAPON 	= self.anim8.newAnimation(  self.gWEAPON('1-1',4), 0.1)
+											self.animationSHEILD 	= self.anim8.newAnimation(  self.gSHEILD('1-1',4), 0.1)
+											self.animationARMS 		= self.anim8.newAnimation(  self.gARMS('1-1',4), 0.1)
+											self.animationSHOULDERS = self.anim8.newAnimation(  self.gSHOULDERS('1-1',4), 0.1)
 		end
 	 end
 	
 	if animationType == "deathSpin" then
-		self.animation 			= self.anim8.newAnimation('once', self.g('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
-		self.animationHEAD 		= self.anim8.newAnimation('once', self.gHEAD('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
-		self.animationTORSO 	= self.anim8.newAnimation('once', self.gTORSO('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
-		self.animationLEGS 		= self.anim8.newAnimation('once', self.gLEGS('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
-		self.animationBELT 		= self.anim8.newAnimation('once', self.gBELT('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
-		self.animationFEET 		= self.anim8.newAnimation('once', self.gFEET('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
-		self.animationWEAPON 	= self.anim8.newAnimation('once', self.gWEAPON('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
-		self.animationSHEILD 	= self.anim8.newAnimation('once', self.gSHEILD('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
-		self.animationARMS 		= self.anim8.newAnimation('once', self.gARMS('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
-		self.animationSHOULDERS = self.anim8.newAnimation('once', self.gSHOULDERS('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
+		self.animation 			= self.anim8.newAnimation(self.g('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
+		self.animationHEAD 		= self.anim8.newAnimation(self.gHEAD('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
+		self.animationTORSO 	= self.anim8.newAnimation(self.gTORSO('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
+		self.animationLEGS 		= self.anim8.newAnimation(self.gLEGS('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
+		self.animationBELT 		= self.anim8.newAnimation(self.gBELT('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
+		self.animationFEET 		= self.anim8.newAnimation(self.gFEET('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
+		self.animationWEAPON 	= self.anim8.newAnimation(self.gWEAPON('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
+		self.animationSHEILD 	= self.anim8.newAnimation(self.gSHEILD('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
+		self.animationARMS 		= self.anim8.newAnimation(self.gARMS('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
+		self.animationSHOULDERS = self.anim8.newAnimation(self.gSHOULDERS('1,1', '1,2', '1,3', '1,4','1,1', '1,2', '1,3', '1,4' ),  0.2)
 	end
 	
 	if animationType == "death" then
 		chatWindow:addText("you have died","System",base_Color ) -- this really should be moved somewhere else
 		--play death music
-		Player:setImage("Chars/png/hurt/BODY_male.png")
-		Player:setImageHEAD("Chars/png/hurt/"..self.itmHEAD)
-		Player:setImageTORSO("Chars/png/hurt/"..self.itmTORSO)
-		Player:setImageLEGS("Chars/png/hurt/"..self.itmLEGS)
-		Player:setImageBELT("Chars/png/hurt/"..self.itmBELT)
-		Player:setImageFEET("Chars/png/hurt/"..self.itmFEET)
-		--Player:setImageWEAPON("Chars/png/hurt/WEAPON_shield_cutout_body.png")
-		--Player:setImageSHEILD("Chars/png/hurt/WEAPON_shield_cutout_body.png")
-		Player:setImageARMS("Chars/png/hurt/"..self.itmARMS)
-		Player:setImageSHOULDERS("Chars/png/hurt/"..self.itmSHOULDERS)
+		self:setImage("Chars/png/hurt/BODY_male.png")
+		self:setImageHEAD("Chars/png/hurt/"..self.itmHEAD)
+		self:setImageTORSO("Chars/png/hurt/"..self.itmTORSO)
+		self:setImageLEGS("Chars/png/hurt/"..self.itmLEGS)
+		self:setImageBELT("Chars/png/hurt/"..self.itmBELT)
+		self:setImageFEET("Chars/png/hurt/"..self.itmFEET)
+		--self:setImageWEAPON("Chars/png/hurt/WEAPON_shield_cutout_body.png")
+		--self:setImageSHEILD("Chars/png/hurt/WEAPON_shield_cutout_body.png")
+		self:setImageARMS("Chars/png/hurt/"..self.itmARMS)
+		self:setImageSHOULDERS("Chars/png/hurt/"..self.itmSHOULDERS)
 				
-		self.animation 			= self.anim8.newAnimation('once', self.g('1-6,1'), 0.1)
-		self.animationHEAD 		= self.anim8.newAnimation('once', self.gHEAD('1-6,1'), 0.1)
-		self.animationTORSO 	= self.anim8.newAnimation('once', self.gTORSO('1-6,1'), 0.1)
-		self.animationLEGS 		= self.anim8.newAnimation('once', self.gLEGS('1-6,1'), 0.1)
-		self.animationBELT 		= self.anim8.newAnimation('once', self.gBELT('1-6,1'), 0.1)
-		self.animationFEET 		= self.anim8.newAnimation('once', self.gFEET('1-6,1'), 0.1)
-	--	self.animationWEAPON 	= self.anim8.newAnimation('once', self.gWEAPON('1-6,1'), 0.1)
-	--	self.animationSHEILD 	= self.anim8.newAnimation('once', self.gSHEILD('1-6,1'), 0.1)
-		self.animationARMS 		= self.anim8.newAnimation('once', self.gARMS('1-6,1'), 0.1)
-		self.animationSHOULDERS = self.anim8.newAnimation('once', self.gSHOULDERS('1-6,1'), 0.1)
+		self.animation 			= self.anim8.newAnimation(self.g('1-6',1), 0.1)
+		self.animationHEAD 		= self.anim8.newAnimation( self.gHEAD('1-6',1), 0.1)
+		self.animationTORSO 	= self.anim8.newAnimation( self.gTORSO('1-6',1), 0.1)
+		self.animationLEGS 		= self.anim8.newAnimation( self.gLEGS('1-6',1), 0.1)
+		self.animationBELT 		= self.anim8.newAnimation( self.gBELT('1-6',1), 0.1)
+		self.animationFEET 		= self.anim8.newAnimation( self.gFEET('1-6',1), 0.1)
+	--	self.animationWEAPON 	= self.anim8.newAnimation( self.gWEAPON('1-6',1), 0.1)
+	--	self.animationSHEILD 	= self.anim8.newAnimation( self.gSHEILD('1-6',1), 0.1)
+		self.animationARMS 		= self.anim8.newAnimation( self.gARMS('1-6',1), 0.1)
+		self.animationSHOULDERS = self.anim8.newAnimation( self.gSHOULDERS('1-6',1), 0.1)
 				
 	end
 	
-	if animationType =="attack" and  player.dead == false then
+	if animationType =="attack" and  self.dead == false then
 		-- need to switch to attack sheet
-		Player:setImage("Chars/png/slash/BODY_human.png")
-		Player:setImageHEAD("Chars/png/slash/"..self.itmHEAD)
-		Player:setImageTORSO("Chars/png/slash/"..self.itmTORSO)
-		Player:setImageLEGS("Chars/png/slash/"..self.itmLEGS)
-		Player:setImageBELT("Chars/png/slash/"..self.itmBELT)
-		Player:setImageFEET("Chars/png/slash/"..self.itmFEET)
-		Player:setImageWEAPON("Chars/png/slash/"..self.itmWEAPON)
-		Player:setImageSHEILD("Chars/png/slash/"..self.itmSHEILD)
-		Player:setImageARMS("Chars/png/slash/"..self.itmARMS)
-		Player:setImageSHOULDERS("Chars/png/slash/"..self.itmSHOULDERS)
+		self:setImage("Chars/png/slash/BODY_human.png")
+		self:setImageHEAD("Chars/png/slash/"..self.itmHEAD)
+		self:setImageTORSO("Chars/png/slash/"..self.itmTORSO)
+		self:setImageLEGS("Chars/png/slash/"..self.itmLEGS)
+		self:setImageBELT("Chars/png/slash/"..self.itmBELT)
+		self:setImageFEET("Chars/png/slash/"..self.itmFEET)
+		self:setImageWEAPON("Chars/png/slash/"..self.itmWEAPON)
+		self:setImageSHEILD("Chars/png/slash/"..self.itmSHEILD)
+		self:setImageARMS("Chars/png/slash/"..self.itmARMS)
+		self:setImageSHOULDERS("Chars/png/slash/"..self.itmSHOULDERS)
 		
-		if 	 	self.facing == "up" then	self.animation 			= self.anim8.newAnimation('once', self.g('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
-											self.animationHEAD 		= self.anim8.newAnimation('once', self.gHEAD('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
-											self.animationTORSO 	= self.anim8.newAnimation('once', self.gTORSO('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
-											self.animationLEGS 		= self.anim8.newAnimation('once', self.gLEGS('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
-											self.animationBELT 		= self.anim8.newAnimation('once', self.gBELT('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
-											self.animationFEET 		= self.anim8.newAnimation('once', self.gFEET('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
-											self.animationWEAPON 	= self.anim8.newAnimation('once', self.gWEAPON('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
-											self.animationSHEILD 	= self.anim8.newAnimation('once', self.gSHEILD('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
-											self.animationARMS 		= self.anim8.newAnimation('once', self.gARMS('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
-											self.animationSHOULDERS = self.anim8.newAnimation('once', self.gSHOULDERS('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
-		elseif  self.facing == "left" then 	self.animation 			= self.anim8.newAnimation('once', self.g('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
-											self.animationHEAD 		= self.anim8.newAnimation('once', self.gHEAD('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
-											self.animationTORSO 	= self.anim8.newAnimation('once', self.gTORSO('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
-											self.animationLEGS 		= self.anim8.newAnimation('once', self.gLEGS('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
-											self.animationBELT 		= self.anim8.newAnimation('once', self.gBELT('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
-											self.animationFEET 		= self.anim8.newAnimation('once', self.gFEET('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
-											self.animationWEAPON 	= self.anim8.newAnimation('once', self.gWEAPON('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
-											self.animationSHEILD 	= self.anim8.newAnimation('once', self.gSHEILD('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
-											self.animationARMS 		= self.anim8.newAnimation('once', self.gARMS('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
-											self.animationSHOULDERS = self.anim8.newAnimation('once', self.gSHOULDERS('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
-		elseif  self.facing == "down" then 	self.animation 			= self.anim8.newAnimation('once', self.g('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
-											self.animationHEAD 		= self.anim8.newAnimation('once', self.gHEAD('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
-											self.animationTORSO 	= self.anim8.newAnimation('once', self.gTORSO('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
-											self.animationLEGS 		= self.anim8.newAnimation('once', self.gLEGS('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
-											self.animationBELT 		= self.anim8.newAnimation('once', self.gBELT('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
-											self.animationFEET 		= self.anim8.newAnimation('once', self.gFEET('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
-											self.animationWEAPON 	= self.anim8.newAnimation('once', self.gWEAPON('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
-											self.animationSHEILD 	= self.anim8.newAnimation('once', self.gSHEILD('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
-											self.animationARMS 		= self.anim8.newAnimation('once', self.gARMS('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
-											self.animationSHOULDERS = self.anim8.newAnimation('once', self.gSHOULDERS('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
-		elseif  self.facing == "right" then self.animation 			= self.anim8.newAnimation('once', self.g('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
-											self.animationHEAD 		= self.anim8.newAnimation('once', self.gHEAD('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
-											self.animationTORSO 	= self.anim8.newAnimation('once', self.gTORSO('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
-											self.animationLEGS 		= self.anim8.newAnimation('once', self.gLEGS('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
-											self.animationBELT 		= self.anim8.newAnimation('once', self.gBELT('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
-											self.animationFEET 		= self.anim8.newAnimation('once', self.gFEET('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
-											self.animationWEAPON 	= self.anim8.newAnimation('once', self.gWEAPON('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
-											self.animationSHEILD 	= self.anim8.newAnimation('once', self.gSHEILD('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
-											self.animationARMS 		= self.anim8.newAnimation('once', self.gARMS('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
-											self.animationSHOULDERS = self.anim8.newAnimation('once', self.gSHOULDERS('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
+		if 	 	self.facing == "up" then	self.animation 			= self.anim8.newAnimation(self.g('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
+											self.animationHEAD 		= self.anim8.newAnimation( self.gHEAD('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
+											self.animationTORSO 	= self.anim8.newAnimation( self.gTORSO('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
+											self.animationLEGS 		= self.anim8.newAnimation( self.gLEGS('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
+											self.animationBELT 		= self.anim8.newAnimation( self.gBELT('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
+											self.animationFEET 		= self.anim8.newAnimation( self.gFEET('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
+											self.animationWEAPON 	= self.anim8.newAnimation( self.gWEAPON('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
+											self.animationSHEILD 	= self.anim8.newAnimation( self.gSHEILD('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
+											self.animationARMS 		= self.anim8.newAnimation( self.gARMS('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
+											self.animationSHOULDERS = self.anim8.newAnimation( self.gSHOULDERS('1-6,1', '3,1', '2,1', '1,1' ), 0.1)
+		elseif  self.facing == "left" then 	self.animation 			= self.anim8.newAnimation(self.g('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
+											self.animationHEAD 		= self.anim8.newAnimation( self.gHEAD('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
+											self.animationTORSO 	= self.anim8.newAnimation( self.gTORSO('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
+											self.animationLEGS 		= self.anim8.newAnimation( self.gLEGS('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
+											self.animationBELT 		= self.anim8.newAnimation( self.gBELT('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
+											self.animationFEET 		= self.anim8.newAnimation( self.gFEET('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
+											self.animationWEAPON 	= self.anim8.newAnimation( self.gWEAPON('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
+											self.animationSHEILD 	= self.anim8.newAnimation( self.gSHEILD('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
+											self.animationARMS 		= self.anim8.newAnimation( self.gARMS('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
+											self.animationSHOULDERS = self.anim8.newAnimation( self.gSHOULDERS('1-6,2', '3,2', '2,2', '1,2' ), 0.1)
+		elseif  self.facing == "down" then 	self.animation 			= self.anim8.newAnimation(self.g('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
+											self.animationHEAD 		= self.anim8.newAnimation( self.gHEAD('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
+											self.animationTORSO 	= self.anim8.newAnimation( self.gTORSO('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
+											self.animationLEGS 		= self.anim8.newAnimation( self.gLEGS('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
+											self.animationBELT 		= self.anim8.newAnimation( self.gBELT('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
+											self.animationFEET 		= self.anim8.newAnimation( self.gFEET('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
+											self.animationWEAPON 	= self.anim8.newAnimation( self.gWEAPON('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
+											self.animationSHEILD 	= self.anim8.newAnimation( self.gSHEILD('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
+											self.animationARMS 		= self.anim8.newAnimation( self.gARMS('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
+											self.animationSHOULDERS = self.anim8.newAnimation( self.gSHOULDERS('1-6,3', '3,3', '2,3', '1,3' ), 0.1)
+		elseif  self.facing == "right" then self.animation 			= self.anim8.newAnimation(self.g('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
+											self.animationHEAD 		= self.anim8.newAnimation( self.gHEAD('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
+											self.animationTORSO 	= self.anim8.newAnimation( self.gTORSO('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
+											self.animationLEGS 		= self.anim8.newAnimation( self.gLEGS('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
+											self.animationBELT 		= self.anim8.newAnimation( self.gBELT('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
+											self.animationFEET 		= self.anim8.newAnimation( self.gFEET('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
+											self.animationWEAPON 	= self.anim8.newAnimation( self.gWEAPON('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
+											self.animationSHEILD 	= self.anim8.newAnimation( self.gSHEILD('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
+											self.animationARMS 		= self.anim8.newAnimation( self.gARMS('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
+											self.animationSHOULDERS = self.anim8.newAnimation( self.gSHOULDERS('1-6,4', '3,4', '2,4', '1,4' ), 0.1)
 		end
 	 end
 	 
-	 if animationType =="spell" and player.dead == false then
-		Player:setImage("Chars/png/spellcast/BODY_male.png")
-		Player:setImageHEAD("Chars/png/spellcast/"..self.itmHEAD)
-		Player:setImageTORSO("Chars/png/spellcast/"..self.itmTORSO)
-		Player:setImageLEGS("Chars/png/spellcast/"..self.itmLEGS)
-		Player:setImageBELT("Chars/png/spellcast/"..self.itmBELT)
-		Player:setImageFEET("Chars/png/spellcast/"..self.itmFEET)
-		Player:setImageWEAPON("Chars/png/spellcast/"..self.itmWEAPON)
-		--Player:setImageSHEILD("Chars/png/spellcast/WEAPON_shield_cutout_body.png")
-		Player:setImageARMS("Chars/png/spellcast/"..self.itmARMS)
-		Player:setImageSHOULDERS("Chars/png/spellcast/"..self.itmSHOULDERS)
+	 if animationType =="spell" and self.dead == false then
+		self:setImage("Chars/png/spellcast/BODY_male.png")
+		self:setImageHEAD("Chars/png/spellcast/"..self.itmHEAD)
+		self:setImageTORSO("Chars/png/spellcast/"..self.itmTORSO)
+		self:setImageLEGS("Chars/png/spellcast/"..self.itmLEGS)
+		self:setImageBELT("Chars/png/spellcast/"..self.itmBELT)
+		self:setImageFEET("Chars/png/spellcast/"..self.itmFEET)
+		self:setImageWEAPON("Chars/png/spellcast/"..self.itmWEAPON)
+		--self:setImageSHEILD("Chars/png/spellcast/WEAPON_shield_cutout_body.png")
+		self:setImageARMS("Chars/png/spellcast/"..self.itmARMS)
+		self:setImageSHOULDERS("Chars/png/spellcast/"..self.itmSHOULDERS)
 
-		if 		self.facing == "up" then	self.animation 			= self.anim8.newAnimation('once', self.g('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
-											self.animationHEAD 		= self.anim8.newAnimation('once', self.gHEAD('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
-											self.animationTORSO 	= self.anim8.newAnimation('once', self.gTORSO('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
-											self.animationLEGS 		= self.anim8.newAnimation('once', self.gLEGS('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
-											self.animationBELT 		= self.anim8.newAnimation('once', self.gBELT('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
-											self.animationFEET 		= self.anim8.newAnimation('once', self.gFEET('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
-											self.animationWEAPON 	= self.anim8.newAnimation('once', self.gWEAPON('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
-											self.animationSHEILD 	= self.anim8.newAnimation('once', self.gSHEILD('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
-											self.animationARMS 		= self.anim8.newAnimation('once', self.gARMS('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
-											self.animationSHOULDERS = self.anim8.newAnimation('once', self.gSHOULDERS('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
-		elseif  self.facing == "left" then 	self.animation 			= self.anim8.newAnimation('once', self.g('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
-											self.animationHEAD 		= self.anim8.newAnimation('once', self.gHEAD('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
-											self.animationTORSO 	= self.anim8.newAnimation('once', self.gTORSO('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
-											self.animationLEGS 		= self.anim8.newAnimation('once', self.gLEGS('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
-											self.animationBELT 		= self.anim8.newAnimation('once', self.gBELT('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
-											self.animationFEET 		= self.anim8.newAnimation('once', self.gFEET('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
-											self.animationWEAPON 	= self.anim8.newAnimation('once', self.gWEAPON('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
-											self.animationSHEILD 	= self.anim8.newAnimation('once', self.gSHEILD('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
-											self.animationARMS 		= self.anim8.newAnimation('once', self.gARMS('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
-											self.animationSHOULDERS = self.anim8.newAnimation('once', self.gSHOULDERS('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
-		elseif  self.facing == "down" then 	self.animation 			= self.anim8.newAnimation('once', self.g('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
-											self.animationHEAD 		= self.anim8.newAnimation('once', self.gHEAD('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
-											self.animationTORSO 	= self.anim8.newAnimation('once', self.gTORSO('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
-											self.animationLEGS 		= self.anim8.newAnimation('once', self.gLEGS('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
-											self.animationBELT 		= self.anim8.newAnimation('once', self.gBELT('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
-											self.animationFEET 		= self.anim8.newAnimation('once', self.gFEET('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
-											self.animationWEAPON 	= self.anim8.newAnimation('once', self.gWEAPON('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
-											self.animationSHEILD 	= self.anim8.newAnimation('once', self.gSHEILD('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
-											self.animationARMS 		= self.anim8.newAnimation('once', self.gARMS('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
-											self.animationSHOULDERS = self.anim8.newAnimation('once', self.gSHOULDERS('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
-		elseif  self.facing == "right" then self.animation 			= self.anim8.newAnimation('once', self.g('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
-											self.animationHEAD 		= self.anim8.newAnimation('once', self.gHEAD('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
-											self.animationTORSO 	= self.anim8.newAnimation('once', self.gTORSO('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
-											self.animationLEGS 		= self.anim8.newAnimation('once', self.gLEGS('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
-											self.animationBELT 		= self.anim8.newAnimation('once', self.gBELT('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
-											self.animationFEET 		= self.anim8.newAnimation('once', self.gFEET('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
-											self.animationWEAPON 	= self.anim8.newAnimation('once', self.gWEAPON('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
-											self.animationSHEILD 	= self.anim8.newAnimation('once', self.gSHEILD('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
-											self.animationARMS 		= self.anim8.newAnimation('once', self.gARMS('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
-											self.animationSHOULDERS = self.anim8.newAnimation('once', self.gSHOULDERS('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
+		if 		self.facing == "up" then	self.animation 			= self.anim8.newAnimation(self.g('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
+											self.animationHEAD 		= self.anim8.newAnimation( self.gHEAD('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
+											self.animationTORSO 	= self.anim8.newAnimation( self.gTORSO('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
+											self.animationLEGS 		= self.anim8.newAnimation( self.gLEGS('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
+											self.animationBELT 		= self.anim8.newAnimation( self.gBELT('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
+											self.animationFEET 		= self.anim8.newAnimation( self.gFEET('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
+											self.animationWEAPON 	= self.anim8.newAnimation( self.gWEAPON('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
+											self.animationSHEILD 	= self.anim8.newAnimation( self.gSHEILD('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
+											self.animationARMS 		= self.anim8.newAnimation( self.gARMS('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
+											self.animationSHOULDERS = self.anim8.newAnimation( self.gSHOULDERS('1-7,1', '4,1', '3,1', '2,1', '1,1' ), 0.1)
+		elseif  self.facing == "left" then 	self.animation 			= self.anim8.newAnimation(self.g('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
+											self.animationHEAD 		= self.anim8.newAnimation( self.gHEAD('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
+											self.animationTORSO 	= self.anim8.newAnimation( self.gTORSO('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
+											self.animationLEGS 		= self.anim8.newAnimation( self.gLEGS('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
+											self.animationBELT 		= self.anim8.newAnimation( self.gBELT('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
+											self.animationFEET 		= self.anim8.newAnimation( self.gFEET('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
+											self.animationWEAPON 	= self.anim8.newAnimation( self.gWEAPON('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
+											self.animationSHEILD 	= self.anim8.newAnimation( self.gSHEILD('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
+											self.animationARMS 		= self.anim8.newAnimation( self.gARMS('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
+											self.animationSHOULDERS = self.anim8.newAnimation( self.gSHOULDERS('1-7,2', '4,2', '3,2', '2,2', '1,2' ), 0.1)
+		elseif  self.facing == "down" then 	self.animation 			= self.anim8.newAnimation(self.g('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
+											self.animationHEAD 		= self.anim8.newAnimation( self.gHEAD('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
+											self.animationTORSO 	= self.anim8.newAnimation( self.gTORSO('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
+											self.animationLEGS 		= self.anim8.newAnimation( self.gLEGS('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
+											self.animationBELT 		= self.anim8.newAnimation( self.gBELT('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
+											self.animationFEET 		= self.anim8.newAnimation( self.gFEET('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
+											self.animationWEAPON 	= self.anim8.newAnimation( self.gWEAPON('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
+											self.animationSHEILD 	= self.anim8.newAnimation( self.gSHEILD('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
+											self.animationARMS 		= self.anim8.newAnimation( self.gARMS('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
+											self.animationSHOULDERS = self.anim8.newAnimation( self.gSHOULDERS('1-7,3', '4,3', '3,3', '2,3', '1,3' ), 0.1)
+		elseif  self.facing == "right" then self.animation 			= self.anim8.newAnimation(self.g('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
+											self.animationHEAD 		= self.anim8.newAnimation( self.gHEAD('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
+											self.animationTORSO 	= self.anim8.newAnimation( self.gTORSO('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
+											self.animationLEGS 		= self.anim8.newAnimation( self.gLEGS('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
+											self.animationBELT 		= self.anim8.newAnimation( self.gBELT('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
+											self.animationFEET 		= self.anim8.newAnimation( self.gFEET('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
+											self.animationWEAPON 	= self.anim8.newAnimation( self.gWEAPON('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
+											self.animationSHEILD 	= self.anim8.newAnimation( self.gSHEILD('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
+											self.animationARMS 		= self.anim8.newAnimation( self.gARMS('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
+											self.animationSHOULDERS = self.anim8.newAnimation( self.gSHOULDERS('1-7,4', '4,4', '3,4', '2,4', '1,4' ), 0.1)
 		end
 	 end 
 end
@@ -590,7 +599,7 @@ function Player:keypressed(k)
 	end	
 
 	--testing function  its a telaporter or somethin like that
-	if k == "g" and player.dead == false then
+	if k == "g" and self.dead == false then
 		testTemp = 	HealthPotion:new()
 		inventoryscreen:addItemToSlot( 1, "Why does it say im a slot?" )
 		self:setLocation(5,5,"down")
@@ -604,88 +613,92 @@ function Player:attack()
 	local tX = 0
 	local tY = 0
 	
-	if player.facing == "up" 	then tY	= -1 end
-	if player.facing == "down" 	then tY = 1	 end
-	if player.facing == "left" 	then tX = -1 end
-	if player.facing == "right" then tX = 1  end
+	if self.facing == "up" 	then tY	= -1 end
+	if self.facing == "down" 	then tY = 1	 end
+	if self.facing == "left" 	then tX = -1 end
+	if self.facing == "right" then tX = 1  end
 
 	-- currently it does 1 damage as punch is the only weapon we have
-	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do	
-		if enemy:getTileX() == self.tileX + tX and enemy:getTileY() == self.tileY + tY and enemy:getDeath() == false then
+--	for k,enemy in ipairs(enemyHolder.container[Game.currentMap]) do	
+--		if enemy:getTileX() == self.tileX + tX and enemy:getTileY() == self.tileY + tY and enemy:getDeath() == false then
 			--do some fancy math and see if the hit really does hit and if it does any damage
 			-- roll 1d100  if that is under the attack stat - the defence stat of enemy then it is a hit.
-			atkRoll = diceroller:Roll(100,1)
-			chatWindow:addText("attack roll ".. atkRoll ,"System",base_Color)
+---			atkRoll = diceroller:Roll(100,1)
+--			chatWindow:addText("attack roll ".. atkRoll ,"System",base_Color)
 			
 			--if atkRoll
 			
-			enemy:setHealth(enemy:getHealth() - self.weaponDamage)	
+--			enemy:setHealth(enemy:getHealth() - self.weaponDamage)	
 		--	chatWindow:addText("you hit ".. enemy:getName() ,"System",base_Color)
-			return
-		end
-	end
+--			return
+--		end
+--	end
 end
 		
 
 --set the images
 function Player:setImage(v)	
+	self.imageTest 	= love.graphics.newImage("images/".. v)
+	self.gTest 	 	= self.anim8.newGrid(64,64, self.imageTest:getWidth(),self.imageTest:getHeight(),0,0,0)
+	
 	self.image 	= love.graphics.newImage("images/".. v)
-	self.g 		= self.anim8.newGrid(64,64, self.image:getWidth(),self.image:getHeight())
+	self.g 		= self.anim8.newGrid(64,64, self.image:getWidth(),self.image:getHeight(),0,0,0)
+--	Game.chatWindow:addText(self.image:getWidth(),"TESTMESSAGE" ,base_Color )  --was testing if
 end
 
 function Player:setImageBEHIND(v)	
 	self.imageBEHIND	= love.graphics.newImage("images/".. v)
-	self.gBEHIND 		= self.anim8.newGrid(64,64, self.imageBEHIND:getWidth(),self.imageBEHIND:getHeight())
+	self.gBEHIND 		= self.anim8.newGrid(64,64, self.imageBEHIND:getWidth(),self.imageBEHIND:getHeight(),0,0,0)
 end
 
 function Player:setImageBELT(v)	
 	self.imageBELT 	= love.graphics.newImage("images/".. v)
-	self.gBELT 		= self.anim8.newGrid(64,64, self.imageBELT:getWidth(),self.imageBELT:getHeight())
+	self.gBELT 		= self.anim8.newGrid(64,64, self.imageBELT:getWidth(),self.imageBELT:getHeight(),0,0,0)
 end
 
 function Player:setImageFEET(v)	
 	self.imageFEET	= love.graphics.newImage("images/".. v)
-	self.gFEET 		= self.anim8.newGrid(64,64, self.imageFEET:getWidth(),self.imageFEET:getHeight())
+	self.gFEET 		= self.anim8.newGrid(64,64, self.imageFEET:getWidth(),self.imageFEET:getHeight(),0,0,0)
 end
 
 function Player:setImageHANDS(v)	
 	self.imageHANDS = love.graphics.newImage("images/".. v)
-	self.gHANDS 	= self.anim8.newGrid(64,64, self.imageHANDS:getWidth(),self.imageHANDS:getHeight())
+	self.gHANDS 	= self.anim8.newGrid(64,64, self.imageHANDS:getWidth(),self.imageHANDS:getHeight(),0,0,0)
 end
 
 function Player:setImageHEAD(v)	
 	self.imageHEAD 	= love.graphics.newImage("images/".. v)
-	self.gHEAD 		= self.anim8.newGrid(64,64, self.imageHEAD:getWidth(),self.imageHEAD:getHeight())
+	self.gHEAD 		= self.anim8.newGrid(64,64, self.imageHEAD:getWidth(),self.imageHEAD:getHeight(),0,0,0)
 end
 
 function Player:setImageLEGS(v)	
 	self.imageLEGS 	= love.graphics.newImage("images/".. v)
-	self.gLEGS 		= self.anim8.newGrid(64,64, self.imageLEGS:getWidth(),self.imageLEGS:getHeight())
+	self.gLEGS 		= self.anim8.newGrid(64,64, self.imageLEGS:getWidth(),self.imageLEGS:getHeight(),0,0,0)
 end
 
 function Player:setImageTORSO(v)	
 	self.imageTORSO = love.graphics.newImage("images/".. v)
-	self.gTORSO 	= self.anim8.newGrid(64,64, self.imageTORSO:getWidth(),self.imageTORSO:getHeight())
+	self.gTORSO 	= self.anim8.newGrid(64,64, self.imageTORSO:getWidth(),self.imageTORSO:getHeight(),0,0,0)
 end
 
 function Player:setImageWEAPON(v)	
 	self.imageWEAPON	= love.graphics.newImage("images/".. v)
-	self.gWEAPON 		= self.anim8.newGrid(64,64, self.imageWEAPON:getWidth(),self.imageWEAPON:getHeight())
+	self.gWEAPON 		= self.anim8.newGrid(64,64, self.imageWEAPON:getWidth(),self.imageWEAPON:getHeight(),0,0,0)
 end
 
 function Player:setImageSHEILD(v)	
 	self.imageSHEILD 	= love.graphics.newImage("images/".. v)
-	self.gSHEILD 		= self.anim8.newGrid(64,64, self.imageSHEILD:getWidth(),self.imageSHEILD:getHeight())
+	self.gSHEILD 		= self.anim8.newGrid(64,64, self.imageSHEILD:getWidth(),self.imageSHEILD:getHeight(),0,0,0)
 end
 
 function Player:setImageARMS(v)	
 	self.imageARMS 		= love.graphics.newImage("images/".. v)
-	self.gARMS 			= self.anim8.newGrid(64,64, self.imageARMS:getWidth(),self.imageARMS:getHeight())
+	self.gARMS 			= self.anim8.newGrid(64,64, self.imageARMS:getWidth(),self.imageARMS:getHeight(),0,0,0)
 end
 
 function Player:setImageSHOULDERS(v)	
 	self.imageSHOULDERS = love.graphics.newImage("images/".. v)
-	self.gSHOULDERS 	= self.anim8.newGrid(64,64, self.imageSHOULDERS:getWidth(),self.imageSHOULDERS:getHeight())
+	self.gSHOULDERS 	= self.anim8.newGrid(64,64, self.imageSHOULDERS:getWidth(),self.imageSHOULDERS:getHeight(),0,0,0)
 end
 
 
@@ -719,12 +732,12 @@ function Player:update(dt)
 		self.animating = true
 		tempY = self.y - self.speed * dt 
 		if tempY/Game.tileSize <= self.tileY -1 then
-			self:checkTile(0,-1)
+--			self:checkTile(0,-1)
 			if self.noWalk then 
 				self.animating = false
 			else
 				self.y = tempY
-				self:moveTile(0,-1)
+--				self:moveTile(0,-1)
 			end	
 		else
 			self.y = tempY
@@ -736,12 +749,12 @@ function Player:update(dt)
 		self.animating = true
 		tempY = self.y  + self.speed * dt
 		if tempY/Game.tileSize >= self.tileY  then
-			self:checkTile(0,1)
+--			self:checkTile(0,1)
 			if self.noWalk then 
 				self.animating = false
 			else
 				self.y = tempY
-				self:moveTile(0,1)
+--				self:moveTile(0,1)
 			end	
 		else
 			self.y = tempY
@@ -753,12 +766,12 @@ function Player:update(dt)
 		self.animating = true
 		tempX = self.x  - self.speed * dt 
 		if tempX/Game.tileSize <= self.tileX  then
-			self:checkTile(-1,0)
+--			self:checkTile(-1,0)
 			if self.noWalk then 
 				self.animating = false
 			else
 				self.x = tempX
-				self:moveTile(-1,0)
+--				self:moveTile(-1,0)
 			end	
 		else
 			self.x = tempX
@@ -770,12 +783,12 @@ function Player:update(dt)
 		self.animating = true
 		tempX = self.x  + self.speed * dt 
 		if tempX/Game.tileSize >= self.tileX + 1 then
-			self:checkTile(1,0)
+--			self:checkTile(1,0)
 			if self.noWalk then 
 				self.animating = false
 			else
 				self.x = tempX
-				self:moveTile(1,0)
+--				self:moveTile(1,0)
 			end	
 		else
 			self.x = tempX
@@ -814,7 +827,10 @@ end
 
 function Player:draw()
 	--the off set is to correctly place the player
-	self.animation			:draw(self.image, 			self.x -32  , self.y -28 )
+
+--	self.animationTest:draw(self.imageTest, 100,100)
+
+	self.animation:draw(self.image, 		self.x -32  , self.y -28)
 	self.animationHEAD		:draw(self.imageHEAD, 		self.x -32  , self.y -28 )
 	self.animationTORSO		:draw(self.imageTORSO, 		self.x -32  , self.y -28 )
 	self.animationLEGS		:draw(self.imageLEGS,		self.x -32  , self.y -28 )

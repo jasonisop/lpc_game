@@ -12,19 +12,17 @@ require('scripts/Gui_hotbar')
 require('scripts/Gui_characterScreen')
 require('scripts/Gui_inventoryScreen')
 require('scripts/DiceRoller')
-require('scripts/Enemy')
+--require('scripts/Enemy')
 require('scripts/Camera')
 require('scripts/Splash')
 require('scripts/Menu')
 require('scripts/SoundManager')
 
-require('scripts/MapList') 														--this is a bunch map requires
-
-local OutsideMap	= Outside:new()
-local InsideMap 	= Inside2:new()
+local sti = require "scripts/sti"
 
 Game = {	currentMap 		= 1,												--the map id of the current map
-			mapList 		= {},												--holds all the maps
+			mapList 		= {},												--holds all the map names, may hold other information about the map
+			map 			= sti("maps/Outside.lua"),									--actual map we load the outside map intially will make a map to use as a background image to use 
 			enemies 		= {},												--holds all enemies on the map
 			state 			= 'splash', 										--game states  (play, pause, menu, loading, battle) 
 			tileSize 		= 32,												--sets tileSize to 32 this is default size but can be changed based on map	
@@ -37,7 +35,7 @@ Game = {	currentMap 		= 1,												--the map id of the current map
 			compainions 	= "", 												--may be used to hold the players companion NPC's
 			idle 			= false,											--used to see if game has be idle for a while
 			checkIdle 		= false,											--used to see if game has be idle for a while
-			player			= Player:new{x=10*32,y=14*32},--player class
+			player			= Player:new{x=10*32,y=14*32},						--player class
 			splashScreen 	= SplashScreen:new(),								--splash screen will also show starting credits
 			playerHud 		= PlayerHud:new(), 									
 			chatWindow 		= ChatWindow:new(),
@@ -46,8 +44,8 @@ Game = {	currentMap 		= 1,												--the map id of the current map
 			diceroller 		= DiceRoller:new(),
 			inventoryscreen = InventoryScreen:new(),
 			menu 			= Menu:new(),
-			soundManager	= SoundManager:new(),
-			jupiter 		= require ('scripts/jupiter'),			--Class for saving and loading might use if database fails
+			soundManager	= SoundManager:new()
+			
 		}
 
 
@@ -62,15 +60,24 @@ function Game:new (o)
     return o
 end				
 
+
+
+function: Game:ChangeMap(mapid)
+	self.map = sti(self.mapList[mapid])
+end
+
+
+-----Older functions
+
 function Game:registerEnemys(...)
-	local arg = {...}
-	for k,enemy in ipairs(arg) do table.insert(self.enemies,enemy) end
+--	local arg = {...}
+--	for k,enemy in ipairs(arg) do table.insert(self.enemies,enemy) end
 end
 
 function Game:removeEnemys()
-	for k,enemy in ipairs(Game.enemies) do table.remove(self.enemies,k) end
-	self.enemies = nil
-	self.enemies = {}
+--	for k,enemy in ipairs(Game.enemies) do table.remove(self.enemies,k) end
+--	self.enemies = nil
+--	self.enemies = {}
 end
 
 function Game:registerMap(...)

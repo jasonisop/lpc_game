@@ -5,9 +5,10 @@ Map.currentMap = 1
 
 tilemap = {}
 layer = {}
-loader = require("scripts/AdvTiledLoader.Loader")
-loader.path = "maps/"
-loader.useSpriteBatch = true
+
+loader = require "scripts/sti"
+
+
 
 function Map:new (o)
 	o = o or {}
